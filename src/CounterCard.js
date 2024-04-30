@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './index.scss'
 
 const CounterCard = () => {
+    
     const x = 1000
     const [mainCount, setMainCount] = useState(0);
     const [current, setCurrent] = useState(0);

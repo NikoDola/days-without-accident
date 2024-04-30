@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/days-without-accident/static/css/main.2b8930cf.css",
-    "main.js": "/days-without-accident/static/js/main.7bb4c3fb.js",
+    "main.js": "/days-without-accident/static/js/main.94b01b89.js",
     "index.html": "/days-without-accident/index.html",
     "main.2b8930cf.css.map": "/days-without-accident/static/css/main.2b8930cf.css.map",
-    "main.7bb4c3fb.js.map": "/days-without-accident/static/js/main.7bb4c3fb.js.map"
+    "main.94b01b89.js.map": "/days-without-accident/static/js/main.94b01b89.js.map"
   },
   "entrypoints": [
     "static/css/main.2b8930cf.css",
-    "static/js/main.7bb4c3fb.js"
+    "static/js/main.94b01b89.js"
   ]
 }

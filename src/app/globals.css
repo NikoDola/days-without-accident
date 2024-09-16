@@ -8,15 +8,8 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
-  --brand-color:rgb(237, 74, 140);
+  --brand-color:#ec4599
 }
-
-
-
-
-
-
-
 
 body {
   display: flex;

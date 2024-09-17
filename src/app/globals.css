@@ -154,7 +154,7 @@ textarea{
 
 input:focus{
   outline: solid  var(--brand-color);
-
+  background: none;
 }
 
 

@@ -1,0 +1,46 @@
+.formIconsImage{
+    position: absolute;
+    top: 50%; 
+    transform: translateY(-50%);
+    z-index: 3;
+    margin-left: 1rem;
+  }
+  
+  .eyeIcon{
+    position: absolute;
+    right: 0;
+    top: 50%; 
+    transform: translateY(-50%);
+    margin-right: 1rem;
+    cursor: pointer;
+  }
+
+  .loginInput{
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+
+  .logInSignInForm{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    transform: 0.3s;
+  }
+
+  .logo{
+    width: 100px;
+    margin-bottom: 1rem;
+  }
+
+  .login{
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 2rem;
+  }
+
+  @media screen and (min-width: 1024px) {
+    .login{
+      width: 30%;
+    }
+  }

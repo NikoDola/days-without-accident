@@ -1,14 +1,13 @@
+/* default css */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-
-
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-  --brand-color:#ec4599
+  --brand-color:#ec4599;
+  --brand-color-light:#ef6faa;
+  --brand-color-extra-light:#f9c2d6;
 }
 
 body {
@@ -16,9 +15,45 @@ body {
   flex-direction: column;
 }
 
+h3{
+  font-size: 24px;
 
+}
 
-.buttonSignUp, .mainButton{
+main{
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 3rem;
+}
+/* signup and login */
+.login{
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 6rem;
+}
+
+.buttonSignUp{
+  display: flex;
+  background: white;
+  color: black;
+  justify-content: center;
+  gap: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 1rem;
+  border: solid 1px;
+  transition: background-color 0.5s ease, box-shadow 0.5s ease;
+  border-radius: 0.5rem;
+}
+
+@media screen and (min-width: 1024px) {
+  .login{
+    width: 30%;
+  }
+}
+
+/* Buttons */
+  .mainButton{
   display: flex;
   background: white;
   color: black;
@@ -38,15 +73,17 @@ body {
 
 .mainButton{
   border: none;
-  background-color: black;
+  background-color:var(--brand-color);
   color: WHITE;
   border-radius: 0.5rem;
 }
 
 .mainButton:hover{
   border: none;
-  background-color: #434343;
+  background-color:var(--brand-color-light);
 }
+
+
 
 select{
   border: solid 1px;
@@ -54,6 +91,8 @@ select{
   border-radius: 0.5rem;
   width: 100%;
 }
+
+
 
 textarea{
   height: 10rem;
@@ -93,9 +132,9 @@ textarea{
   margin-top: 2rem;
 }
 
-
 .logo{
   width: 100px;
+  margin-bottom: 1rem;
 }
 
 .icon{
@@ -104,7 +143,6 @@ textarea{
   top: 50%;
   transform: translateY(-50%);
 }
-
 
 .bettweenForm{
   display: flex;
@@ -147,10 +185,21 @@ textarea{
   border: solid 1px black;
   padding: 1rem;
   border-radius: 0.5rem;
-  transition: box-shadow 0.5s, border-color 0.5s;
+  transition: box-shadow 0.5s;
   background: white;
   width: 100%;
+  outline: none;
 }
+
+input:focus{
+  border: solid  var(--brand-color);
+  outline: none;
+}
+
+.loginInput{
+  padding-left: 3rem;
+}
+
 
 nav{
   position: relative;
@@ -181,12 +230,6 @@ nav{
   z-index: 1000; /* Ensure the navbar is on top of other content */
 }
 
-main{
-  width: 90%;
-  margin: 0 auto;
-  margin-top: 3rem;
-}
-
 
 
 footer{
@@ -204,53 +247,3 @@ footer{
   outline: 0.5px solid black;
   margin: 0 auto;
 }
-
-@media (min-width:1024px){
-  .logo{
-    width: 150px;
-  }
-  .flexibleInputs{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 1rem;
-  }
-
-  main{
-    width: 60% !important;
-    margin-top: 5rem;
-    margin-bottom: 5rem;
-  }
-  nav{
-    width: 60%;
-    margin-top: 1rem;
-  }
-  .navMenuFooter{
-    width: 60%;
-  }
-  .formWrapper{
-    justify-content: center;
-    gap: 4rem;
-    flex-direction: row-reverse;
-    align-items: center;
-  }
-  .bettweenForm{
-    flex-direction: column;
-  }
-  .logInSignInForm{
-    width: 100%;
-  }
-  .bettweenForm::after, .bettweenForm::before{
-    width: 0.5px;
-    height: 100px;
-  }
-  }
-
-  @media (min-width:900px){
-    textarea{
-      height: 10rem;
-    }
-    main{
-      width: 80%;
-    }
-  }

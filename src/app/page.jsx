@@ -14,7 +14,8 @@ export default function Home() {
   const userID = getCookie.get('user_id')?.value
 
 
-  console.log(userID)
+  console.log("Firebase API Key:", process.env.NEXT_PUBLIC_FIREBASE_API_KEY);
+
 
   return (
     <main>

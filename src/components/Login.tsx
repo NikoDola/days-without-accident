@@ -1,9 +1,9 @@
 "use client";
 
-
-import { act, useState } from "react";
+import { useState } from "react";
 import { useUser } from "@/contexts/userContext";
 import "./css-components/login.css";
+import { useRouter } from "next/router";
 
 
 export default function Login() {
@@ -63,8 +63,6 @@ export default function Login() {
             className="formIconsImage" src="branding/logo/niks_password.png" alt="Password Icon"/>
           <img onClick={handleVisualPassword} className="eyeIcon" src={visualPassword === "password" ? "branding/icons/blind.svg": "branding/icons/visual.svg" } alt="Toggle Password Visibility"/>
         </div>
-      
-        <p>{!user ? 'no one logged in' : 'some one is logged in'}</p>
         {errorCode && <p className="text-red-500">{errorCode}</p>}
         <button className="mainButton" type="submit">
           Login

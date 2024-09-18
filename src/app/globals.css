@@ -157,7 +157,37 @@ input:focus{
   background: none;
 }
 
+.adminShowcase{
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
 
+.dpBox {
+  position: relative;
+  border: solid black 1px;
+  width: 100px;
+  height: 100px;
+}
 
+.dpText {
+  position: absolute;
+  font-size: 5rem;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  font-weight: 100;
+  cursor: pointer;
+}
 
-
+form{
+  display: flex;
+  gap: 1rem;
+}

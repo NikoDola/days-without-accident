@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useUser } from "@/contexts/userContext";
 
-export default function(){
+export default function NavBar(){
     const {logoutUser, user} = useUser()
     const router = useRouter()
     return(

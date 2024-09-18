@@ -1,4 +1,4 @@
-"use client";
+"use client"
 import { useEffect, useState } from "react";
 import { addDepartment, getAllDepartments, deleteDepartment } from "@/firebase/actions";
 
@@ -99,6 +99,3 @@ export default function AddNewDepartment() {
         </div>
     );
 }
-
-// Ensure the component has a display name
-AddNewDepartment.displayName = 'AddNewDepartment';

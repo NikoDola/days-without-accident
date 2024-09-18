@@ -1,9 +1,10 @@
 "use client";
 
+
 import { useContext, createContext, useState, useEffect } from "react";
 import { auth } from "@/firebase";
-import { addUserData } from "@/firebase/actions";
-import { signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
+
+import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 import Cookies from 'js-cookie'; // Correct import
 
 export const UserContext = createContext();
@@ -16,9 +17,11 @@ export function Wrapper({ children }) {
         const authChangeHandler = (user) => {
             if (user) {
                 setUser(user);
-                addUserData({ id: user.uid, email: user.email });
+                setUser({ id: user.uid, email: user.email });
+                Cookies.set('user_id', user.uid, { expires: 360 * 100});
+                
             } else {
-                // Handle logged-out state, don't call addUserData(null)
+                Cookies.remove('user_id');
                 setUser(null);
             }
         };
@@ -43,12 +46,18 @@ export function Wrapper({ children }) {
           });
       };
 
+      const logoutUser = () =>{
+        signOut(auth)
+    }
+
     return (
-        <UserContext.Provider value={{ user, errorCode, login }}>
+        <UserContext.Provider value={{ user, errorCode, login, logoutUser }}>
             {children}
         </UserContext.Provider>
     );
 }
+
+
 
 export function useUser() {
     return useContext(UserContext);

@@ -73,3 +73,12 @@ export default function Login() {
     </div>
   );
 }
+
+export function LogOut(){
+ const {logoutUser} = useUser()
+
+
+ return(
+  <button onClick={logoutUser}>Logout</button>
+ )
+}

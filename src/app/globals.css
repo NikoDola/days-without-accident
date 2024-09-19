@@ -15,8 +15,12 @@ body {
   flex-direction: column;
 }
 
+h1{
+  font-size: 45px;
+}
+
 h3{
-  font-size: 24px;
+  font-size: 33px;
 
 }
 
@@ -25,6 +29,28 @@ main{
   margin: 0 auto;
   margin-top: 3rem;
 }
+
+/* Buttons */
+.mainButton{
+  display: flex;
+  color: black;
+  justify-content: center;
+  gap: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 1rem;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 0.5rem;
+  color: white;
+  background-color: black;
+  width: 100%;
+}
+
+.mainButton:hover{
+  border: none;
+  background-color:rgb(56, 56, 56);
+}
+
 
 .buttonSignUp{
   display: flex;
@@ -40,35 +66,9 @@ main{
   border-radius: 0.5rem;
 }
 
-/* Buttons */
-  .mainButton{
-  display: flex;
-  background: white;
-  color: black;
-  justify-content: center;
-  gap: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  padding: 1rem;
-  border: solid 1px;
-  transition: background-color 0.5s ease, box-shadow 0.5s ease;
-  border-radius: 0.5rem;
-}
 
 .buttonSignUp:hover{
   box-shadow: inset 0 0 0 1px black; /* Expand the shadow inward on hover */
-}
-
-.mainButton{
-  border: none;
-  background-color:var(--brand-color);
-  color: WHITE;
-  border-radius: 0.5rem;
-}
-
-.mainButton:hover{
-  border: none;
-  background-color:var(--brand-color-light);
 }
 
 select{
@@ -157,37 +157,32 @@ input:focus{
   background: none;
 }
 
-.adminShowcase{
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-}
-
-.dpBox {
-  position: relative;
-  border: solid black 1px;
-  width: 100px;
-  height: 100px;
-}
-
-.dpText {
-  position: absolute;
-  font-size: 5rem;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  font-weight: 100;
-  cursor: pointer;
-}
-
 form{
   display: flex;
   gap: 1rem;
 }
+
+.adminShowcase{
+  display: flex;
+  justify-content: start;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.dpBox {
+  display: flex;
+
+  flex-direction: column;
+  width: 300px;
+  height: 100;
+  outline: solid black 1px;
+  gap: 1rem;
+  padding: 1rem;
+
+}
+
+.dpText {
+ 
+
+}
+

@@ -7,6 +7,7 @@ export default function AddNewDepartment() {
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [newDepartmentName, setNewDepartmentName] = useState<string>("");
+    const [fullName, setFullName] = useState<string>()
 
     useEffect(() => {
         async function fetchData() {
@@ -29,16 +30,11 @@ export default function AddNewDepartment() {
     }, []);
 
     const handleAddDepartment = async () => {
-        if (!newDepartmentName.trim()) {
-            setError("Department name cannot be empty");
-            return;
-        }
-
         try {
-            await addDepartment(newDepartmentName);
+            await addDepartment(newDepartmentName, fullName);
             const depData = await getAllDepartments();
             setDepartments(depData);
-            setNewDepartmentName(""); // Clear the input field after adding
+            setNewDepartmentName(""); 
         } catch (error: any) {
             setError(error.message || "Error adding department");
         }
@@ -56,46 +52,34 @@ export default function AddNewDepartment() {
 
     return (
         <div>
-            <div className="dpBox">
-                <p className="dpText">+</p>
-                <p className="text-center mt-2">Add New</p>
-            </div>
+             {!loading && !error && (
+                <div className="adminShowcase ">
+                        {departments.map((department) => (
+                            <div className="dpBox" key={department.id}>
+                                <h3 className="dpText ">{department.shortName}</h3>
+                                <p className="dpText">{department.fullName}</p>
+                                <div className="flex gap-2">
+                                    <button onClick={() => handleDeleteDepartment(department.id)} className="mainButton"> Delete Department </button>
+
+                              
+                                </div>
+                            </div>
+                        ))}
+                </div>
+            )}
+
             <form
                 className="formWrapper"
-                onSubmit={(e) => {
-                    e.preventDefault();
-                    handleAddDepartment();
-                }}
-            >
-                <input
-                    value={newDepartmentName}
-                    onChange={(e) => setNewDepartmentName(e.target.value)}
-                    placeholder="Enter department name"
-                />
+                onSubmit={(e) => {e.preventDefault(); handleAddDepartment();}}>
+                <input value={newDepartmentName} onChange={(e) => setNewDepartmentName(e.target.value)} placeholder="Enter department short name"/>
+                <input value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Enter department full name"/>
                 <button type="submit" className="mainButton">Enter</button>
             </form>
 
             {error && <p className="text-red-500">Error: {error}</p>}
             {loading && <p>Loading...</p>}
 
-            {!loading && !error && (
-                <div>
-                    <h2>Departments:</h2>
-                    <ul>
-                        {departments.map((department) => (
-                            <li key={department.id}>
-                                {department.name}
-                                <button
-                                    onClick={() => handleDeleteDepartment(department.id)}
-                                    className="deleteButton"
-                                >
-                                    Delete
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
+           
         </div>
     );
 }

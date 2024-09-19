@@ -1,5 +1,7 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import Counter from '@/components/Counter';
+
 
 export default function Home() {
   
@@ -9,13 +11,7 @@ export default function Home() {
   return (
    
     <main>
-       {userID ?
-       <form>
-        <input name='title' placeholder='title'/>
-        <button className='mainButton'>Report Accident</button>
-      </form> :
-      redirect('/login')
-      }
+      {userID ? <Counter/>:redirect('/login')}
     </main>
   );
 }

@@ -1,10 +1,9 @@
 import { collection, setDoc, doc, getDoc, getDocs, deleteDoc } from "firebase/firestore";
 import { db } from "@/firebase";
 
-// Function to add a new department with a custom ID (Now within "users/Nik's/")
-export async function addDepartment(shortName: string, fullName: string, employees: number = 0): Promise<string | null> {
+// Function to add a new department with a custom ID 
+export async function addDepartment(shortName: string, fullName: string, employees: number = 0, accidents: number = 0): Promise<string | null> {
     try {
-        // Storing the department under 'users/Nik's/departments/{shortName}'
         const docRef = doc(db, "users", "Nik's", "departments", shortName); 
         const docSnap = await getDoc(docRef);
 
@@ -28,7 +27,7 @@ export async function addDepartment(shortName: string, fullName: string, employe
 }
 
 
-// Function to get all departments (Now within "users/Nik's/")
+// Function to get all departments 
 export async function getAllDepartments(): Promise<any[]> {
     try {
         // Assuming departments are stored under 'users/Nik's/departments'
@@ -58,4 +57,33 @@ export async function deleteDepartment(id: string): Promise<void> {
     } catch (error) {
         console.error("Error deleting document: ", error.message || error);
     }
+}
+
+// Function gettingCounter Info
+export async function getCounter() {
+    try {
+        const collRef = collection(db, "users" )
+        const getDocsRef = await getDocs(collRef)
+    
+        const docSnap = getDocsRef.docs.map((item)=>({
+            id: item.id,
+            ...item.data()
+        }))
+        return docSnap
+    } catch (error) {
+        console.error(error)
+        return []
+    }
+    
+}
+
+export async function addAccident(department, time, people, status,  severityAssessment, description) {
+    const docRef = doc(db, 'users', "Nik's", "departments", department,'accidents', time )
+    await setDoc(docRef, {
+        time,
+        people,
+        status,
+        severityAssessment,
+        description,
+    })
 }

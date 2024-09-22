@@ -1,21 +1,37 @@
 "use client"
 // ReportAccident.tsx
-import { useState } from 'react';
-import { addAccident } from "@/firebase/actions";
+import { useEffect, useState } from 'react';
+import { addAccident, getCounter } from "@/firebase/actions";
+import Counter from './Counter';
+import { doc, updateDoc } from 'firebase/firestore';
+import { db } from '@/firebase';
 
 export default function ReportAccident({ id }) {
     const [people, setPeople] = useState('10'); // Initial state for people
     const [status, setStatus] = useState('unsolved'); // Initial state for status
     const [severityAssessment, setSeverityAssessment] = useState('minor'); // Initial state for severity
     const [description, setDescription] = useState<string>('')
+
+
+
+
     const handleAccidentSubmit = async (e) => {
-        e.preventDefault(); // Prevent default form submission behavior
+        e.preventDefault(); 
+        const startDate = new Date('2021-05-01').getTime();
+        const currentDate = new Date().getTime();
+        const currentTime = Math.floor((currentDate - startDate) / (1000));  
+        
+        const docRef = doc(db, 'users', "Nik's")
+     
+                
+
         await addAccident(id, new Date().toISOString(), people, status, severityAssessment, description);
-        // Optionally handle success or error states here
     };
 
     return (
-        <main>
+        <main className='mb-14'>
+            <div className='c-animated-background'></div>
+       
             <form onSubmit={handleAccidentSubmit}>
                 <textarea onChange={(e) => setDescription(e.target.value)}></textarea>
                 <label>People Involved:</label>
@@ -32,6 +48,9 @@ export default function ReportAccident({ id }) {
                 </select>
                 <button className='mainButton mb-8' type="submit">Report Accident</button>
             </form>
+
+            <Counter/>
+
         </main>
     );
 }

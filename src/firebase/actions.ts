@@ -74,16 +74,21 @@ export async function getCounter() {
         console.error(error)
         return []
     }
-    
 }
 
 export async function addAccident(department, time, people, status,  severityAssessment, description) {
-    const docRef = doc(db, 'users', "Nik's", "departments", department,'accidents', time )
-    await setDoc(docRef, {
-        time,
-        people,
-        status,
-        severityAssessment,
-        description,
-    })
+    try {
+        const docRef = doc(db, 'users', "Nik's", "departments", department,'accidents', time )
+        await setDoc(docRef, {
+            time,
+            people,
+            status,
+            severityAssessment,
+            description,
+        })
+    } catch (error) {
+        console.error(error)
+    }
+
 }
+

@@ -244,3 +244,46 @@ form{
     width: 30%;
   }
 }
+
+.loadingElement {
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(45deg, black, gray);
+  background-size: 200% 200%;
+  animation: gradientAnimation 2s ease infinite;
+}
+
+@keyframes placeHolderShimmer {
+  0% {
+    background-position: 0px 0;
+  }
+  100% {
+    background-position: 100em 0;
+  }
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0; /* Start invisible */
+  }
+  25% {
+    opacity: 0.5; /* Fade in */
+  }
+  50% {
+    opacity: 1; /* Fully visible */
+  }
+  75% {
+    opacity: 0.5; /* Fade out */
+  }
+  100% {
+    opacity: 0; /* Invisible again */
+  }
+}
+
+.c-animated-background {
+  animation: placeHolderShimmer 20s linear infinite,
+             fadeInOut 20s linear infinite; /* Combine both animations */
+  animation-fill-mode: forwards;
+  background: linear-gradient(to right, #383838 8%, #000000 24%, #383838 50%);
+  -webkit-backface-visibility: hidden;
+}

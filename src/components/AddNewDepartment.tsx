@@ -71,10 +71,10 @@ export default function AddNewDepartment() {
            <div className="adminShowcase">
                 {Array.from({ length: 3 }).map((_, index) => (
                     <div className="dpBox" key={index}>
-                    <h3 className="w-1/3 h-12 bg-black rounded-lg mb-2"></h3>
-                    <div className="w-1/2 h-4 bg-black rounded-lg"></div>
+                    <h3 className="w-1/3 h-12  c-animated-background rounded-lg mb-2"></h3>
+                    <div className="w-1/2 h-4 c-animated-background"></div>
                         <div className="flex gap-2">
-                            <div className="mainButton h-14 text-black"></div>
+                            <div className="mainButton h-14 c-animated-background"></div>
                         </div>
                     </div>
                 ))}

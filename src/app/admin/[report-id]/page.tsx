@@ -3,7 +3,6 @@ import { getAllDepartments } from "@/firebase/actions";
 import ReportAccident from "@/components/ReportAccident"
 
 
-
 interface ReportPageProps {
   params: {
     'report-id': string; 

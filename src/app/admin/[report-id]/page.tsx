@@ -20,8 +20,7 @@ export default  async function ReportPage({ params }: ReportPageProps) {
          {selectedDepartment ? (
         <div>
           <p>ID: {selectedDepartment.id}</p>
-          <p>Short Name: {selectedDepartment.shortName}</p>
-          <p>Full Name: {selectedDepartment.fullName}</p>
+          <p>{selectedDepartment.fullName}</p>
           <ReportAccident id={selectedDepartment.id}/>
           
         </div>

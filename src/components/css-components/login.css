@@ -28,16 +28,7 @@
     transform: 0.3s;
   }
 
-  .logo{
-    width: 100px;
-    margin-bottom: 1rem;
-  }
 
-  .login{
-    width: 90%;
-    margin: 0 auto;
-    margin-top: 2rem;
-  }
 
   .navbar{
     opacity: 0;
@@ -48,6 +39,19 @@
   .navbar:hover{
     opacity: 1;
     box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
+  }
+
+  .mainLoginWrapper{
+    width: 80vw;
+    height: 80vh;
+    margin: 0 auto;
+  }
+
+  .login{
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -40%);
   }
 
   @media screen and (min-width: 1024px) {

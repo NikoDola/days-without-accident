@@ -42,32 +42,34 @@ export default function Login() {
   };
 
   return (
-    <div className="login">
-      
-      <img className="logo mx-auto" src="branding/logo/niks_logo.svg" alt="Logo" />
+    <div className="mainLoginWrapper">
+      <div className="login">
+        
+        <img className="logo mx-auto" src="branding/logo/niks_logo.svg" alt="Logo" />
 
-      <form onSubmit={(e) => {e.preventDefault(); handleLogin(); }}className="logInSignInForm">
+        <form onSubmit={(e) => {e.preventDefault(); handleLogin(); }}className="logInSignInForm">
 
-        {/* password */}
-        <div className="relative">
-          <input onChange={userOnChange} placeholder="type your email" className="loginInput"/>
-          <img className="formIconsImage" src="branding/logo/niks_user.png" alt="User Icon"/>
-        </div>
+          {/* password */}
+          <div className="relative">
+            <input onChange={userOnChange} placeholder="type your email" className="loginInput"/>
+            <img className="formIconsImage" src="branding/logo/niks_user.png" alt="User Icon"/>
+          </div>
 
-        {/* email */}
-        <div className="relative">
-          <input
-            onChange={passwordOnChange} className="loginInput" placeholder="password" autoComplete="off" type={visualPassword}
-          />
-          <img
-            className="formIconsImage" src="branding/logo/niks_password.png" alt="Password Icon"/>
-          <img onClick={handleVisualPassword} className="eyeIcon" src={visualPassword === "password" ? "branding/icons/blind.svg": "branding/icons/visual.svg" } alt="Toggle Password Visibility"/>
-        </div>
-        {errorCode && <p className="text-red-500">{errorCode}</p>}
-        <button className="mainButton" type="submit">
-          Login
-        </button>
-      </form>
+          {/* email */}
+          <div className="relative">
+            <input
+              onChange={passwordOnChange} className="loginInput" placeholder="password" autoComplete="off" type={visualPassword}
+            />
+            <img
+              className="formIconsImage" src="branding/logo/niks_password.png" alt="Password Icon"/>
+            <img onClick={handleVisualPassword} className="eyeIcon" src={visualPassword === "password" ? "branding/icons/blind.svg": "branding/icons/visual.svg" } alt="Toggle Password Visibility"/>
+          </div>
+          {errorCode && <p className="text-red-500">{errorCode}</p>}
+          <button className="mainButton" type="submit">
+            Login
+          </button>
+        </form>
+      </div>
     </div>
   );
 }

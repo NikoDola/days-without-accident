@@ -11,7 +11,7 @@ export default function Home() {
   return (
    
     <main>
-      {userID ? <Counter/>:redirect('/login')}
+       <Counter/>
     </main>
   );
 }

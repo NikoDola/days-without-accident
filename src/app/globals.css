@@ -162,19 +162,24 @@ form{
   gap: 1rem;
 }
 
+.adminWrapper{
+  display: flex;
+}
+
 .adminShowcase{
   display: flex;
   justify-content: start;
   flex-wrap: wrap;
   gap: 1rem;
+  width: 50%;
 }
 
 .dpBox {
   display: flex;
-
   flex-direction: column;
-  width: 300px;
-  height: 100;
+  flex-wrap: nowrap;
+  width: 100px;
+  height: 300px;
   outline: solid black 1px;
   gap: 1rem;
   padding: 1rem;
@@ -243,6 +248,9 @@ form{
   .login{
     width: 30%;
   }
+  
+
+
 }
 
 .loadingElement {
@@ -287,3 +295,4 @@ form{
   background: linear-gradient(to right, #383838 8%, #000000 24%, #383838 50%);
   -webkit-backface-visibility: hidden;
 }
+

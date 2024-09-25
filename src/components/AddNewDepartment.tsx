@@ -52,7 +52,7 @@ export default function AddNewDepartment() {
     };
 
     return (
-        <div>
+        <div className="adminWrapper">
             <h4 className="mb-4">All departmetns</h4>
              {!loading && !error ? (
                 <div className="adminShowcase ">
@@ -61,8 +61,7 @@ export default function AddNewDepartment() {
                                 <h3 className="dpText ">{department.shortName}</h3>
                                 <p className="dpText">{department.fullName}</p>
                                 <div className="flex gap-2">
-                                    <button onClick={() => handleDeleteDepartment(department.id)} className="mainButton"> Delete Department </button>
-
+                                    <button onClick={() => handleDeleteDepartment(department.id)} className="mainButton"> Report </button>
                                 </div>
                             </div>
                         ))}

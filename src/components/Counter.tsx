@@ -1,12 +1,40 @@
 "use client"
 import { useState, useEffect } from "react"
 import "./css-components/counter.css"
+import { db } from "@/firebase"
+import { count, doc, getDoc } from "firebase/firestore"
+
+interface CounterItem{
+  currentTime: number,
+  captureTime: number,
+  followUp: number,
+  lastActivity: number,
+  recordTime: number
+
+}
 
 export default function Counter(){
   const [currentTime, setCurrentTime] = useState<number>()
+  const [counterData, setCounterData] = useState<CounterItem | null | [] >([])
 
-  useEffect(()=>{
+  useEffect(() => {
+
+    async function fetchData() {
+      try {
+        const docRef = doc(db, 'users', "Nik's") 
+        const docCheck = await getDoc(docRef)
     
+        if (docCheck.exists()) {
+          console.log('it exists')
+          setCounterData(docCheck.data() as CounterItem)
+        } else {
+          console.log('it does not exist')
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    fetchData()
   const startDate: Date = new Date("2022-05-09")
   const currentDate: Date = new Date()
 
@@ -28,7 +56,7 @@ export default function Counter(){
           </div>
 
           <div className="mainCounterWrapper">
-            <p className="day">Days</p>
+            <p className="day">Day:</p>
             <span className="currentTime"> {currentTime}</span>
           </div>
           <div>

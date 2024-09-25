@@ -1,8 +1,5 @@
 @import '../../app/globals.css';
 
-body{
-    background: #fff7c0;
-}
 
 *{
     font-family: roboto;
@@ -52,13 +49,13 @@ body{
 .mainWrapper {
     display: flex;
     justify-content: space-between;
-    background: rgba(255, 255, 255, 0.1); /* Use 'rgba' for transparency */
     height: 80vh;
-    width: 80vw; /* Set a width to ensure it's centered */
-    position: absolute; /* Use 'absolute' instead of 'relative' */
+    width: 80vw; 
+    position: absolute; 
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    flex-wrap: nowrap;
 }
 
 .departmentWrapper{
@@ -95,7 +92,8 @@ justify-content: space-between;
     margin-top: 1rem;
 }
 
-@media only screen and (min-width: 1920px) and (min-height: 1080px) {
+@media only screen and (min-width: 1920px) and
+ (min-height: 1080px) {
 
     .CounterWrapper{
         display: flex;

@@ -1,4 +1,4 @@
-import { collection, setDoc, doc, getDoc, getDocs, deleteDoc } from "firebase/firestore";
+import { collection, setDoc, doc, getDoc, getDocs, deleteDoc, addDoc} from "firebase/firestore";
 import { db } from "@/firebase";
 
 // Function to add a new department with a custom ID 
@@ -91,4 +91,55 @@ export async function addAccident(department, time, people, status,  severityAss
     }
 
 }
+
+
+export async function getEmployees(departmentID) {
+    try {
+        const docRef = collection(db, "users", "Nik's", 'departments', departmentID, 'employees' )
+        console.log(docRef.path)
+        const docSnp = await getDocs(docRef)
+
+        const employees = docSnp.docs.map((item) =>({
+            id: item.id,
+            ...item.data()
+            
+        }))
+        return employees
+    } catch (error) {
+        console.error(error)
+    }
+
+}
+
+export async function deleteEmployeer(departmentID, employeeID:string) {
+    try {
+        const docRef = doc(db, 'users', "Nik's",'departments', departmentID, 'employees', employeeID)
+        await deleteDoc(docRef)
+    } catch (error) {
+        console.error(error)
+    }
+}
+
+
+
+export async function addEmployee(departmentID: string, name: string, lastName: string, timestamp: string, accidents: number) {
+    try {
+        // Reference to the employees collection within the specified department
+        const employeesCollectionRef = collection(db, "users", "Nik's", "departments", departmentID, "employees");
+
+        // Add a new employee document and let Firestore generate an ID
+        await addDoc(employeesCollectionRef, {
+            name,
+            lastName,
+            timestamp,
+            accidents,
+            departmentName: departmentID
+        });
+
+        console.log('Employee data was created');
+    } catch (error) {
+        console.error("Error adding employee: ", error);
+    }
+}
+
 

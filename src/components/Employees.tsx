@@ -3,44 +3,48 @@ import { useEffect, useState } from "react"
 import { getEmployees, deleteEmployeer, addEmployee } from "@/firebase/actions"
 import { updateDoc, doc } from "firebase/firestore"
 import { db } from "@/firebase"
+import Image from "next/image"
 
-interface EmployeeTypeCheck{
+interface EmployeeTypeCheck {
     name: string,
     lastName: string,
-    photoUrl:string,
-    description:string,
+    photoUrl: string,
+    description: string,
     photoURL: string,
     id: string
-    
 }
 
 export default function Employees({ departmentID }) {
     const [employeesList, setEmployeesList] = useState<[] | null>(null)
+    const [deletedEmployeeId, setDeletedEmployeeId] = useState<string | null>(null);
 
     // Fetch the employees on mount or when departmentID changes
- const fetchEmployees = async () => {
-    try {
-        const employees = await getEmployees(departmentID) as any;
-        console.log("Fetched employees:", employees); // Log fetched data
-        setEmployeesList(employees);
-        const docRef = doc(db, 'users', "Nik's", 'departments', departmentID);
-        await updateDoc(docRef, {
-            employees: employees.length,
-        });
-    } catch (error) {
-        console.error("Error fetching employees:", error);
-        
-    }
-};
-
+    const fetchEmployees = async () => {
+        try {
+            const employees = await getEmployees(departmentID) as any;
+            console.log("Fetched employees:", employees); // Log fetched data
+            setEmployeesList(employees);
+            const docRef = doc(db, 'users', "Nik's", 'departments', departmentID);
+            await updateDoc(docRef, {
+                employees: employees.length,
+            });
+        } catch (error) {
+            console.error("Error fetching employees:", error);
+        }
+    };
 
     useEffect(() => {
         fetchEmployees()
-    }, []) 
+    }, [])
 
     const handleDelete = async (id: string) => {
-        await deleteEmployeer(departmentID, id);
-        await fetchEmployees(); 
+        setDeletedEmployeeId(id);
+        // Wait for the fade-out effect to complete before actually deleting
+        setTimeout(async () => {
+            await deleteEmployeer(departmentID, id);
+            await fetchEmployees();
+            setDeletedEmployeeId(null); // Reset deletedEmployeeId
+        }, 1000); // 300ms delay to match the CSS transition duration
     }
 
     const addEmployeerHandle = async (e) => {
@@ -50,31 +54,39 @@ export default function Employees({ departmentID }) {
 
         // Add the new employee
         await addEmployee(departmentID, name, lastName, 'denes', 0);
-        await fetchEmployees(); 
+        await fetchEmployees();
+        e.target.reset()
     }
 
     return (
-        <main>
-            <img src='../../public/general/profile.png'/>
+        <main className="flex flex-row justify-between gap-14 w-full mt-12 " >
 
-            <form onSubmit={addEmployeerHandle}>
-                <label>Add new Employeer</label>
+            <form className="w-1/3" onSubmit={addEmployeerHandle}>
+
                 <input name="name" placeholder="Name" />
                 <input name="lastName" placeholder="Last Name" />
                 <button className="mainButton">Add employee</button>
             </form>
-            {!employeesList ? <p>Loading...</p> : employeesList.map((item: EmployeeTypeCheck) => (
-                <div className="flex gap-2" key={item.id}>
-                    <p>{item.name}</p>
-                    <p>{item.lastName}</p>
-                    <img src='https://static.vecteezy.com/system/resources/previews/001/840/612/large_2x/picture-profile-icon-male-icon-human-or-people-sign-and-symbol-free-vector.jpg'/>
-                    <p>{item.photoURL}</p>
-                    <div>
-                        <button>EDIT</button>
-                        <button onClick={() => handleDelete(item.id)}>Delete</button>
+
+            <div className="flex w-full flex-col flex-nowrap w-3/5 gap-2 items-center">
+                {!employeesList ? <p>Loading...</p> : employeesList.map((item: EmployeeTypeCheck) => (
+                    <div
+                        key={item.id}
+                        className={`flex gap-8 justify-between w-full border-solid border-black border-2 p-4 transition-opacity duration-1000 ${deletedEmployeeId === item.id ? 'opacity-0' : 'opacity-100'}`}
+                    >
+                        <div className="flex items-center gap-2">
+                            <img className="profileImageList" src={item.photoURL} alt="profile" />
+                            <p>{item.name}</p>
+                            <p>{item.lastName}</p>
+                        </div>
+                        <div className="flex items-center gap-2">
+                            <button className="mainButton">EDIT</button>
+                            <button className="mainButton" onClick={() => handleDelete(item.id)}>Delete</button>
+                            <button className="mainButton">View</button>
+                        </div>
                     </div>
-                </div>
-            ))}
+                ))}
+            </div>
         </main>
     )
 }

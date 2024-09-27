@@ -72,22 +72,6 @@ export async function getCounter() {
     }
 }
 
-export async function addAccident(department, time, people, status,  severityAssessment, description) {
-    try {
-        const docRef = doc(db, 'users', "Nik's", "departments", department,'accidents', time )
-        await setDoc(docRef, {
-            time,
-            people,
-            status,
-            severityAssessment,
-            description,
-        })
-    } catch (error) {
-        console.error(error)
-    }
-
-}
-
 
 export async function getEmployees(departmentID) {
     try {
@@ -129,7 +113,7 @@ export async function addEmployee(departmentID: string, name: string, lastName: 
             lastName,
             timestamp,
             accidents,
-            photoURL: '../../public/general/profile.png',
+            photoURL: '/general/profile.png',
             description: '',
             departmentName: departmentID
         });
@@ -138,6 +122,28 @@ export async function addEmployee(departmentID: string, name: string, lastName: 
     } catch (error) {
         console.error("Error adding employee: ", error);
     }
+}
+
+
+
+
+export async function addAccident(departmentID: string, employeeID: string, title: string = 'default', 
+    accidentDescription: string = 'default', status: string = 'unsolved', level: string = 'minor') {
+        
+    const collRef = collection(db, "users", "Nik's", 'departments', departmentID, 'employees', employeeID, 'accidents');
+    const startDate: Date = new Date('2022-05-10');
+    const currentDate: Date = new Date();
+    const differenceInMilliseconds: number = currentDate.getTime() - startDate.getTime();
+    const differenceInSeconds: number = Math.floor(differenceInMilliseconds / 1000);
+
+    // Add accident document to Firestore
+    await addDoc(collRef, {
+        title,
+        accidentDescription,
+        status,
+        level,
+        time: differenceInSeconds // This is a number
+    });
 }
 
 

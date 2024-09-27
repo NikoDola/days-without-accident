@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import Counter from '@/components/Counter';
+import Employees from '@/components/Employees';
+// import Counter from '@/components/Counter';
 
 
 export default function Home() {
@@ -11,7 +12,7 @@ export default function Home() {
   return (
    
     <main>
-       <Counter/>
+      <Employees/>
     </main>
   );
 }

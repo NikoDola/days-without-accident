@@ -7,10 +7,6 @@ export async function addDepartment(shortName: string, fullName: string, employe
         const docRef = doc(db, "users", "Nik's", "departments", shortName); 
         const docSnap = await getDoc(docRef);
 
-        if (docSnap.exists()) {
-            throw new Error(`Document with ID "${shortName}" already exists.`);
-        }
-
         await setDoc(docRef, {
             shortName,
             fullName,
@@ -133,6 +129,8 @@ export async function addEmployee(departmentID: string, name: string, lastName: 
             lastName,
             timestamp,
             accidents,
+            photoURL: '../../public/general/profile.png',
+            description: '',
             departmentName: departmentID
         });
 

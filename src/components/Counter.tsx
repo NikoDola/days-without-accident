@@ -3,6 +3,7 @@ import { useState, useEffect } from "react"
 import "./css-components/counter.css"
 import { db } from "@/firebase"
 import { count, doc, getDoc } from "firebase/firestore"
+import { getAllDepartments } from "@/firebase/actions"
 
 interface CounterItem{
   currentTime: number,
@@ -13,14 +14,24 @@ interface CounterItem{
 
 }
 
+interface TypeCheckDepartmetns{
+      longName: string,
+      shortName: string,
+      employees: number,
+      accidents:number,
+}
+
 export default function Counter(){
   const [currentTime, setCurrentTime] = useState<number>()
   const [counterData, setCounterData] = useState<CounterItem | null | [] >([])
+  const [departments, setDepartments] = useState<[] | null>(null)
 
   useEffect(() => {
 
     async function fetchData() {
       try {
+        const allDepartments: any = await getAllDepartments() 
+        setDepartments(allDepartments) 
         const docRef = doc(db, 'users', "Nik's") 
         const docCheck = await getDoc(docRef)
     
@@ -43,6 +54,8 @@ export default function Counter(){
     const intervalID = setInterval(() => {
       setCurrentTime((x) => x = new Date().getSeconds())
     }, 1000);
+
+    return () => clearInterval(intervalID)
   },[])
 
 

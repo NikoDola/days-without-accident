@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { addDepartment, getAllDepartments } from "@/firebase/actions";
-import { useRouter } from "next/navigation";
+
 
 export default function AddNewDepartment({ onDepartmentAdded }) {
     const [newDepartmentName, setNewDepartmentName] = useState<string>("");

@@ -8,10 +8,11 @@ export default function ListDepartments() {
     const [departments, setDepartments] = useState<any[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
+    
     const router = useRouter();
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchDataDepartments = async () => {
             try {
                 const depData = await getAllDepartments();
                 if (Array.isArray(depData)) {
@@ -26,7 +27,16 @@ export default function ListDepartments() {
                 setLoading(false);
             }
         };
-        fetchData();
+        fetchDataDepartments();
+
+        async function fetchDataDepartmentsAccidents(){
+            try {
+                
+            } catch (error) {
+                
+            }
+        }
+        fetchDataDepartments()
     }, []);
 
     const handleNewDepartmentAdded = () => {

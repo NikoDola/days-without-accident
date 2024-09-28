@@ -17,16 +17,17 @@ interface EmployeeTypeCheck {
 export default function Employees({ departmentID }) {
     const [employeesList, setEmployeesList] = useState<[] | null>(null)
     const [deletedEmployeeId, setDeletedEmployeeId] = useState<string | null>(null);
+    const [accidentsList, setAccidentsList] = useState<[] | null> (null)
 
     // Fetch the employees on mount or when departmentID changes
     const fetchEmployees = async () => {
         try {
             const employees = await getEmployees(departmentID) as any;
-            console.log("Fetched employees:", employees); // Log fetched data
             setEmployeesList(employees);
             const docRef = doc(db, 'users', "Nik's", 'departments', departmentID);
+            
             await updateDoc(docRef, {
-                employees: employees.length,
+                employees: employees.length,        
             });
         } catch (error) {
             console.error("Error fetching employees:", error);

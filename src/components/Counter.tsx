@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState, useEffect } from "react";
 import "./css-components/counter.css";
 
@@ -16,19 +16,21 @@ export default function Counter() {
   const [departments, setDepartments] = useState<TypeCheckDepartments[]>([]);
   const [seconds, setSeconds] = useState<number[]>([]);
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const getSeconds = await getAllSeconds();
-        const getSecondsOne = getSeconds.sortedTimes;
-        setSeconds(getSecondsOne);
-        const allDepartments: TypeCheckDepartments[] = await getAllDepartments();
-        setDepartments(allDepartments);
-      } catch (error) {
-        console.error(error);
-      }
+  const fetchData = async () => {
+    try {
+      const getSeconds = await getAllSeconds();
+      const getSecondsOne = getSeconds.sortedTimes;
+      setSeconds(getSecondsOne);
+
+      const allDepartments: TypeCheckDepartments[] = await getAllDepartments();
+      setDepartments(allDepartments);
+    } catch (error) {
+      console.error(error);
     }
-    fetchData();
+  };
+
+  useEffect(() => {
+    fetchData(); // Initial data fetch
 
     const startDate: Date = new Date("2022-05-09");
     const intervalId = setInterval(() => {
@@ -36,13 +38,19 @@ export default function Counter() {
       const differencinTime: number = currentDate.getTime() - startDate.getTime();
       const daysPassed: number = Math.floor(differencinTime / (1000 * 60 * 60 * 24));
       setCurrentTime(daysPassed);
-    }, 1000);
+    }, 3000);
 
-    return () => clearInterval(intervalId);
+    const refreshDataInterval = setInterval(() => {
+      fetchData();
+    }, 3000); 
+
+    return () => {
+      clearInterval(intervalId);
+      clearInterval(refreshDataInterval);
+    };
   }, []);
 
-
-  const daysSinceLastAccident = seconds.length > 0? Math.floor((currentTime * 86400 - Math.max(...seconds)) / 86400): currentTime;
+  const daysSinceLastAccident = seconds.length > 0 && Math.floor((currentTime * 86400 - Math.max(...seconds)) / 86400);
 
   return (
     <div>
@@ -63,9 +71,7 @@ export default function Counter() {
               <p className="counterNum">{seconds.length - 1}</p>
             </div>
             <div className="statisticWrapper">
-              <p className="statistic">
-                <b>{daysSinceLastAccident}</b> days since last accident
-              </p>
+              {daysSinceLastAccident < 0 ? <p>Loading</p> : <p> Days since last accident: {daysSinceLastAccident}</p>}
             </div>
           </div>
         </div>

@@ -15,9 +15,9 @@ import { db } from '@/firebase';
 
 export default function ReportAccident({ departmentID }: { departmentID: string }) {
     const [employees, setEmployees] = useState<EmployeeType[] | null>(null);
-    const [title, setTitle] = useState<string>();
-    const [description, setDescription] = useState<string>();
-    const [status, setStatus] = useState<string>();
+    const [title, setTitle] = useState<string>("");  // Set an initial value
+    const [description, setDescription] = useState<string>("");  // Set an initial value
+    const [status, setStatus] = useState<string>("");  // Set an initial value
     const [envolvedEmployees, setEnvolvedEmployees] = useState<EmployeeType[]>([]);
     const [envolvedNumber, setEnvolvedNumber] = useState<number>(0);
 
@@ -28,25 +28,19 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
             console.log(employeesList);
         }
         fetchData();
-    }, [departmentID]); // Add departmentID to the dependency array
+    }, [departmentID]);
 
     function handleReport(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
     
         if (Array.isArray(employees) && employees.length > 0) {
-            // Add the accident report to Firebase with the involved employees
             addAccident(departmentID, title, description, status, envolvedEmployees);
-            
             console.log("Accident reported with involved employees:", envolvedEmployees);
     
-            // Update the accidents count for each involved employee
             envolvedEmployees.forEach(async (employee) => {
                 if (employee && employee.id) {
                     try {
-                        // Reference to the employee document in the nested Firestore path
                         const employeeRef = doc(db, 'users', "Nik's", 'departments', departmentID, 'employees', employee.id);
-                        
-                        // Increment the accident count by 1
                         await updateDoc(employeeRef, {
                             accidents: increment(1)
                         });
@@ -58,7 +52,6 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
                 }
             });
         }
-     
     }
 
     const handleEmployeeChange = (index: number, employeeId: string) => {
@@ -87,7 +80,7 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
             <input 
                 type='number' 
                 placeholder='number of employees involved in the accident'
-                value={envolvedNumber}
+                value={envolvedNumber || ""} // Ensure value is always defined
                 onChange={(e) => {
                     const num = parseInt(e.target.value, 10);
                     setEnvolvedNumber(num);

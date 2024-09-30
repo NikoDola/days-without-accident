@@ -1,71 +1,56 @@
 "use client"
-import { useState, useEffect } from "react"
-import "./css-components/counter.css"
-import { db } from "@/firebase"
-import { count, doc, getDoc } from "firebase/firestore"
-import { getAllDepartments } from "@/firebase/actions"
+import { useState, useEffect } from "react";
+import "./css-components/counter.css";
 
-interface CounterItem{
-  currentTime: number,
-  captureTime: number,
-  followUp: number,
-  lastActivity: number,
-  recordTime: number
+import { getAllDepartments, getAllSeconds } from "@/firebase/actions";
 
+interface TypeCheckDepartments {
+  fullName: string;
+  shortName: string;
+  employees: number;
+  accidents: number;
 }
 
-interface TypeCheckDepartmetns{
-      longName: string,
-      shortName: string,
-      employees: number,
-      accidents:number,
-}
-
-export default function Counter(){
-  const [currentTime, setCurrentTime] = useState<number>()
-  const [counterData, setCounterData] = useState<CounterItem | null | [] >([])
-  const [departments, setDepartments] = useState<[] | null>(null)
+export default function Counter() {
+  const [currentTime, setCurrentTime] = useState<number>(0);
+  const [departments, setDepartments] = useState<TypeCheckDepartments[]>([]);
+  const [seconds, setSeconds] = useState<number[]>([]);
 
   useEffect(() => {
-
     async function fetchData() {
       try {
-        const allDepartments: any = await getAllDepartments() 
-        setDepartments(allDepartments) 
-        const docRef = doc(db, 'users', "Nik's") 
-        const docCheck = await getDoc(docRef)
-    
-        if (docCheck.exists()) {
-          console.log('it exists')
-          setCounterData(docCheck.data() as CounterItem)
-        } else {
-          console.log('it does not exist')
-        }
+        const getSeconds = await getAllSeconds();
+        const getSecondsOne = getSeconds.sortedTimes;
+        setSeconds(getSecondsOne);
+        const allDepartments: TypeCheckDepartments[] = await getAllDepartments();
+        setDepartments(allDepartments);
       } catch (error) {
-        console.error(error)
+        console.error(error);
       }
     }
-    fetchData()
-  const startDate: Date = new Date("2022-05-09")
-  const currentDate: Date = new Date()
+    fetchData();
 
-  const differencinTime: number = currentDate.getTime() - startDate.getTime()
-  const daysPassed: number = Math.floor(differencinTime / (1000 * 60 * 60 * 24));
-    const intervalID = setInterval(() => {
-      setCurrentTime((x) => x = new Date().getSeconds())
+    const startDate: Date = new Date("2022-05-09");
+    const intervalId = setInterval(() => {
+      const currentDate: Date = new Date();
+      const differencinTime: number = currentDate.getTime() - startDate.getTime();
+      const daysPassed: number = Math.floor(differencinTime / (1000 * 60 * 60 * 24));
+      setCurrentTime(daysPassed);
     }, 1000);
 
-    return () => clearInterval(intervalID)
-  },[])
+    return () => clearInterval(intervalId);
+  }, []);
 
+
+  const daysSinceLastAccident = seconds.length > 0? Math.floor((currentTime * 86400 - Math.max(...seconds)) / 86400): currentTime;
 
   return (
     <div>
       <div className="mainWrapper">
         <div className="leftWrapper">
           <div className="logoWrapper">
-            <img src="branding/logo/niks_logo.svg" className="logo"></img>  
-            <p className="statistic">Accident Counter</p>          
+            <img src="branding/logo/niks_logo.svg" className="logo" alt="Logo" />
+            <p className="statistic">Accident Counter</p>
           </div>
 
           <div className="mainCounterWrapper">
@@ -73,72 +58,33 @@ export default function Counter(){
             <span className="currentTime"> {currentTime}</span>
           </div>
           <div>
-          <div className="departmentWrapper flex gap-4 items-center">
+            <div className="departmentWrapper flex gap-4 items-center">
               <p className="fullName">Total Accidents</p>
-              <p className="counterNum">0</p>
+              <p className="counterNum">{seconds.length - 1}</p>
+            </div>
+            <div className="statisticWrapper">
+              <p className="statistic">
+                <b>{daysSinceLastAccident}</b> days since last accident
+              </p>
+            </div>
           </div>
-          <div className="statisticWrapper">
-          <p className="statistic"><b>100</b> days without accident, a new <b>Record</b></p>
-          <p className="statistic">Latest activity was <b>30</b> days without accident</p>
-          </div>
-          </div>
-          
-         
         </div>
         <div className="rightWrapper">
-          
-        <div className="CounterWrapper">
-            <div className="departmentWrapper">
-              <p className="fullName">Human Resources</p>
-              <p className="shortName">Hr</p>
-            </div>
-            <p className="counterNum">0</p>
-        </div>
-
-        <div className="CounterWrapper">
-            <div className="departmentWrapper">
-              <p className="fullName">Human Resources</p>
-              <p className="shortName">Hr</p>
-            </div>
-            <p className="counterNum">0</p>
-        </div>
-
-        <div className="CounterWrapper">
-            <div className="departmentWrapper">
-              <p className="fullName">Human Resources</p>
-              <p className="shortName">Hr</p>
-            </div>
-            <p className="counterNum">0</p>
-        </div>
-
-        <div className="CounterWrapper">
-            <div className="departmentWrapper">
-              <p className="fullName">Human Resources</p>
-              <p className="shortName">Hr</p>
-            </div>
-            <p className="counterNum">0</p>
-        </div>
-
-        <div className="CounterWrapper">
-            <div className="departmentWrapper">
-              <p className="fullName">Human Resources</p>
-              <p className="shortName">Hr</p>
-            </div>
-            <p className="counterNum">0</p>
-        </div>
-
-        <div className="CounterWrapper">
-            <div className="departmentWrapper">
-              <p className="fullName">Human Resources</p>
-              <p className="shortName">Hr</p>
-            </div>
-            <p className="counterNum">0</p>
-        </div>
-
-
+          {departments.length > 0 ? (
+            departments.map((item) => (
+              <div key={item.shortName} className="CounterWrapper">
+                <div className="departmentWrapper">
+                  <p className="fullName">{item.fullName}</p>
+                  <p className="shortName">{item.shortName}</p>
+                </div>
+                <p className="counterNum">{item.accidents}</p>
+              </div>
+            ))
+          ) : (
+            <p>No data</p>
+          )}
         </div>
       </div>
     </div>
-    
-  )
+  );
 }

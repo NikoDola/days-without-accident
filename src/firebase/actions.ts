@@ -75,6 +75,8 @@ interface Accident {
     involvedEmployees: EmployeeType[];
 }
 
+
+
 export async function getAllAccidents(departmentID: string): Promise<Accident[]> {
     try {
         const docRef = collection(db, "users", "Nik's", 'departments', departmentID, 'accidents');
@@ -92,6 +94,43 @@ export async function getAllAccidents(departmentID: string): Promise<Accident[]>
     }
 }
 
+
+export async function getAllSeconds() {
+  try {
+    const departmentsRef = collection(db, "users", "Nik's", 'departments');
+    const departmentsSnapshot = await getDocs(departmentsRef);
+    
+    let allTimes = [];
+    
+    for (const department of departmentsSnapshot.docs) {
+      const departmentId = department.id;
+      const accidentsRef = collection(db, "users", "Nik's", 'departments', departmentId, 'accidents');
+      const accidentsSnapshot = await getDocs(accidentsRef);
+      
+      const times = accidentsSnapshot.docs.map((doc) => doc.data().time);
+      allTimes = allTimes.concat(times);
+    }
+
+    const sortedTimes = allTimes.sort((a, b) => b - a);
+    const gaps = sortedTimes.slice(1).map((item, index) => sortedTimes[index] - item);
+    
+    // Calculate the latest activity in days without an accident
+    const latestActivityDays = gaps.length > 0 ? Math.floor(gaps[gaps.length - 1] / (1000 * 60 * 60 * 24)) : 0; // convert seconds to days
+
+    return {
+      sortedTimes,
+      gaps,
+      latestActivityDays, // New property to track the latest activity
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      sortedTimes: [],
+      gaps: [],
+      latestActivityDays: 0, // Default value
+    };
+  }
+}
 
 
 export async function addAccident(
@@ -134,22 +173,7 @@ export async function addAccident(
 
 
 
-//Counter
-export async function getCounter() {
-    try {
-        const collRef = collection(db, "users" )
-        const getDocsRef = await getDocs(collRef)
-    
-        const docSnap = getDocsRef.docs.map((item)=>({
-            id: item.id,
-            ...item.data()
-        }))
-        return docSnap
-    } catch (error) {
-        console.error(error)
-        return []
-    }
-}
+
 
 //Employees
 

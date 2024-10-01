@@ -38,11 +38,11 @@ export default function Counter() {
       const differencinTime: number = currentDate.getTime() - startDate.getTime();
       const daysPassed: number = Math.floor(differencinTime / (1000 * 60 * 60 * 24));
       setCurrentTime(daysPassed);
-    }, 3000);
+    }, 60000);
 
     const refreshDataInterval = setInterval(() => {
       fetchData();
-    }, 3000); 
+    }, 300000); 
 
     return () => {
       clearInterval(intervalId);
@@ -87,7 +87,7 @@ export default function Counter() {
               </div>
             ))
           ) : (
-            <p>No data</p>
+            <p>Loading...</p>
           )}
         </div>
       </div>

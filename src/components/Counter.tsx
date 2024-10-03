@@ -38,7 +38,7 @@ export default function Counter() {
       const differencinTime: number = currentDate.getTime() - startDate.getTime();
       const daysPassed: number = Math.floor(differencinTime / (1000 * 60 * 60 * 24));
       setCurrentTime(daysPassed);
-    }, 60000);
+    }, 6000);
 
     const refreshDataInterval = setInterval(() => {
       fetchData();
@@ -68,10 +68,10 @@ export default function Counter() {
           <div>
             <div className="departmentWrapper flex gap-4 items-center">
               <p className="fullName">Total Accidents</p>
-              <p className="counterNum">{seconds.length - 1}</p>
+              <p className="counterNum">{seconds.length}</p>
             </div>
             <div className="statisticWrapper">
-              {daysSinceLastAccident < 0 ? <p>Loading</p> : <p> Days since last accident: {daysSinceLastAccident}</p>}
+              {daysSinceLastAccident < 0 ? <p>Loading</p> : <p> Days since last accident: {daysSinceLastAccident -1}</p>}
             </div>
           </div>
         </div>

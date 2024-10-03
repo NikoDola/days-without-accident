@@ -4,6 +4,7 @@ import { getEmployees, deleteEmployeer, addEmployee } from "@/firebase/actions"
 import { updateDoc, doc } from "firebase/firestore"
 import { db } from "@/firebase"
 import Image from "next/image"
+import Link from "next/link"
 
 interface EmployeeTypeCheck {
     name: string,
@@ -83,7 +84,7 @@ export default function Employees({ departmentID }) {
                         <div className="flex items-center gap-2">
                             <button className="mainButton">EDIT</button>
                             <button className="mainButton" onClick={() => handleDelete(item.id)}>Delete</button>
-                            <button className="mainButton">View</button>
+                            <p className="mainButton"><Link href={`${departmentID}/employee/${item.id}`}>View</Link></p>
                         </div>
                     </div>
                 ))}

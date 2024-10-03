@@ -32,7 +32,7 @@
     "**/*.ts",
     "**/*.tsx",
     "src/contexts/UserContext.jsx"
-, "src/components/Profile.tsx", "src/components/MonacoEditor.js", "src/app/[userID]/search/page.jsx", "src/components/SearchSidePop.tsx", "src/components/ReportAccident.tsx", "src/components/Counter.tsx"  ],
+, "src/components/Profile.tsx", "src/components/MonacoEditor.js", "src/app/[userID]/search/page.jsx", "src/components/SearchSidePop.tsx", "src/components/AddNewAccident.tsx", "src/components/Counter.tsx", "src/components/Testing.jsx"  ],
   "exclude": [
     "node_modules"
   ]

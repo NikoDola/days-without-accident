@@ -4,11 +4,14 @@ import { useEffect, useState } from "react";
 import { getAllAccidents } from "@/firebase/actions";
 import { updateDoc, doc, deleteDoc } from "firebase/firestore";
 import { db } from "@/firebase";
+import Link from "next/link";
 
 interface AccidentType {
     id: string;
     title: string;
     time: number;
+    involvedEmployees: number; // Keep this as a number
+    status: string;
 }
 
 interface ListAllAccidentsProps {
@@ -22,7 +25,7 @@ export default function ListAllAccidents({ departmentID }: ListAllAccidentsProps
     useEffect(() => {
         async function fetchData() {
             try {
-                const accidents: any = await getAllAccidents(departmentID);
+                const accidents: AccidentType[] | any = await getAllAccidents(departmentID); // Specify type here
                 setAllAccidents(accidents);
 
                 const docRef = doc(db, 'users', "Nik's", 'departments', departmentID);
@@ -62,7 +65,10 @@ export default function ListAllAccidents({ departmentID }: ListAllAccidentsProps
                         <div key={item.id}>
                             <li>{item.title}</li>
                             <li>{Math.round(item.time / (24 * 60 * 60))} days</li>
+                            <p>{item.involvedEmployees > 0 ? `${item.involvedEmployees} involved employees` : "No involved employees"}</p>
+                            <li>{item.status}</li>
                             <button onClick={() => handleDeleteDoc(item.id)} className="mainButton">Delete Accident</button>
+                            <Link href={`/admin/${departmentID}/accidents/${item.id}`}>View</Link>
                         </div>
                     ))
                 ) : (

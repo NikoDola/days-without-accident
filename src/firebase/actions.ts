@@ -4,10 +4,11 @@ import { db } from "@/firebase";
 
 
 // Departments 
+
 export async function addDepartment(shortName: string, fullName: string, employees: number = 0, accidents: number = 0): Promise<string | null> {
     try {
         const docRef = doc(db, "users", "Nik's", "departments", shortName); 
-        const docSnap = await getDoc(docRef);
+        await getDoc(docRef);
 
         await setDoc(docRef, {
             shortName,
@@ -26,7 +27,7 @@ export async function addDepartment(shortName: string, fullName: string, employe
 }
 
 
- 
+
 export async function getAllDepartments(): Promise<any[]> {
     try {
         // Assuming departments are stored under 'users/Nik's/departments'
@@ -95,56 +96,22 @@ export async function getAllAccidents(departmentID: string): Promise<Accident[]>
 }
 
 
-export async function getAllSeconds() {
-  try {
-    const departmentsRef = collection(db, "users", "Nik's", 'departments');
-    const departmentsSnapshot = await getDocs(departmentsRef);
-    
-    let allTimes = [];
-    
-    for (const department of departmentsSnapshot.docs) {
-      const departmentId = department.id;
-      const accidentsRef = collection(db, "users", "Nik's", 'departments', departmentId, 'accidents');
-      const accidentsSnapshot = await getDocs(accidentsRef);
-      
-      const times = accidentsSnapshot.docs.map((doc) => doc.data().time);
-      allTimes = allTimes.concat(times);
-    }
 
-    const sortedTimes = allTimes.sort((a, b) => b - a);
-    const gaps = sortedTimes.slice(1).map((item, index) => sortedTimes[index] - item);
-    
-    // Calculate the latest activity in days without an accident
-    const latestActivityDays = gaps.length > 0 ? Math.floor(gaps[gaps.length - 1] / (1000 * 60 * 60 * 24)) : 0; // convert seconds to days
-
-    return {
-      sortedTimes,
-      gaps,
-      latestActivityDays, // New property to track the latest activity
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      sortedTimes: [],
-      gaps: [],
-      latestActivityDays: 0, // Default value
-    };
-  }
-}
 
 
 export async function addAccident(
     departmentID: string, 
     title: string = 'default', 
-    accidentDescription: string = 'default', 
+    accidentDescription: string = 'Unamed', 
     status: string = 'unsolved',
-    involvedEmployees: EmployeeType[] = [] // Add the involvedEmployees parameter
+    involvedEmployees: EmployeeType[] = [],
+    timestamp: Date // Add this new parameter
 ) {
     try {
         const collRef = collection(db, "users", "Nik's", 'departments', departmentID, 'accidents');
+        
         const startDate: Date = new Date('2022-05-10');
-        const currentDate: Date = new Date();
-        const differenceInMilliseconds: number = currentDate.getTime() - startDate.getTime();
+        const differenceInMilliseconds: number = timestamp.getTime() - startDate.getTime(); // Use the timestamp
         const differenceInSeconds: number = Math.floor(differenceInMilliseconds / 1000);
     
         // Create an array of involved employees with only the necessary properties
@@ -172,6 +139,15 @@ export async function addAccident(
 
 
 
+export async function deleteAccident(departmentID, accidentID) {
+    try {
+        const docRef = doc(db, 'users', "Niks", 'departments', departmentID, 'accidents', accidentID)
+        await deleteDoc(docRef)
+        alert('accedent was deleted')
+    } catch (error) {
+        console.error(error)
+    }
+}
 
 
 
@@ -231,3 +207,40 @@ export async function addEmployee(departmentID: string, name: string, lastName: 
 
 
 
+//Counter
+export async function getAllSeconds() {
+  try {
+    const departmentsRef = collection(db, "users", "Nik's", 'departments');
+    const departmentsSnapshot = await getDocs(departmentsRef);
+    
+    let allTimes = [];
+    
+    for (const department of departmentsSnapshot.docs) {
+      const departmentId = department.id;
+      const accidentsRef = collection(db, "users", "Nik's", 'departments', departmentId, 'accidents');
+      const accidentsSnapshot = await getDocs(accidentsRef);
+      
+      const times = accidentsSnapshot.docs.map((doc) => doc.data().time);
+      allTimes = allTimes.concat(times);
+    }
+
+    const sortedTimes = allTimes.sort((a, b) => b - a);
+    const gaps = sortedTimes.slice(1).map((item, index) => sortedTimes[index] - item);
+    
+    // Calculate the latest activity in days without an accident
+    const latestActivityDays = gaps.length > 0 ? Math.floor(gaps[gaps.length - 1] / (1000 * 60 * 60 * 24)) : 0; // convert seconds to days
+
+    return {
+      sortedTimes,
+      gaps,
+      latestActivityDays, // New property to track the latest activity
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      sortedTimes: [],
+      gaps: [],
+      latestActivityDays: 0, // Default value
+    };
+  }
+}

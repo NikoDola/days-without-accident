@@ -1,7 +1,7 @@
 
 import { getAllDepartments } from "@/firebase/actions";
 import Employees from "@/components/Employees";
-import ReportAccident from "@/components/ReportAccident";
+import AddNewAccident from "@/components/AddNewAccident";
 import ListAllAccidents from "@/components/ListAllAccidents";
 interface ReportPageProps {
   params: {
@@ -18,7 +18,7 @@ export default  async function ReportPage({ params }: ReportPageProps) {
   return (
     <main>
       <div className="flex">
-        <ReportAccident departmentID={selectedDepartment.id}/>
+        <AddNewAccident departmentID={selectedDepartment.id}/>
         <ListAllAccidents departmentID={selectedDepartment.id}/>
       </div>
      

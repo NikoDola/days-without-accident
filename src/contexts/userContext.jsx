@@ -2,10 +2,10 @@
 
 
 import { useContext, createContext, useState, useEffect } from "react";
-import { auth } from "@/firebase";
+import { auth, provider } from "@/firebase";
 import { useRouter } from "next/navigation";
 
-import { signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
+import { signInWithEmailAndPassword, onAuthStateChanged, signOut, signInWithPopup } from "firebase/auth";
 import Cookies from 'js-cookie'; // Correct import
 
 export const UserContext = createContext();
@@ -32,6 +32,22 @@ export function Wrapper({ children }) {
         return () => unsubscribe();
     }, []);
 
+    const googleLogin = async () => {
+        try {
+          const result = await signInWithPopup(auth, provider.google);
+          
+          // This means the user was able to log in successfully
+          const user = result.user;
+          
+          // Set user state
+          setUser(user);
+          console.log("User logged in:", user);
+        } catch (error) {
+          console.error("Error during Google sign-in:", error);
+          setErrorCode(error.message); // Set the error message for display
+        }
+      };
+
     const login = async (email, password) => {
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -57,7 +73,7 @@ export function Wrapper({ children }) {
     }
 
     return (
-        <UserContext.Provider value={{ user, errorCode, login, logoutUser }}>
+        <UserContext.Provider value={{ user, errorCode, login, logoutUser, googleLogin  }}>
             {children}
         </UserContext.Provider>
     );

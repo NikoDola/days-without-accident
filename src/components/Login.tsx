@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useUser } from "@/contexts/userContext";
 import "./css-components/login.css";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 
 export default function Login() {
@@ -13,9 +13,11 @@ export default function Login() {
     password: ""
   });
 
-
+  const router = useRouter()
   
-  const { login, errorCode, user } = useUser();
+  const { login, errorCode, user, googleLogin  } = useUser();
+
+  user && router.push('/admin')
 
   const handleLogin = () => {
     login(credential.userName, credential.password);
@@ -46,12 +48,16 @@ export default function Login() {
       <div className="login">
         
         <img className="logo mx-auto" src="branding/logo/niks_logo.svg" alt="Logo" />
-
+        <div className="flex items-center gap-4 mb-6">
+            <hr className="flex-grow border-t border-black" />
+            <p className="text-black ">Login with email</p>
+            <hr className="flex-grow border-t border-black" />
+          </div>
         <form onSubmit={(e) => {e.preventDefault(); handleLogin(); }}className="logInSignInForm">
 
           {/* password */}
           <div className="relative">
-            <input onChange={userOnChange} placeholder="type your email" className="loginInput"/>
+            <input onChange={userOnChange} placeholder="Email" className="loginInput"/>
             <img className="formIconsImage" src="branding/logo/niks_user.png" alt="User Icon"/>
           </div>
 
@@ -65,9 +71,17 @@ export default function Login() {
             <img onClick={handleVisualPassword} className="eyeIcon" src={visualPassword === "password" ? "branding/icons/blind.svg": "branding/icons/visual.svg" } alt="Toggle Password Visibility"/>
           </div>
           {errorCode && <p className="text-red-500">{errorCode}</p>}
-          <button className="mainButton" type="submit">
-            Login
-          </button>
+          <button className="mainButton mt-2" type="submit">Login</button>
+          <div className="flex items-center gap-4">
+            <hr className="flex-grow border-t border-black" />
+            <p className="text-black">or</p>
+            <hr className="flex-grow border-t border-black" />
+          </div>
+    
+          <div className="buttonSignUp">
+            <img src="general/google.svg"/>
+            <p onClick={googleLogin}>Login with google</p>
+          </div>
         </form>
       </div>
     </div>

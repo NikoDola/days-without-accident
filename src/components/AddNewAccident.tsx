@@ -1,5 +1,11 @@
 "use client";
 
+import { useEffect, useState } from 'react';
+import { addAccident, getEmployees } from "@/firebase/actions";
+import { updateDoc, doc, increment } from 'firebase/firestore';
+import { db } from '@/firebase';
+
+// Define the EmployeeType interface
 interface EmployeeType {
     id: string;
     name: string;
@@ -7,21 +13,24 @@ interface EmployeeType {
     // Add other properties as needed
 }
 
-// ReportAccident.tsx
-import { useEffect, useState } from 'react';
-import { addAccident, getEmployees } from "@/firebase/actions";
-import { updateDoc, doc, increment } from 'firebase/firestore';
-import { db } from '@/firebase';
-
 export default function ReportAccident({ departmentID }: { departmentID: string }) {
     const [employees, setEmployees] = useState<EmployeeType[] | null>(null);
-    const [title, setTitle] = useState<string>("");  // Set an initial value
-    const [description, setDescription] = useState<string>("");  // Set an initial value
-    const [status, setStatus] = useState<string>("");  // Set an initial value
+    const [title, setTitle] = useState<string>("");  
+    const [description, setDescription] = useState<string>("");  
+    const [status, setStatus] = useState<string>("");  
     const [envolvedEmployees, setEnvolvedEmployees] = useState<EmployeeType[]>([]);
     const [envolvedNumber, setEnvolvedNumber] = useState<number>(0);
+    const [timeNow, setTimeNow] = useState<string>("");
 
     useEffect(() => {
+        const time = new Date();
+        const year = time.getFullYear();
+        const month = (time.getMonth() + 1).toString().padStart(2, '0');
+        const date = time.getDate().toString().padStart(2, '0');
+
+        const formattedDate = `${year}-${month}-${date}`;
+        setTimeNow(formattedDate); // Set the formatted date
+
         async function fetchData() {
             const employeesList: EmployeeType[] = await getEmployees(departmentID) as EmployeeType[];
             setEmployees(employeesList);
@@ -32,11 +41,12 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
 
     function handleReport(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-    
+
         if (Array.isArray(employees) && employees.length > 0) {
-            addAccident(departmentID, title, description, status, envolvedEmployees);
+            const timestamp = new Date(timeNow); 
+            addAccident(departmentID, title, description, status, envolvedEmployees, timestamp); 
             console.log("Accident reported with involved employees:", envolvedEmployees);
-    
+
             envolvedEmployees.forEach(async (employee) => {
                 if (employee && employee.id) {
                     try {
@@ -44,7 +54,7 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
                         await updateDoc(employeeRef, {
                             accidents: increment(1)
                         });
-    
+
                         console.log(`Accident count updated for employee ${employee.name} ${employee.lastName}`);
                     } catch (error) {
                         console.error(`Error updating accident count for employee ${employee.name} ${employee.lastName}:`, error);
@@ -61,6 +71,19 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
             const updatedEnvolvedEmployees = [...envolvedEmployees];
             updatedEnvolvedEmployees[index] = selectedEmployee;
             setEnvolvedEmployees(updatedEnvolvedEmployees);
+        }
+    };
+
+    const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setTimeNow(e.target.value); // Update timeNow with the selected date
+    };
+
+    const handleEnvolvedNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const num = parseInt(e.target.value, 10);
+        // Ensure num is a valid non-negative integer
+        if (!isNaN(num) && num >= 0) {
+            setEnvolvedNumber(num);
+            setEnvolvedEmployees(Array(num).fill(null)); // Adjust the size of the envolvedEmployees array
         }
     };
 
@@ -81,11 +104,7 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
                 type='number' 
                 placeholder='number of employees involved in the accident'
                 value={envolvedNumber || ""} // Ensure value is always defined
-                onChange={(e) => {
-                    const num = parseInt(e.target.value, 10);
-                    setEnvolvedNumber(num);
-                    setEnvolvedEmployees(Array(num).fill(null)); // Adjust the size of the envolvedEmployees array
-                }}
+                onChange={handleEnvolvedNumberChange} // Use the new function
             />
             
             {[...Array(envolvedNumber)].map((_, index) => (
@@ -104,7 +123,15 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
                     }
                 </select>
             ))}
-            
+           
+            <input 
+                type="date" 
+                name="timestamp" 
+                value={timeNow} // Use timeNow state for the value
+                onChange={handleDateChange} // Add an onChange handler
+                min="2022-05-15" 
+                max={timeNow} // Use timeNow for max date
+            />
             <button className='mainButton'>Submit</button>
         </form>
     );

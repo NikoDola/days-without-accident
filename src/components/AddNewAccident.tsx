@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { addAccident, getEmployees } from "@/firebase/actions";
+import { addAccident, getEmployees, getAllAccidents } from "@/firebase/actions";
 import { updateDoc, doc, increment } from 'firebase/firestore';
 import { db } from '@/firebase';
 
@@ -21,6 +21,7 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
     const [envolvedEmployees, setEnvolvedEmployees] = useState<EmployeeType[]>([]);
     const [envolvedNumber, setEnvolvedNumber] = useState<number>(0);
     const [timeNow, setTimeNow] = useState<string>("");
+    
 
     useEffect(() => {
         const time = new Date();

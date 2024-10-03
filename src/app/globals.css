@@ -4,32 +4,30 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
 :root {
-  --brand-color:#ec4599;
-  --brand-color-light:#ef6faa;
-  --brand-color-extra-light:#f9c2d6;
-  --brand-color-light-gray: #EBEBEB;
+  --brand-color:#ec4599; --brand-color-light:#ef6faa; --brand-color-extra-light:#f9c2d6; --brand-color-light-gray: #EBEBEB;
 }
 
 body {
   display: flex;
   flex-direction: column;
+  transition: 0.5s;
 }
 
-h1{
-  font-size: 45px;
-}
+h1{font-size: 3rem;} h2{font-size: 2.5rem;} h3{font-size: 2rem;} h4{font-size: 1.75rem;} 
+h5{font-size: 1.5rem;} h6{font-size: 1.2rem;} .ts{font-size: 0.8rem} .txs{font-size: 0.7rem;}
 
-h3{
-  font-size: 33px;
-
-}
 
 main{
   width: 90%;
   margin: 0 auto;
 }
-
 
 
 /* Buttons */
@@ -91,59 +89,6 @@ textarea{
   gap: 1rem;
 }
 
-.textBubble{
-  padding: 1rem;
-  border: solid 1px black;
-  width: fit-content;
-  border-radius: 0.5rem;
-}
-
-.formWrapper{
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  margin-top: 2rem;
-}
-
-.icon{
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.bettweenForm{
-  display: flex;
-  text-align: center;
-  align-items: center;
-  gap: 20px;
-  white-space: nowrap;
-  gap: 1rem;
-}
-
-.bettweenForm::after{
-  content: '';
-  display: block;
-  width: 100%;
-  height: 0.5px;
-  background-color: rgb(0, 0, 0);
-  white-space: nowrap;
-}
-
-.bettweenForm::before{
-  content: '';
-  display: block;
-  width: 100%;
-  height: 0.5px;
-  background-color: rgb(0, 0, 0);
-}
-
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-}
 
 .profileImageList{
   width: 50px;
@@ -157,7 +102,7 @@ textarea{
   width: 100%;
 }
 
-input:focus{
+input:focus, textarea:focus{
   outline: solid  var(--brand-color);
 }
 
@@ -179,57 +124,8 @@ form{
   width: 50%;
 }
 
-.dpBox {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  width: 100px;
-  height: 300px;
-  outline: solid black 1px;
-  gap: 1rem;
-  padding: 1rem;
-  border-radius: 1rem;
-}
-
-.dpText {
- 
-
-}
-
-/* Login */
-.formIconsImage{
-  position: absolute;
-  top: 50%; 
-  transform: translateY(-50%);
-  z-index: 3;
-  margin-left: 1rem;
-}
-
-.eyeIcon{
-  position: absolute;
-  right: 0;
-  top: 50%; 
-  transform: translateY(-50%);
-  margin-right: 1rem;
-  cursor: pointer;
-}
-
-.loginInput{
-  padding-left: 3rem;
-  padding-right: 3rem;
-}
-
-.logInSignInForm{
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 100%;
-  transform: 0.3s;
-}
-
 .logo{
   width: 100px;
-  margin-bottom: 1rem;
 }
 
 .login{
@@ -266,7 +162,7 @@ form{
   animation: gradientAnimation 2s ease infinite;
 }
 
-@keyframes placeHolderShimmer {
+/* @keyframes placeHolderShimmer {
   0% {
     background-position: 0px 0;
   }
@@ -277,44 +173,30 @@ form{
 
 @keyframes fadeInOut {
   0% {
-    opacity: 0; /* Start invisible */
+    opacity: 0; 
   }
   25% {
-    opacity: 0.5; /* Fade in */
+    opacity: 0.5; 
   }
   50% {
-    opacity: 1; /* Fully visible */
+    opacity: 1; 
   }
   75% {
-    opacity: 0.5; /* Fade out */
+    opacity: 0.5;
   }
   100% {
-    opacity: 0; /* Invisible again */
+    opacity: 0; 
   }
-}
+} */
 
-.c-animated-background {
+/* .c-animated-background {
   animation: placeHolderShimmer 20s linear infinite,
-             fadeInOut 20s linear infinite; /* Combine both animations */
+             fadeInOut 20s linear infinite; 
   animation-fill-mode: forwards;
   background: linear-gradient(to right, #383838 8%, #000000 24%, #383838 50%);
   -webkit-backface-visibility: hidden;
-}
+} */
 
-.suggestions {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  border: 1px solid #ccc;
-  max-height: 150px;
-  overflow-y: auto;
-}
 
-.suggestions li {
-  padding: 8px;
-  cursor: pointer;
-}
 
-.suggestions li:hover {
-  background-color: #f0f0f0;
-}
+

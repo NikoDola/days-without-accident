@@ -130,6 +130,9 @@ export async function addAccident(
             involvedEmployees: involvedEmployeesData // Add involved employees here
         });
         
+         
+        alert('accident was added')
+        window.location.reload()
         console.log('Accident reported successfully with involved employees.');
         
     } catch (error) {
@@ -225,14 +228,16 @@ export async function getAllSeconds() {
     }
 
     const sortedTimes = allTimes.sort((a, b) => b - a);
-    const gaps = sortedTimes.slice(1).map((item, index) => sortedTimes[index] - item);
-    
+    const gapsSlice = sortedTimes.slice(1).map((item, index) => sortedTimes[index] - item);
+    const sortGaps = gapsSlice.sort((a,b) => b-a)
+    const gaps = sortGaps[0]
+    const gap = Math.round(gaps / 86400)
     // Calculate the latest activity in days without an accident
-    const latestActivityDays = gaps.length > 0 ? Math.floor(gaps[gaps.length - 1] / (1000 * 60 * 60 * 24)) : 0; // convert seconds to days
+    const latestActivityDays = gapsSlice.length > 0 ? Math.floor(gapsSlice[gapsSlice.length - 1] / (1000 * 60 * 60 * 24)) : 0; // convert seconds to days
 
     return {
       sortedTimes,
-      gaps,
+      gap,
       latestActivityDays, // New property to track the latest activity
     };
   } catch (error) {

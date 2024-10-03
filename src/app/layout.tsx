@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import { Inter } from 'next/font/google';
 import './globals.css';
+
 import { Wrapper } from '@/contexts/userContext';
 import NavBar from '@/components/NavBar';
 
@@ -13,6 +14,8 @@ export const metadata = {
     icon: '/favicon.ico',
   },
 };
+
+
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

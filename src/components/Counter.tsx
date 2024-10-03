@@ -15,11 +15,14 @@ export default function Counter() {
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [departments, setDepartments] = useState<TypeCheckDepartments[]>([]);
   const [seconds, setSeconds] = useState<number[]>([]);
+  const [record, setRecordTime] = useState<number>()
 
   const fetchData = async () => {
     try {
       const getSeconds = await getAllSeconds();
       const getSecondsOne = getSeconds.sortedTimes;
+      const getGaps = getSeconds.gap
+      setRecordTime(getGaps)
       setSeconds(getSecondsOne);
 
       const allDepartments: TypeCheckDepartments[] = await getAllDepartments();
@@ -30,27 +33,45 @@ export default function Counter() {
   };
 
   useEffect(() => {
-    fetchData(); // Initial data fetch
-
+    fetchData();
     const startDate: Date = new Date("2022-05-09");
-    const intervalId = setInterval(() => {
-      const currentDate: Date = new Date();
-      const differencinTime: number = currentDate.getTime() - startDate.getTime();
-      const daysPassed: number = Math.floor(differencinTime / (1000 * 60 * 60 * 24));
-      setCurrentTime(daysPassed);
-    }, 6000);
+    const currentDate: Date = new Date();
+    const differenceInTime: number = currentDate.getTime() - startDate.getTime();
+    const daysPassed: number = Math.floor(differenceInTime / (1000 * 60 * 60 * 24));
+    setCurrentTime(daysPassed);
 
+    // Set an interval to refresh the data every 5 minutes (300000 ms)
     const refreshDataInterval = setInterval(() => {
       fetchData();
-    }, 300000); 
+    }, 300000);
 
+    // Cleanup interval on component unmount
     return () => {
-      clearInterval(intervalId);
       clearInterval(refreshDataInterval);
     };
   }, []);
 
+  // Calculate the days since the last accident
   const daysSinceLastAccident = seconds.length > 0 && Math.floor((currentTime * 86400 - Math.max(...seconds)) / 86400);
+  if(daysSinceLastAccident > record || record === null){
+    setRecordTime(daysSinceLastAccident)
+  }
+
+
+
+
+  // Function to render loading divs
+  const renderLoadingDivs = () => {
+    return Array.from({ length: 6 }).map((_, index) => (
+      <div key={index} className="CounterWrapper CounterWrapperLoading">
+        <div className="departmentWrapper loading departmentWrapperLoading">
+          <p className="fullName fullNameLoading">loading loading</p>
+          <p className="shortName shortNameLoading">LG</p>
+        </div>
+        <p className="counterNum counterNumLoading">9</p>
+      </div>
+    ));
+  };
 
   return (
     <div>
@@ -65,16 +86,27 @@ export default function Counter() {
             <p className="day">Day:</p>
             <span className="currentTime"> {currentTime}</span>
           </div>
-          <div>
-            <div className="departmentWrapper flex gap-4 items-center">
-              <p className="fullName">Total Accidents</p>
-              <p className="counterNum">{seconds.length}</p>
-            </div>
-            <div className="statisticWrapper">
-              {daysSinceLastAccident < 0 ? <p>Loading</p> : <p> Days since last accident: {daysSinceLastAccident -1}</p>}
-            </div>
+
+          <div className=" analiticAndTotal" >
+          <div className="departmentWrapper totalAccident mb-4">
+                <p className="fullName">Total Accidents</p>
+                <p className="counterNum">{seconds.length}</p>
+              </div>
+            {daysSinceLastAccident < 0 ? (
+              <p className="daysSinceLast">days since the last accident is Loading... </p>
+            ) : (
+              <div className="daysSinceLast">
+                 <p > {daysSinceLastAccident} Days since the last accident </p>
+                 {!isNaN(record) && <p>Record days with out accident {record}</p>}
+              </div>
+             
+            )}
+       
+
+      
           </div>
         </div>
+
         <div className="rightWrapper">
           {departments.length > 0 ? (
             departments.map((item) => (
@@ -87,7 +119,7 @@ export default function Counter() {
               </div>
             ))
           ) : (
-            <p>Loading...</p>
+            <div>{renderLoadingDivs()}</div>
           )}
         </div>
       </div>

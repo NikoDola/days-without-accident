@@ -1,10 +1,11 @@
-import { getAllAccidents, getAllDepartments } from "@/firebase/actions";
-import SingleAccident from "@/components/Accident";
+
+
+import { listDepartmentAccidents, listAllDepartments} from "@/firebase/actions";
+import SingleAccident from "@/components/SingleAccident";
 
 interface AccidentsPageProps {
     params: {
       'accident-id': string;
-      'report-id': string;  // Add report-id here
     };
 }
 
@@ -13,9 +14,9 @@ interface Accident{
 }
 
 export default async function Accident({ params }: AccidentsPageProps) {
-    const departments = await getAllDepartments();
+    const departments = await listAllDepartments();
     const selectedDepartment = departments.find((item) =>
-        item.id.toLowerCase() === params['report-id'].toLowerCase()
+        item.id.toLowerCase() === params['department-id'].toLowerCase()
     );
 
     if (!selectedDepartment) {
@@ -27,7 +28,7 @@ export default async function Accident({ params }: AccidentsPageProps) {
     }
 
 
-    const accidents:any = await getAllAccidents(selectedDepartment.id);  // Pass department id
+    const accidents:any = await listDepartmentAccidents(selectedDepartment.id);  // Pass department id
 
 
     const selectedAccident = accidents.find((item) =>
@@ -47,7 +48,7 @@ export default async function Accident({ params }: AccidentsPageProps) {
     return (
         <main>
             <SingleAccident departmentID={selectedDepartment.id} accidentID={selectedAccident.id } selected={selectedAccident}/>
-
+            
         </main>
     );
 }

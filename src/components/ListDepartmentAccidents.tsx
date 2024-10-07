@@ -1,31 +1,34 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getAllAccidents } from "@/firebase/actions";
-import { updateDoc, doc, deleteDoc } from "firebase/firestore";
+import { listDepartmentAccidents } from "@/firebase/actions";
+import { updateDoc, doc} from "firebase/firestore";
 import { db } from "@/firebase";
 import Link from "next/link";
 
 interface AccidentType {
     id: string;
     title: string;
-    time: number;
-    involvedEmployees: number; // Keep this as a number
+    time: number;  // this will be in seconds
+    involvedEmployees: any[]; 
     status: string;
+    
 }
 
 interface ListAllAccidentsProps {
-    departmentID: string; // Ensure departmentID is a string
+    departmentID: string; 
 }
 
 export default function ListAllAccidents({ departmentID }: ListAllAccidentsProps) {
     const [allAccidents, setAllAccidents] = useState<AccidentType[]>([]);
     const [loading, setLoading] = useState(true);
 
+    const startDate: Date = new Date("2022-05-10"); // Set your start date here
+
     useEffect(() => {
         async function fetchData() {
             try {
-                const accidents: AccidentType[] | any = await getAllAccidents(departmentID); // Specify type here
+                const accidents: AccidentType[] | any = await listDepartmentAccidents(departmentID); // Specify type here
                 setAllAccidents(accidents);
 
                 const docRef = doc(db, 'users', "Nik's", 'departments', departmentID);
@@ -41,17 +44,12 @@ export default function ListAllAccidents({ departmentID }: ListAllAccidentsProps
         fetchData();
     }, [departmentID]);
 
-    const handleDeleteDoc = async (accidentID: string) => {
-        try {
-            const docRef = doc(db, 'users', "Nik's", 'departments', departmentID, 'accidents', accidentID);
-            await deleteDoc(docRef);
-
-            // Update the state to remove the deleted accident from the list
-            setAllAccidents(prevAccidents => prevAccidents.filter(accident => accident.id !== accidentID));
-        } catch (error) {
-            console.error("Error deleting accident: ", error);
-        }
-    };
+    // Helper function to convert time (in seconds) to a readable date
+    function convertSecondsToDate(seconds: number) {
+        const milliseconds = seconds * 1000; // Convert seconds to milliseconds
+        const accidentDate = new Date(startDate.getTime() + milliseconds); // Add to the start date
+        return accidentDate.toLocaleDateString(); // Format to readable date
+    }
 
     if (loading) {
         return <p>Loading...</p>;
@@ -64,11 +62,10 @@ export default function ListAllAccidents({ departmentID }: ListAllAccidentsProps
                     allAccidents.map((item) => (
                         <div key={item.id}>
                             <li>{item.title}</li>
-                            <li>{Math.round(item.time / (24 * 60 * 60))} days</li>
-                            <p>{item.involvedEmployees > 0 ? `${item.involvedEmployees} involved employees` : "No involved employees"}</p>
+                            <li>{convertSecondsToDate(item.time )}</li> {/* Convert item.time to readable date */}
+                            <li>Involved {item.involvedEmployees.length} People</li>
                             <li>{item.status}</li>
-                            <button onClick={() => handleDeleteDoc(item.id)} className="mainButton">Delete Accident</button>
-                            <Link href={`/admin/${departmentID}/accidents/${item.id}`}>View</Link>
+                            <Link href={`/admin/departments/${departmentID}/accidents/${item.id}`}>View</Link>
                         </div>
                     ))
                 ) : (

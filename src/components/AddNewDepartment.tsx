@@ -1,9 +1,9 @@
 "use client";
 import { useEffect, useState } from "react";
-import { addDepartment, getAllDepartments } from "@/firebase/actions";
+import { addNewDepartment, getAllDepartments } from "@/firebase/actions";
 
 
-export default function AddNewDepartment({ onDepartmentAdded }) {
+export default function AddNewDepartment() {
     const [newDepartmentName, setNewDepartmentName] = useState<string>("");
     const [fullName, setFullName] = useState<string>("");
     const [employees, setEmployees] = useState<number>(0);
@@ -12,11 +12,10 @@ export default function AddNewDepartment({ onDepartmentAdded }) {
     const handleAddDepartment = async (e) => {
         e.preventDefault();
         try {
-            await addDepartment(newDepartmentName, fullName, employees);
+            await addNewDepartment(newDepartmentName, fullName, employees);
             setNewDepartmentName("");
             setFullName("");
             setEmployees(0);
-            onDepartmentAdded();
         } catch (error: any) {
             setError(error.message || "Error adding department");
         }

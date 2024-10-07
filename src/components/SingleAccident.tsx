@@ -20,12 +20,9 @@ export default function SingleAccident({ accidentID, departmentID, selected }: S
     return (
        
         <main>
-            <p>
-                Happened at{' '}
-                <Link href={`/admin/${departmentID}`}>{departmentID}</Link>
-            </p>
+            <p>Happened at <Link href={`/admin/departments/${departmentID}`}>{departmentID}</Link></p>
             <p>Status: {selected.status}</p>
-            <p>{selected.title}</p>
+            <p>Accident tittle {selected.title}</p>
 
             <p className="mt-4">People involved in the accident:</p>
             {selected.involvedEmployees.map((item, index) => (

@@ -5,12 +5,11 @@ import { db } from "@/firebase";
 
 // Departments 
 
-export async function addDepartment(shortName: string, fullName: string, employees: number = 0, accidents: number = 0): Promise<string | null> {
+export async function addNewDepartment(shortName: string, fullName: string, employees: number = 0, accidents: number = 0): Promise<string | null> {
     try {
-        const docRef = doc(db, "users", "Nik's", "departments", shortName); 
-        await getDoc(docRef);
+        const departmentsCollectionRef = collection(db, "users", "Nik's", "departments"); 
 
-        await setDoc(docRef, {
+        const docRef = await addDoc(departmentsCollectionRef, {
             shortName,
             fullName,
             employees,
@@ -18,8 +17,8 @@ export async function addDepartment(shortName: string, fullName: string, employe
             accidents: 0
         });
 
-        console.log("Document written with custom ID: ", shortName);
-        return shortName;
+        console.log("Document written with unique ID: ", docRef.id);
+        return docRef.id;
     } catch (error) {
         console.error("Error adding document: ", error.message || error);
         return error.message || null;
@@ -28,7 +27,7 @@ export async function addDepartment(shortName: string, fullName: string, employe
 
 
 
-export async function getAllDepartments(): Promise<any[]> {
+export async function listAllDepartments(): Promise<any[]> { 
     try {
         // Assuming departments are stored under 'users/Nik's/departments'
         const collRef = collection(db, 'users', "Nik's", 'departments'); 
@@ -45,6 +44,7 @@ export async function getAllDepartments(): Promise<any[]> {
         return [];
     }
 }
+
 
 
 
@@ -78,7 +78,7 @@ interface Accident {
 
 
 
-export async function getAllAccidents(departmentID: string): Promise<Accident[]> {
+export async function listDepartmentAccidents(departmentID: string): Promise<Accident[]> {
     try {
         const docRef = collection(db, "users", "Nik's", 'departments', departmentID, 'accidents');
         console.log(docRef.path);
@@ -88,6 +88,7 @@ export async function getAllAccidents(departmentID: string): Promise<Accident[]>
             id: item.id,
             ...item.data() as Accident
         }));
+        console.log(accidents)
         return accidents;
     } catch (error) {
         console.error(error);
@@ -95,15 +96,10 @@ export async function getAllAccidents(departmentID: string): Promise<Accident[]>
     }
 }
 
-
-
-
-
-export async function addAccident(
+export async function addNewAccident(
     departmentID: string, 
     title: string = 'default', 
-    accidentDescription: string = 'Unamed', 
-    status: string = 'unsolved',
+    description: string = 'Unamed', 
     involvedEmployees: EmployeeType[] = [],
     timestamp: Date // Add this new parameter
 ) {
@@ -113,19 +109,17 @@ export async function addAccident(
         const startDate: Date = new Date('2022-05-10');
         const differenceInMilliseconds: number = timestamp.getTime() - startDate.getTime(); // Use the timestamp
         const differenceInSeconds: number = Math.floor(differenceInMilliseconds / 1000);
-    
-        // Create an array of involved employees with only the necessary properties
         const involvedEmployeesData = involvedEmployees.map(emp => ({
             id: emp.id,
             name: emp.name,
-            lastName: emp.lastName
+            lastName: emp.lastName,
         }));
     
         // Add accident document to Firestore with the involved employees
         await addDoc(collRef, {
             title,
-            accidentDescription,
-            status,
+            description,
+            status: 'unsolved',
             time: differenceInSeconds, // This is a number
             involvedEmployees: involvedEmployeesData // Add involved employees here
         });
@@ -156,7 +150,27 @@ export async function deleteAccident(departmentID, accidentID) {
 
 //Employees
 
-export async function getEmployees(departmentID) {
+export async function listAllEmployees() {
+try {
+        const collRefDep = collection(db,'users', "Nik's", 'departments')
+        const docSnapDep = await getDocs(collRefDep)
+        
+        const employees = await Promise.all(
+            docSnapDep.docs.map(async (item)=>{
+                const collRefEmployees = collection(db, 'users', "Nik's", 'departments', item.id, 'employees')
+                const docSnapEmployees = await getDocs(collRefEmployees)
+                
+                return docSnapEmployees.docs.map((item) => item.data())
+            })
+        )
+        return  employees.flat()
+} catch (error) {
+    console.error(error)
+    return []
+}
+}
+
+export async function listDepartmentEmployees(departmentID) {
     try {
         const docRef = collection(db, "users", "Nik's", 'departments', departmentID, 'employees' )
         const docSnp = await getDocs(docRef)
@@ -174,10 +188,11 @@ export async function getEmployees(departmentID) {
 }
 
 
-export async function deleteEmployeer(departmentID, employeeID:string) {
+export async function deleteEmployeer(departmentID:string, employeeID:string) {
     try {
         const docRef = doc(db, 'users', "Nik's",'departments', departmentID, 'employees', employeeID)
         await deleteDoc(docRef)
+        alert('Employee was deleted')
     } catch (error) {
         console.error(error)
     }
@@ -185,10 +200,20 @@ export async function deleteEmployeer(departmentID, employeeID:string) {
 
 
 
-export async function addEmployee(departmentID: string, name: string, lastName: string, timestamp: string, accidents: number) {
+export async function addNewEmployee(departmentID: string, name: string, lastName: string, timestamp: string, accidents: number) {
     try {
+        // Validate departmentID
+        if (typeof departmentID !== 'string' || !departmentID) {
+            throw new Error('Invalid departmentID');
+        }
+
         // Reference to the employees collection within the specified department
         const employeesCollectionRef = collection(db, "users", "Nik's", "departments", departmentID, "employees");
+
+        // Validate name and lastName
+        if (!name || !lastName) {
+            throw new Error('Name and last name are required');
+        }
 
         // Add a new employee document and let Firestore generate an ID
         await addDoc(employeesCollectionRef, {
@@ -206,7 +231,6 @@ export async function addEmployee(departmentID: string, name: string, lastName: 
         console.error("Error adding employee: ", error);
     }
 }
-
 
 
 

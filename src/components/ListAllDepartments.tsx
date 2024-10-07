@@ -1,8 +1,8 @@
 "use client";
 import { useEffect, useState } from "react";
-import { getAllDepartments } from "@/firebase/actions";
+import { listAllDepartments } from "@/firebase/actions";
 import { useRouter } from "next/navigation";
-import AddNewDepartment from "@/components/AddNewDepartment";
+
 
 export default function ListDepartments() {
     const [departments, setDepartments] = useState<any[]>([]);
@@ -14,7 +14,7 @@ export default function ListDepartments() {
     useEffect(() => {
         const fetchDataDepartments = async () => {
             try {
-                const depData = await getAllDepartments();
+                const depData = await listAllDepartments();
                 if (Array.isArray(depData)) {
                     setDepartments(depData);
                 } else {
@@ -29,28 +29,12 @@ export default function ListDepartments() {
         };
         fetchDataDepartments();
 
-        async function fetchDataDepartmentsAccidents(){
-            try {
-                
-            } catch (error) {
-                
-            }
-        }
-        fetchDataDepartments()
     }, []);
 
-    const handleNewDepartmentAdded = () => {
-      
-        const fetchData = async () => {
-            const depData = await getAllDepartments();
-            setDepartments(depData);
-        };
-        fetchData();
-    };
+    
 
     return (
         <div>
-            <AddNewDepartment onDepartmentAdded={handleNewDepartmentAdded} />
             <h4 className="mb-4">All departments</h4>
             {!loading && !error ? (
                 <div className="adminShowcase">
@@ -59,7 +43,11 @@ export default function ListDepartments() {
                             <h3 className="dpText">{department.shortName}</h3>
                             <p className="dpText">{department.fullName}</p>
                             <p className="dpText">{department.employee}</p>
-                            <button className="mainButton" onClick={() => router.push(`admin/${department.id}`)}>View</button>
+                            <button className="mainButton" onClick={() => router.push(`departments/${department.id}/accidents`)}>Report Accident</button>
+                            <div>
+                                <button>Delete Department</button>
+                                <button>Edit Department</button>
+                            </div>
                         </div>
                     ))}
                 </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { addAccident, getEmployees, getAllAccidents } from "@/firebase/actions";
+import { addNewAccident, listDepartmentEmployees, listDepartmentAccidents } from "@/firebase/actions";
 import { updateDoc, doc, increment } from 'firebase/firestore';
 import { db } from '@/firebase';
 
@@ -33,7 +33,7 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
         setTimeNow(formattedDate); // Set the formatted date
 
         async function fetchData() {
-            const employeesList: EmployeeType[] = await getEmployees(departmentID) as EmployeeType[];
+            const employeesList: EmployeeType[] = await listDepartmentEmployees(departmentID) as EmployeeType[];
             setEmployees(employeesList);
             console.log(employeesList);
         }
@@ -42,12 +42,19 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
 
     function handleReport(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-
+    
         if (Array.isArray(employees) && employees.length > 0) {
+            // Create the Date object directly from timeNow
             const timestamp = new Date(timeNow); 
-            addAccident(departmentID, title, description, status, envolvedEmployees, timestamp); 
+            
+            if (isNaN(timestamp.getTime())) { // Check if timestamp is valid
+                console.error("Invalid timestamp:", timeNow);
+                return; // Exit if the timestamp is not valid
+            }
+    
+            addNewAccident(departmentID, title, description, envolvedEmployees, timestamp); 
             console.log("Accident reported with involved employees:", envolvedEmployees);
-
+    
             envolvedEmployees.forEach(async (employee) => {
                 if (employee && employee.id) {
                     try {
@@ -55,7 +62,7 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
                         await updateDoc(employeeRef, {
                             accidents: increment(1)
                         });
-
+    
                         console.log(`Accident count updated for employee ${employee.name} ${employee.lastName}`);
                     } catch (error) {
                         console.error(`Error updating accident count for employee ${employee.name} ${employee.lastName}:`, error);
@@ -64,7 +71,7 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
             });
         }
     }
-
+    
     const handleEmployeeChange = (index: number, employeeId: string) => {
         const selectedEmployee = employees?.find(emp => emp.id === employeeId);
         

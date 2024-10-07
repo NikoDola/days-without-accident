@@ -1,10 +1,7 @@
-import ListDepartments from "@/components/ListAllDepartments";
+import ListAllEmployees from '@/components/ListAllEmployees'
 
-export default function AdminPage() {
-    return (
-        <div>
-            <h1>Admin Dashboard</h1>
-            <ListDepartments />
-        </div>
-    );
+export default async function dashBoard() {
+    return(
+        <ListAllEmployees/>
+    )
 }

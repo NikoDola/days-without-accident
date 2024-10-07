@@ -27,8 +27,8 @@ body{
 }
 
 .day{
-    font-weight: bold;
-    font-size: 2em;
+
+    font-size: 3em;
     bottom: 0;
 }
 
@@ -40,7 +40,9 @@ body{
 
 .mainCounterWrapper{
     display: flex;
-    align-items: end;
+    flex-direction: column;
+    align-items: start;
+    gap: 1em;
     margin: 4rem 0;
     
 }
@@ -112,6 +114,10 @@ body{
     flex-direction: column;
 }
 
+.departmentHeader{
+    font-size: 1.2rem;
+}
+
 @media only screen and (min-width: 1920px) and
  (min-height: 1080px) {
 
@@ -143,6 +149,7 @@ body{
      font-size: 1.5em;
     }
  
+    .departmentHeader{font-size: 3em;}
     
     .statistic{
         font-size: 2em;

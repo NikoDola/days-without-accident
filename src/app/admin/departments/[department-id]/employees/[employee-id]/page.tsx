@@ -1,4 +1,4 @@
-import { getEmployees, getAllDepartments } from "@/firebase/actions";
+import { listDepartmentEmployees, listAllDepartments } from "@/firebase/actions";
 import SingleEmployee from "@/components/SingleEmployee";
 interface EmployeePageProps{
     params:{
@@ -9,9 +9,9 @@ interface EmployeePageProps{
 
 
 export default async function Employees({params}){
-    const department = await getAllDepartments();
+    const department = await listAllDepartments();
     const selectedDepartment = department.find((item) =>
-    item.id.toLowerCase() === params['report-id'].toLowerCase()
+    item.id.toLowerCase() === params['department-id'].toLowerCase()
     );
     
     if(!selectedDepartment){
@@ -22,7 +22,7 @@ export default async function Employees({params}){
         )
     }
 
-    const employee: any = await getEmployees(selectedDepartment.id);
+    const employee: any = await listDepartmentEmployees(selectedDepartment.id);
 
     const selectedEmployee = employee.find((item)=>
     item.id.toLowerCase() === params['employee-id'].toLowerCase()
@@ -30,7 +30,7 @@ export default async function Employees({params}){
     if(!selectedEmployee){
         return(
             <main>
-                <p>No Accident Found</p>
+                <p>No Employee found</p>
             </main>
         )
     }

@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import "./css-components/counter.css";
 
-import { getAllDepartments, getAllSeconds } from "@/firebase/actions";
+import { listAllDepartments, getAllSeconds } from "@/firebase/actions";
 
 interface TypeCheckDepartments {
   fullName: string;
@@ -25,7 +25,7 @@ export default function Counter() {
       setRecordTime(getGaps)
       setSeconds(getSecondsOne);
 
-      const allDepartments: TypeCheckDepartments[] = await getAllDepartments();
+      const allDepartments: TypeCheckDepartments[] = await listAllDepartments();
       setDepartments(allDepartments);
     } catch (error) {
       console.error(error);
@@ -92,8 +92,8 @@ export default function Counter() {
                 <p className="fullName">Total Accidents</p>
                 <p className="counterNum">{seconds.length}</p>
               </div>
-            {daysSinceLastAccident < 0 ? (
-              <p className="daysSinceLast">days since the last accident is Loading... </p>
+            {daysSinceLastAccident <= 0 ? (
+              <p className="daysSinceLast">Loading Stastic...</p>
             ) : (
               <div className="daysSinceLast">
                  <p > {daysSinceLastAccident} Days since the last accident </p>
@@ -108,8 +108,10 @@ export default function Counter() {
         </div>
 
         <div className="rightWrapper">
+          {departments.length > 0 ? <p className="departmentHeader" >Departments:</p >: <p className="departmentHeader" >Loading Departments...</p >}
+          
           {departments.length > 0 ? (
-            departments.map((item) => (
+            departments.sort((a, b) =>  a.accidents - b.accidents).map((item) => (
               <div key={item.shortName} className="CounterWrapper">
                 <div className="departmentWrapper">
                   <p className="fullName">{item.fullName}</p>

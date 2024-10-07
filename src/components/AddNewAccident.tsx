@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { addNewAccident, listDepartmentEmployees, listDepartmentAccidents } from "@/firebase/actions";
+import { addNewAccident, listDepartmentEmployees } from "@/firebase/actions";
 import { updateDoc, doc, increment } from 'firebase/firestore';
 import { db } from '@/firebase';
 

@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { addNewDepartment, getAllDepartments } from "@/firebase/actions";
+import { addNewDepartment } from "@/firebase/actions";
 
 
 export default function AddNewDepartment() {

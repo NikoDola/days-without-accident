@@ -17,7 +17,7 @@ export default function Login() {
   
   const { login, errorCode, user, googleLogin  } = useUser();
 
-  user && router.push('/admin')
+  user && router.push('/admin/departments')
 
   const handleLogin = () => {
     login(credential.userName, credential.password);

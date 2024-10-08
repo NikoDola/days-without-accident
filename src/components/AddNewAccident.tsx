@@ -5,19 +5,17 @@ import { addNewAccident, listDepartmentEmployees } from "@/firebase/actions";
 import { updateDoc, doc, increment } from 'firebase/firestore';
 import { db } from '@/firebase';
 
-// Define the EmployeeType interface
+
 interface EmployeeType {
     id: string;
     name: string;
     lastName: string;
-    // Add other properties as needed
 }
 
 export default function ReportAccident({ departmentID }: { departmentID: string }) {
     const [employees, setEmployees] = useState<EmployeeType[] | null>(null);
     const [title, setTitle] = useState<string>("");  
-    const [description, setDescription] = useState<string>("");  
-    const [status, setStatus] = useState<string>("");  
+    const [description, setDescription] = useState<string>("");    
     const [envolvedEmployees, setEnvolvedEmployees] = useState<EmployeeType[]>([]);
     const [envolvedNumber, setEnvolvedNumber] = useState<number>(0);
     const [timeNow, setTimeNow] = useState<string>("");
@@ -28,7 +26,6 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
         const year = time.getFullYear();
         const month = (time.getMonth() + 1).toString().padStart(2, '0');
         const date = time.getDate().toString().padStart(2, '0');
-
         const formattedDate = `${year}-${month}-${date}`;
         setTimeNow(formattedDate); // Set the formatted date
 
@@ -44,7 +41,6 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
         e.preventDefault();
     
         if (Array.isArray(employees) && employees.length > 0) {
-            // Create the Date object directly from timeNow
             const timestamp = new Date(timeNow); 
             
             if (isNaN(timestamp.getTime())) { // Check if timestamp is valid
@@ -58,8 +54,8 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
             envolvedEmployees.forEach(async (employee) => {
                 if (employee && employee.id) {
                     try {
-                        const employeeRef = doc(db, 'users', "Nik's", 'departments', departmentID, 'employees', employee.id);
-                        await updateDoc(employeeRef, {
+                        const docRef = doc(db, 'users', "Nik's", 'departments', departmentID, 'employees', employee.id);
+                        await updateDoc(docRef, {
                             accidents: increment(1)
                         });
     
@@ -97,7 +93,6 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
 
     return (
         <form onSubmit={handleReport}>
-            <label>Report Accident at {departmentID}</label>
             <input 
                 placeholder='title'
                 value={title}

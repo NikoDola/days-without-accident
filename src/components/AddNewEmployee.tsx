@@ -1,5 +1,7 @@
 "use client"
 import { addNewEmployee } from "@/firebase/actions";
+import { updateDoc, doc, increment } from 'firebase/firestore';
+import { db } from "@/firebase";
 
 export default function AddNewEmployee({ departmentID }) {
     const addEmployeeHandle = async (e) => {
@@ -7,11 +9,12 @@ export default function AddNewEmployee({ departmentID }) {
         const name = e.target.elements.name.value;
         const lastName = e.target.elements.lastName.value;
 
-        // Validate departmentID before calling addNewEmployee
         if (!departmentID) {
             console.error("Invalid departmentID");
             return; 
         }
+
+       
 
         // Add the new employee
         await addNewEmployee(departmentID, name, lastName,  0); // Use an actual timestamp value

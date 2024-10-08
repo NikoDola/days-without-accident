@@ -1,10 +1,11 @@
-import { collection, setDoc, doc, getDoc, getDocs, deleteDoc, addDoc, updateDoc} from "firebase/firestore";
+import { collection, setDoc, doc, getDoc, getDocs, deleteDoc, addDoc, updateDoc, increment} from "firebase/firestore";
 import { db } from "@/firebase";
+import { Department, Accident, EmployeeType } from "./types";
 
 
 
-// Departments 
 
+//Departments 
 export async function addNewDepartment(shortName: string, fullName: string, employees: number = 0, accidents: number = 0): Promise<string | null> {
     try {
         const departmentsCollectionRef = collection(db, "users", "Nik's", "departments"); 
@@ -57,6 +58,20 @@ export async function singleDepartment(departmentID: string) {
     
 }
 
+export async function editDepartment(departmentID: string, newData: Partial<Department>) {
+  try {
+    const docRef = doc(db, 'users', "Nik's", 'departments', departmentID);
+    
+    // Await the update operation
+    await updateDoc(docRef, newData);
+    
+    alert('The department has been updated');
+    return true;
+  } catch (error) {
+    console.error("Error updating department: ", error);
+    return false;
+  }
+}
 
 export async function deleteDepartment(id: string): Promise<void> {
     try {
@@ -69,26 +84,8 @@ export async function deleteDepartment(id: string): Promise<void> {
     }
 }
 
-interface EmployeeType {
-    id: string;
-    name: string;
-    lastName: string;
-    // Add other properties as needed
-}
-
 
 //Accidents
-interface Accident {
-    title: string;
-    accidentDescription: string;
-    status: string;
-    time: number;
-    involvedEmployees: EmployeeType[];
-    description: string;
-}
-
-
-
 export async function listDepartmentAccidents(departmentID: string): Promise<Accident[]> {
     try {
         const docRef = collection(db, "users", "Nik's", 'departments', departmentID, 'accidents');
@@ -135,6 +132,11 @@ export async function addNewAccident(
             time: differenceInSeconds, // This is a number
             involvedEmployees: involvedEmployeesData // Add involved employees here
         });
+
+        const departmentRef = doc(db, 'users', "Nik's",'departments', departmentID)
+        await updateDoc(departmentRef, {
+            accidents: increment(1)
+        })
         
          
         alert('accident was added')
@@ -146,20 +148,41 @@ export async function addNewAccident(
     }
 }
 
-export async function editAccident(departmentID:string, accidentID:string, newData:Partial<Accident>){
+export async function singleAccident(departmentID: string, accidentID: string) {
     try {
-        const docRef = doc(db, 'users', "Nik's", 'departments', departmentID )
-        await updateDoc(docRef, newData)
+        const docRef = doc(db, 'users', "Nik's", 'departments', departmentID, 'accidents', accidentID)
+        const docSnap = await getDoc(docRef)
+        return docSnap.data()
     } catch (error) {
         console.error(error)
+        return []
     }
+    
 }
+
+export async function editAccidents(departmentID: string, accidentID, newData: Partial<Department>) {
+    try {
+      const docRef = doc(db, 'users', "Nik's", 'departments', departmentID, 'accidents', accidentID);
+      
+      await updateDoc(docRef, newData);
+      
+      alert('The department has been updated');
+      return true;
+    } catch (error) {
+      console.error("Error updating department: ", error);
+      return false;
+    }
+  }
 
 export async function deleteAccident(departmentID: string, accidentID:string) {
     try {
         const docRef = doc(db, 'users', "Niks", 'departments', departmentID, 'accidents', accidentID)
         await deleteDoc(docRef)
         alert('accedent was deleted')
+        const departmentRef = doc(db, 'users', "Nik's",'departments', departmentID)
+        await updateDoc(departmentRef, {
+            employees: increment(-1)
+        })
     } catch (error) {
         console.error(error)
     }
@@ -206,12 +229,30 @@ export async function listDepartmentEmployees(departmentID) {
 
 }
 
+export async function editEmployee(departmentID: string, employeeID: string, newData: Partial<Department>) {
+    try {
+      const docRef = doc(db, 'users', "Nik's", 'departments', departmentID, 'accidents', employeeID);
+      
+      await updateDoc(docRef, newData);
+      
+      alert('The department has been updated');
+      return true;
+    } catch (error) {
+      console.error("Error updating department: ", error);
+      return false;
+    }
+  }
 
 export async function deleteEmployeer(departmentID:string, employeeID:string) {
     try {
         const docRef = doc(db, 'users', "Nik's",'departments', departmentID, 'employees', employeeID)
         await deleteDoc(docRef)
         alert('Employee was deleted')
+
+        const departmentRef = doc(db, 'users', "Nik's",'departments', departmentID)
+        await updateDoc(departmentRef, {
+            employees: increment(-1)
+        })
     } catch (error) {
         console.error(error)
     }
@@ -247,6 +288,10 @@ export async function addNewEmployee(departmentID: string, name: string, lastNam
             departmentName: departmentID
         });
 
+        const departmentRef = doc(db, 'users', "Nik's",'departments', departmentID)
+        await updateDoc(departmentRef, {
+            employees: increment(1)
+        })
         alert('Employee data was created');
         window.location.reload()
     } catch (error) {

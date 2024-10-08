@@ -47,7 +47,7 @@ export default async function Accident({ params }: AccidentsPageProps) {
 
     return (
         <main>
-            <SingleAccident departmentID={selectedDepartment.id} accidentID={selectedAccident.id } selected={selectedAccident}/>
+      
             
         </main>
     );

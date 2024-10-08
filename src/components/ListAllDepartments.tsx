@@ -47,7 +47,7 @@ export default function ListDepartments() {
                             <p className="dpText">{department.fullName}</p>
                             <button className="mainButton" onClick={() => router.push(`departments/${department.id}/accidents`)}>Report Accident</button>
                             {toggle && <ul>
-                                <li><Link className="text-blue-500" href={`/admin/departments/${department.id}`}>Edit Department</Link></li>
+                                <li><Link className="text-blue-500" href={`/admin/departments/${department.id}/edit-department`}>Edit Department</Link></li>
                                 <li><Link className="text-blue-500" href={`/admin/departments/${department.id}/employees`}>Add new employee</Link></li>
                                 </ul>}
     

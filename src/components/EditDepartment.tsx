@@ -1,84 +1,41 @@
 "use client"
-import { db } from "@/firebase"
-import { updateDoc, doc, getDoc } from "firebase/firestore"
-import { useEffect, useState } from "react"
+import { deleteDepartment } from "@/firebase/actions"
+import { useRouter } from "next/navigation"
+import { editDepartment } from "@/firebase/actions"
+import { useState } from "react"
 
-export default function EditDepartment({ departmentID }) {
-    const [departmentName, setDepartmentName] = useState({
-        fullName: '',
-        shortName: ''
-    });
+export default function EditDepartment({departmentID}){
+    const [newData, setNewData] = useState({})
+    const router = useRouter()
 
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const docRef = doc(db, 'users', "Nik's", 'departments', departmentID);
-                const docSnap = await getDoc(docRef);
-                const data = docSnap.data();
-
-                if (data) {
-                    setDepartmentName({
-                        fullName: data.fullName || '',
-                        shortName: data.shortName || '',
-                    });
-                }
-            } catch (error) {
-                console.error(error);
-            }
-        }
-
-        fetchData();
-    }, [departmentID]);
-
-    const handleUpdate = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        try {
-            const docRef = doc(db, 'users', "Nik's", 'departments', departmentID);
-            const docSnap = await getDoc(docRef);
-
-            if (docSnap.exists()) {
-                const existingData = docSnap.data();
-
-                // Only update if the fields have values, else retain the existing data
-                const updatedData = {
-                    fullName: departmentName.fullName || existingData.fullName,
-                    shortName: departmentName.shortName || existingData.shortName,
-                };
-
-                await updateDoc(docRef, updatedData);
-            }
-        } catch (error) {
-            console.error("Error updating document:", error);
+        const success = await editDepartment(departmentID, newData);
+        if (success) {
+          router.refresh(); // Refresh the page after update
         }
-    };
+      };
+    
+    const handleUpdate = (e) =>{
+        e.preventDefault()
+        setNewData((prevData) => ({
+            ...prevData,
+            [e.target.name]: e.target.value
+        }))
+    }
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setDepartmentName((prev) => ({
-            ...prev,
-            [name]: value
-        }));
-    };
-
-    return (
-        <main>
-            <form onSubmit={handleUpdate}>
-                <input
-                    type="text"
-                    name="fullName"
-                    value={departmentName.fullName}
-                    onChange={handleChange}
-                    placeholder="Full Name"
-                />
-                <input
-                    type="text"
-                    name="shortName"
-                    value={departmentName.shortName}
-                    onChange={handleChange}
-                    placeholder="Short Name"
-                />
-                <button type="submit">Submit</button>
+    const handleDelete = async() => {
+        await deleteDepartment(departmentID)
+        router.push('/admin/departments')
+    }
+    return(
+        <section>
+            <form onSubmit={handleSubmit}>
+                <input onChange={handleUpdate} name="shortName" placeholder="short name"/>
+                <input onChange={handleUpdate} name="fullName" placeholder="full name"/>
+                <button  className="mainButton">update department</button>
+                <button onClick={handleDelete} className="mainButton">Delete Department</button>
             </form>
-        </main>
-    );
+        </section>
+    )
 }

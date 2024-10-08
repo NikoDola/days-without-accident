@@ -1,22 +1,19 @@
 "use client"
-import { deleteDepartment } from "@/firebase/actions"
-import { listAllDepartments } from "@/firebase/actions"
-export default function SingleDepartment({departmentID}){
-    const handleDeleteDepartment = async () => {
-        try {
-            await deleteDepartment(departmentID)
-            console.log('department was deleted')
-        } catch (error) {
-            console.error(error)
-        }
-    }
-    return(
-        <main>
-        
 
-            <form>
-                <button className="mainButton" onClick={handleDeleteDepartment}>Delete Department</button>
-            </form>
-        </main>
+
+export default function SingleDepartment({shortName, fullName, accidents, employees, createdAt}){
+    
+
+    return(
+        <section>
+            <h2>{shortName}</h2>
+            <h5>{fullName}</h5>
+            <p>created at: {createdAt}</p>
+            <div>
+                {accidents === 1 ? <p>{accidents} accident:</p>: <p>{accidents} accidents</p>}
+                {employees === 1 ? <p>{employees} employee:</p>: <p>{employees} emoployees</p>}
+            </div>
+        
+        </section>
     )
 }

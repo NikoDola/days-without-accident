@@ -14,10 +14,7 @@ interface EmployeeTypeCheck {
 
 export default function ListDepartmentEmployees({ departmentID }) {
     const [employeesList, setEmployeesList] = useState<[] | null>(null)
-    const [deletedEmployeeId, setDeletedEmployeeId] = useState<string | null>(null);
 
-
-    // Fetch the employees on mount or when departmentID changes
     const fetchEmployees = async () => {
         try {
             const employees = await listDepartmentEmployees(departmentID) as any;
@@ -42,7 +39,7 @@ export default function ListDepartmentEmployees({ departmentID }) {
                 {!employeesList ? <p>Loading...</p> : employeesList.map((item: EmployeeTypeCheck) => (
                     <div
                         key={item.id}
-                        className={`flex gap-8 justify-between w-full border-solid border-black border-2 p-4 transition-opacity duration-1000 ${deletedEmployeeId === item.id ? 'opacity-0' : 'opacity-100'}`}
+                        className={`flex gap-8 justify-between w-full border-solid border-black border-2 p-4 transition-opacity duration-1000`}
                     >
                         <div className="flex items-center gap-2">
                             <img className="profileImageList" src={item.photoURL} alt="profile" />

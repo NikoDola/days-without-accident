@@ -1,14 +1,16 @@
 "use client";
 import { useEffect, useState } from "react";
 import { listAllDepartments } from "@/firebase/actions";
+
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 
 export default function ListDepartments() {
     const [departments, setDepartments] = useState<any[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    
+    const [toggle, setToggle] = useState<boolean>(true)
     const router = useRouter();
 
     useEffect(() => {
@@ -40,14 +42,15 @@ export default function ListDepartments() {
                 <div className="adminShowcase">
                     {departments.map((department) => (
                         <div className="dpBox" key={department.id}>
+                            <div>toggle</div>
                             <h3 className="dpText">{department.shortName}</h3>
                             <p className="dpText">{department.fullName}</p>
-                            <p className="dpText">{department.employee}</p>
                             <button className="mainButton" onClick={() => router.push(`departments/${department.id}/accidents`)}>Report Accident</button>
-                            <div>
-                                <button>Delete Department</button>
-                                <button>Edit Department</button>
-                            </div>
+                            {toggle && <ul>
+                                <li><Link className="text-blue-500" href={`/admin/departments/${department.id}`}>Edit Department</Link></li>
+                                <li><Link className="text-blue-500" href={`/admin/departments/${department.id}/employees`}>Add new employee</Link></li>
+                                </ul>}
+    
                         </div>
                     ))}
                 </div>

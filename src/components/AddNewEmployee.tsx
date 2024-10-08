@@ -10,11 +10,11 @@ export default function AddNewEmployee({ departmentID }) {
         // Validate departmentID before calling addNewEmployee
         if (!departmentID) {
             console.error("Invalid departmentID");
-            return; // Early return if departmentID is invalid
+            return; 
         }
 
         // Add the new employee
-        await addNewEmployee(departmentID, name, lastName, 'timestamp_value_here', 0); // Use an actual timestamp value
+        await addNewEmployee(departmentID, name, lastName,  0); // Use an actual timestamp value
         e.target.reset();
     }
 

@@ -16,7 +16,7 @@ export async function addNewDepartment(shortName: string, fullName: string, empl
             createdAt: new Date(),
             accidents: 0
         });
-
+        window.location.reload()
         console.log("Document written with unique ID: ", docRef.id);
         return docRef.id;
     } catch (error) {
@@ -45,7 +45,17 @@ export async function listAllDepartments(): Promise<any[]> {
     }
 }
 
-
+export async function singleDepartment(departmentID: string) {
+    try {
+        const docRef = doc(db, 'users', "Nik's", 'departments', departmentID)
+        const docSnap = await getDoc(docRef)
+        return docSnap.data()
+    } catch (error) {
+        console.error(error)
+        return []
+    }
+    
+}
 
 
 export async function deleteDepartment(id: string): Promise<void> {
@@ -74,6 +84,7 @@ interface Accident {
     status: string;
     time: number;
     involvedEmployees: EmployeeType[];
+    description: string;
 }
 
 
@@ -113,6 +124,7 @@ export async function addNewAccident(
             id: emp.id,
             name: emp.name,
             lastName: emp.lastName,
+            description,
         }));
     
         // Add accident document to Firestore with the involved employees
@@ -134,9 +146,16 @@ export async function addNewAccident(
     }
 }
 
+export async function editAccident(departmentID:string, accidentID:string, newData:Partial<Accident>){
+    try {
+        const docRef = doc(db, 'users', "Nik's", 'departments', departmentID )
+        await updateDoc(docRef, newData)
+    } catch (error) {
+        console.error(error)
+    }
+}
 
-
-export async function deleteAccident(departmentID, accidentID) {
+export async function deleteAccident(departmentID: string, accidentID:string) {
     try {
         const docRef = doc(db, 'users', "Niks", 'departments', departmentID, 'accidents', accidentID)
         await deleteDoc(docRef)
@@ -200,37 +219,41 @@ export async function deleteEmployeer(departmentID:string, employeeID:string) {
 
 
 
-export async function addNewEmployee(departmentID: string, name: string, lastName: string, timestamp: string, accidents: number) {
+export async function addNewEmployee(departmentID: string, name: string, lastName: string, accidents: number) {
     try {
-        // Validate departmentID
         if (typeof departmentID !== 'string' || !departmentID) {
             throw new Error('Invalid departmentID');
         }
 
-        // Reference to the employees collection within the specified department
         const employeesCollectionRef = collection(db, "users", "Nik's", "departments", departmentID, "employees");
 
-        // Validate name and lastName
         if (!name || !lastName) {
             throw new Error('Name and last name are required');
         }
 
-        // Add a new employee document and let Firestore generate an ID
+        const now = new Date();
+        const day = String(now.getDate()).padStart(2, '0'); // Ensures 2 digits
+        const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-based, so we add 1
+        const year = now.getFullYear();
+
+        const formattedTimestamp = `${day}-${month}-${year}`;
+
         await addDoc(employeesCollectionRef, {
             name,
             lastName,
-            timestamp,
+            timestamp: formattedTimestamp,  
             accidents,
             photoURL: '/general/profile.png',
-            description: '',
             departmentName: departmentID
         });
 
-        console.log('Employee data was created');
+        alert('Employee data was created');
+        window.location.reload()
     } catch (error) {
         console.error("Error adding employee: ", error);
     }
 }
+
 
 
 

@@ -11,7 +11,7 @@ interface SingleEmployeeProps{
         departmentName: string;
         description: string;
         photoURL:string;
-        timeStam:string;
+        timestamp:string;
     }
 }
 
@@ -23,6 +23,7 @@ export default function SingleEmployee({ employeeID, departmentID, selected}: Si
         <main>
                 <img className="w-12" src={selected.photoURL}></img>
                 <p>{selected.name} {selected.lastName}</p>
+                <p>{selected.timestamp}</p>
                 <button className="mainButton">Edit</button>
                 <button onClick={() => deleteEmployeer(departmentID, employeeID)} className="mainButton">Delete</button>
         </main>

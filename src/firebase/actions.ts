@@ -1,6 +1,6 @@
 import { collection, setDoc, doc, getDoc, getDocs, deleteDoc, addDoc, updateDoc, increment} from "firebase/firestore";
 import { db } from "@/firebase";
-import { Department, Accident, EmployeeType } from "./types";
+import { Department, AccidentType, EmployeeType } from "./types";
 
 
 
@@ -86,7 +86,7 @@ export async function deleteDepartment(id: string): Promise<void> {
 
 
 //Accidents
-export async function listDepartmentAccidents(departmentID: string): Promise<Accident[]> {
+export async function listDepartmentAccidents(departmentID: string): Promise<AccidentType[]> {
     try {
         const docRef = collection(db, "users", "Nik's", 'departments', departmentID, 'accidents');
         console.log(docRef.path);
@@ -94,7 +94,7 @@ export async function listDepartmentAccidents(departmentID: string): Promise<Acc
 
         const accidents = docSnap.docs.map((item) => ({
             id: item.id,
-            ...item.data() as Accident
+            ...item.data() as AccidentType
         }));
         console.log(accidents)
         return accidents;

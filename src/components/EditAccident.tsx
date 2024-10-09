@@ -2,7 +2,7 @@
 import { editAccidents } from '@/firebase/actions';
 import { useState } from 'react';
 
-export default function ({ departmentID, accidentID }) {
+export default function EditAccident({ departmentID, accidentID }) {
     const [newData, setNewData] = useState({});
     const [toggle, setToggle] = useState<boolean>(false);
 

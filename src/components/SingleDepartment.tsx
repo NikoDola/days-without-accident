@@ -6,12 +6,12 @@ export default function SingleDepartment({shortName, fullName, accidents, employ
 
     return(
         <section>
-            <h2>{shortName}</h2>
+            <h2><b>{shortName}</b></h2>
             <h5>{fullName}</h5>
-            <p>created at: {createdAt}</p>
+            <p>created at: <b>{createdAt}</b></p>
             <div>
-                {accidents === 1 ? <p>{accidents} accident:</p>: <p>{accidents} accidents</p>}
-                {employees === 1 ? <p>{employees} employee:</p>: <p>{employees} emoployees</p>}
+                {accidents === 1 ? <p><b>{accidents}</b>accident:</p>: <p><b>{accidents}</b> accidents</p>}
+                {employees === 1 ? <p><b>{employees}</b> employee:</p>: <p><b>{employees}</b> emoployees</p>}
             </div>
         
         </section>

@@ -21,12 +21,17 @@ export default function AddNewDepartment() {
     };
 
     return (
-        <form className="formWrapper" onSubmit={handleAddDepartment}>
-            <h4>Add a department</h4>
-            <input value={newDepartmentName} onChange={(e) => setNewDepartmentName(e.target.value)} placeholder="Enter department short name*" required />
-            <input value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Enter department full name *" required />
-            <button type="submit" className="mainButton mb-8">Enter New Department</button>
-            {error && <p className="text-red-500">Error: {error}</p>}
-        </form>
+        <section>
+            <form className="sectionForm"  onSubmit={handleAddDepartment}>
+            <div className="flex items-center gap-4">
+                <h6 className="altHeadline">Add Departments</h6>
+                <hr className="line"/>
+            </div>
+                <input value={newDepartmentName} onChange={(e) => setNewDepartmentName(e.target.value)} placeholder="Enter department short name*" required />
+                <input value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="Enter department full name *" required />
+                <button type="submit" className="mainButton mb-8">Enter New Department</button>
+                {error && <p className="text-red-500">Error: {error}</p>}
+            </form>
+        </section>
     );
 }

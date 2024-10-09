@@ -103,7 +103,7 @@ export default function ListDepartments() {
                                 <p>Accidents <b>{department.accidents}</b></p>
                                 <p className="mb-4">Employees <b>{department.employees}</b></p>
                             </div>
-                            <button className="altButton" onClick={() => router.push(`departments/${department.id}/accidents`)}>Report Accident</button>
+                            <button className="altButton" onClick={() => router.push(`departments/${department.id}/accidents`)}>Report Accidentt</button>
                         </div>
                     ))}
                 </div>

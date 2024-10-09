@@ -8,7 +8,7 @@ export interface Department{
     employees:number
 }
 
-export interface Accident {
+export interface AccidentType {
     title: string;
     accidentDescription: string;
     status: string;

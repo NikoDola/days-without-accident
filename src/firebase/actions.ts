@@ -104,6 +104,31 @@ export async function listDepartmentAccidents(departmentID: string): Promise<Acc
     }
 }
 
+
+export async function listAllAccidents() {
+    try {
+            const collRefDep = collection(db,'users', "Nik's", 'departments')
+            const docSnapDep = await getDocs(collRefDep)
+            
+            const accidents = await Promise.all(
+                docSnapDep.docs.map(async (item)=>{
+                    const collRefAccidents = collection(db, 'users', "Nik's", 'departments', item.id, 'accidents')
+                    const docSnapAccidents = await getDocs(collRefAccidents)
+                    
+                    return docSnapAccidents.docs.map((item) =>({
+                        id: item.id,
+                        ...item.data()
+                    }) )
+                })
+            )
+            return  accidents.flat()
+    } catch (error) {
+        console.error(error)
+        return []
+    }
+    }
+    
+
 export async function addNewAccident(
     departmentID: string, 
     title: string = 'default', 
@@ -122,15 +147,16 @@ export async function addNewAccident(
             name: emp.name,
             lastName: emp.lastName,
             description,
+   
         }));
     
-        // Add accident document to Firestore with the involved employees
         await addDoc(collRef, {
             title,
             description,
             status: 'unsolved',
             time: differenceInSeconds, // This is a number
-            involvedEmployees: involvedEmployeesData // Add involved employees here
+            involvedEmployees: involvedEmployeesData, // Add involved employees here
+            departmentID, 
         });
 
         const departmentRef = doc(db, 'users', "Nik's",'departments', departmentID)
@@ -202,7 +228,10 @@ try {
                 const collRefEmployees = collection(db, 'users', "Nik's", 'departments', item.id, 'employees')
                 const docSnapEmployees = await getDocs(collRefEmployees)
                 
-                return docSnapEmployees.docs.map((item) => item.data())
+                return docSnapEmployees.docs.map((item) => ({
+                    id: item.id,
+                    ...item.data()
+                }))
             })
         )
         return  employees.flat()
@@ -211,6 +240,7 @@ try {
     return []
 }
 }
+
 
 export async function listDepartmentEmployees(departmentID) {
     try {
@@ -226,7 +256,6 @@ export async function listDepartmentEmployees(departmentID) {
     } catch (error) {
         console.error(error)
     }
-
 }
 
 export async function editEmployee(departmentID: string, employeeID: string, newData: Partial<Department>) {
@@ -285,7 +314,7 @@ export async function addNewEmployee(departmentID: string, name: string, lastNam
             timestamp: formattedTimestamp,  
             accidents,
             photoURL: '/general/profile.png',
-            departmentName: departmentID
+            departmentID,
         });
 
         const departmentRef = doc(db, 'users', "Nik's",'departments', departmentID)

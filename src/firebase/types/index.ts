@@ -9,13 +9,15 @@ export interface Department{
 }
 
 export interface AccidentType {
-    title: string;
-    accidentDescription: string;
-    status: string;
-    time: number;
-    involvedEmployees: EmployeeType[];
-    description: string;
+    id: string;                
+    departmentID: string;     
+    title: string;          
+    status: string;           
+    time: number;          
+    involvedEmployees: EmployeeType[]; 
+    description: string;     
 }
+
 
 export interface EmployeeType {
     id: string;

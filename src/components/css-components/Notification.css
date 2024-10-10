@@ -1,0 +1,46 @@
+.notificationCounter {
+    position: relative;
+    right: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-image: url('/general/notificationCounter.svg');
+    background-repeat: no-repeat;
+    background-size: contain; /* This makes the image fit within the div */
+    cursor: pointer;
+    background-size: 100%; /* This will stretch the image to cover the div */
+}
+
+
+.notification{
+    position: relative;
+    right: 0;
+    width: 1.5rem;
+    height: 1.5rem;
+    background-image: url('/general/notification.svg');
+    background-repeat: no-repeat;
+    background-size: contain; 
+    cursor: pointer;
+    background-size: 100%; /* This will stretch the image to cover the div */
+}
+
+.notificationNumber{
+    color: red;
+    position: absolute;
+    font-weight: 600;
+    top: -0.5rem;
+    font-size: 1rem;
+}
+
+.notificationListWrapper{
+    position: absolute;
+    display: flex;
+    background-color: black;
+    width: 300px;
+    cursor: pointer;
+    color: white;
+    text-align: left;
+    transform: translate(-280px);
+    top: 50px;
+    padding: 1rem;
+
+}

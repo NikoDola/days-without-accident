@@ -2,6 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useUser } from "@/contexts/userContext";
 import Link from "next/link";
+import Notification from "./Notification";
 
 export default function NavBar(){
     const {logoutUser, user} = useUser()
@@ -13,6 +14,7 @@ export default function NavBar(){
                 <li><Link href={'/admin'}> Admin</Link></li>
                 <li><Link href={'/admin/departments'}> Departments</Link></li>
                 {user ? <li className="cursor-pointer" onClick={logoutUser}>Logout</li>: <li>No one is logged in</li>}
+                <Notification/>
             </ul>
         </nav>
     )

@@ -15,14 +15,14 @@ export default function Counter() {
   const [currentTime, setCurrentTime] = useState<number>(0);
   const [departments, setDepartments] = useState<TypeCheckDepartments[]>([]);
   const [seconds, setSeconds] = useState<number[]>([]);
-  const [record, setRecordTime] = useState<number>()
+  // const [record, setRecordTime] = useState<number>()
 
   const fetchData = async () => {
     try {
       const getSeconds = await getAllSeconds();
       const getSecondsOne = getSeconds.sortedTimes;
       const getGaps = getSeconds.gap
-      setRecordTime(getGaps)
+      // setRecordTime(getGaps)
       setSeconds(getSecondsOne);
 
       const allDepartments: TypeCheckDepartments[] = await listAllDepartments();
@@ -53,9 +53,9 @@ export default function Counter() {
 
   // Calculate the days since the last accident
   const daysSinceLastAccident = seconds.length > 0 && Math.floor((currentTime * 86400 - Math.max(...seconds)) / 86400);
-  if(daysSinceLastAccident > record || record === null){
-    setRecordTime(daysSinceLastAccident)
-  }
+  // if(daysSinceLastAccident > record || record === null){
+  //   setRecordTime(daysSinceLastAccident)
+  // }
 
 
 
@@ -97,7 +97,7 @@ export default function Counter() {
             ) : (
               <div className="daysSinceLast">
                  <p > {daysSinceLastAccident} Days since the last accident </p>
-                 {!isNaN(record) && <p>Record days with out accident {record}</p>}
+                 {/* {!isNaN(record) && <p>Record days with out accident {record}</p>} */}
               </div>
              
             )}

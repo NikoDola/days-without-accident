@@ -38,21 +38,23 @@ export default function EditAccident({ departmentID, accidentID }) {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input onChange={handleUpdate} placeholder="Title" name="title" />
-            <select name="status" onChange={handleUpdate}>
-                <option disabled value="">Status</option>
-                <option value="unsolved">Unsolved</option>
-                <option value="solved">Solved</option>
-            </select>
-            {toggle && (
-                <textarea
-                    placeholder="Measurement description"
-                    name="description" // Don't forget to add a name for the textarea
-                    onChange={handleUpdate} // Make sure to handle updates for the textarea as well
-                />
-            )}
-            <button className="mainButton">Update</button>
-        </form>
+        <section>
+            <form className="sectionForm" onSubmit={handleSubmit}>
+                <input onChange={handleUpdate} placeholder="Title" name="title" />
+                <select name="status" onChange={handleUpdate}>
+                    <option disabled value="">Status</option>
+                    <option value="unsolved">Unsolved</option>
+                    <option value="solved">Solved</option>
+                </select>
+                {toggle && (
+                    <textarea
+                        placeholder="Measurement description"
+                        name="description" // Don't forget to add a name for the textarea
+                        onChange={handleUpdate} // Make sure to handle updates for the textarea as well
+                    />
+                )}
+                <button className="mainButton">Update</button>
+            </form>
+        </section>
     );
 }

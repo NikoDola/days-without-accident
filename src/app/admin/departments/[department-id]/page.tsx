@@ -28,16 +28,27 @@ export default async function department({params}){
     }
     
     return(
-<main className="flex justify-around">
-    <SingleDepartment 
-    shortName={department.shortName} 
-    fullName={department.fullName} 
-    accidents={department.accidents}
-    employees={department.employees}
-    createdAt={timestamp}
-    />
-    <EditDepartment departmentID={selectedDepartment.id}/>
-   
+<main >
+
+    <div className="sectionWrapper">
+        <SingleDepartment 
+        shortName={department.shortName} 
+        fullName={department.fullName} 
+        accidents={department.accidents}
+        employees={department.employees}
+        createdAt={timestamp}
+        />
+        <EditDepartment departmentID={selectedDepartment.id}/>
+    </div>
 </main>
     )
 }
+
+{/* <main>
+<p className="url">{urlslice}</p>
+<h4 className="mainHeadline">Departments</h4>
+<div className="sectionWrapper">
+  <AddNewDepartment />
+  <ListAllDepartments />
+</div>
+</main> */}

@@ -92,50 +92,52 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
     };
 
     return (
-        <form onSubmit={handleReport}>
-            <input 
-                placeholder='title'
-                value={title}
-                onChange={(e) => setTitle(e.target.value)}
-            />
-            <textarea 
-                placeholder='description'
-                value={description}
-                onChange={(e) => setDescription(e.target.value)}
-            ></textarea>
-            <input 
-                type='number' 
-                placeholder='number of employees involved in the accident'
-                value={envolvedNumber || ""} // Ensure value is always defined
-                onChange={handleEnvolvedNumberChange} // Use the new function
-            />
+        <section>
+            <form className='sectionForm' onSubmit={handleReport}>
+                <input 
+                    placeholder='title'
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                />
+                <textarea 
+                    placeholder='description'
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                ></textarea>
+                <input 
+                    type='number' 
+                    placeholder='number of employees involved in the accident'
+                    value={envolvedNumber || ""} // Ensure value is always defined
+                    onChange={handleEnvolvedNumberChange} // Use the new function
+                />
+                
+                {[...Array(envolvedNumber)].map((_, index) => (
+                    <select 
+                        key={index} 
+                        onChange={(e) => handleEmployeeChange(index, e.target.value)}
+                        value={envolvedEmployees[index]?.id || ""}
+                    >
+                        <option value="">Select Employee involved</option>
+                        {
+                            !employees ? 
+                                (<option>No data</option>) : 
+                                employees.map((item) => (
+                                    <option key={item.id} value={item.id}>{`${item.name} ${item.lastName} ${item.id}`}</option>
+                                ))
+                        }
+                    </select>
+                ))}
             
-            {[...Array(envolvedNumber)].map((_, index) => (
-                <select 
-                    key={index} 
-                    onChange={(e) => handleEmployeeChange(index, e.target.value)}
-                    value={envolvedEmployees[index]?.id || ""}
-                >
-                    <option value="">Select Employee involved</option>
-                    {
-                        !employees ? 
-                            (<option>No data</option>) : 
-                            employees.map((item) => (
-                                <option key={item.id} value={item.id}>{`${item.name} ${item.lastName} ${item.id}`}</option>
-                            ))
-                    }
-                </select>
-            ))}
-           
-            <input 
-                type="date" 
-                name="timestamp" 
-                value={timeNow} // Use timeNow state for the value
-                onChange={handleDateChange} // Add an onChange handler
-                min="2022-05-15" 
-                max={timeNow} // Use timeNow for max date
-            />
-            <button className='mainButton'>Submit</button>
-        </form>
+                <input 
+                    type="date" 
+                    name="timestamp" 
+                    value={timeNow} // Use timeNow state for the value
+                    onChange={handleDateChange} // Add an onChange handler
+                    min="2022-05-15" 
+                    max={timeNow} // Use timeNow for max date
+                />
+                <button className='mainButton'>Submit</button>
+            </form>
+        </section>
     );
 }

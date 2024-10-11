@@ -21,9 +21,12 @@ export default  async function accidentPage({ params }: ReportPageProps) {
   
   return (
     <main>
-        <p>report accident at {department.shortName}</p>
+     
+      <h4 className="mainHeadline">Accidents</h4>
+      <div className="sectionWrapper">
         <AddNewAccident departmentID={selectedDepartment.id}/>
         <ListDepartmentAccidents departmentID={selectedDepartment.id}/>
+      </div>
 
     </main>
   );

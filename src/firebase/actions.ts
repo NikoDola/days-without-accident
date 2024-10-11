@@ -6,20 +6,32 @@ import { Department, AccidentType, EmployeeType } from "./types";
 
 
 //Departments 
-export async function addNewDepartment(shortName: string, fullName: string, employees: number = 0, accidents: number = 0): Promise<string | null> {
+export async function addNewDepartment(
+    shortName: string, 
+    fullName: string, 
+    employees: number = 0, 
+    accidents: number = 0
+): Promise<string | null> {
     try {
-        const departmentsCollectionRef = collection(db, "users", "Nik's", "departments"); 
+        const unjoin = `${shortName}-${fullName}`; 
+        const departmentId = unjoin.replace(/\s+/g, '-')
+        const departmentsCollectionRef = collection(db, "users", "Nik's", "departments");
 
-        const docRef = await addDoc(departmentsCollectionRef, {
+        // Use doc() to create a document reference with a custom ID
+        const docRef = doc(departmentsCollectionRef, departmentId);
+
+        // Now use setDoc() to set the document
+        await setDoc(docRef, {
             shortName,
             fullName,
             employees,
             createdAt: new Date(),
-            accidents: 0
+            accidents
         });
-        window.location.reload()
-        console.log("Document written with unique ID: ", docRef.id);
-        return docRef.id;
+
+        window.location.reload(); // Optional - reloads the page after adding the document
+        console.log("Document written with custom ID: ", departmentId);
+        return departmentId;
     } catch (error) {
         console.error("Error adding document: ", error.message || error);
         return error.message || null;

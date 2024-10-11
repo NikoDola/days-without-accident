@@ -30,11 +30,11 @@ export default function EditDepartment({departmentID}){
     }
     return(
         <section>
-            <form onSubmit={handleSubmit}>
+            <form className="sectionForm" onSubmit={handleSubmit}>
                 <input onChange={handleUpdate} name="shortName" placeholder="short name"/>
                 <input onChange={handleUpdate} name="fullName" placeholder="full name"/>
-                <button  className="mainButton">update department</button>
-                <button onClick={handleDelete} className="mainButton">Delete Department</button>
+                <button  className="mainButton">update </button>
+                <button onClick={handleDelete} className="mainButton">Delete</button>
             </form>
         </section>
     )

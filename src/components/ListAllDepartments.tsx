@@ -109,7 +109,7 @@ export default function ListDepartments() {
                                 )}
                                 <h3 className="shortName">{department.shortName}</h3>
                                 <p className="mb-4">{department.fullName}</p>
-                                <hr></hr>
+                                <hr className="hrDecorationzx"/>
                                 <p className="mt-4">Accidents <b>{department.accidents}</b></p>
                                 <p className="mb-4">Employees <b>{department.employees}</b></p>
                             </div>

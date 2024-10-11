@@ -123,12 +123,6 @@
     top: 50%;
     transform: translateY(-50%);
   }
-
-
-
-  
-  
-  
   .searchFilterWrapper::before{
     content: "";
     width: 30px;
@@ -140,4 +134,8 @@
     position: relative;
     padding: 0.5rem 2.5rem 0.5rem 1rem;
     position: relative;
+  }
+
+  @media screen and (max-width:780px){
+
   }

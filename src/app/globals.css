@@ -23,12 +23,26 @@ body {
 h1{font-size: 3rem;} h2{font-size: 2.5rem;} h3{font-size: 2rem;} h4{font-size: 1.75rem;} 
 h5{font-size: 1.5rem;} h6{font-size: 1.2rem;} .ts{font-size: 0.8rem} .txs{font-size: 0.7rem;}
 
-.mainHeadline{
-  font-weight: 600;
-  text-decoration: underline;
-  text-decoration-color: var(--brand-color);
+.mainHeadline {
+  position: relative;
+  font-weight: 700;
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 4rem;
+  font-size: 40px;
+  display: inline-block; /* Ensures the element's width matches the text */
+  left: 50%;
+  transform: translate(-50%);
+}
+
+.mainHeadline::after {
+  content: "";
+  display: block; 
+  position: absolute;
+  bottom: -10px; 
+  left: 0;
+  height: 5px; 
+  background-color: var(--brand-color);
+  width: 100%;
 }
 
 .altHeadline{
@@ -163,24 +177,7 @@ input:focus, textarea:focus{
   margin-top: 2rem;
 }
 
-/* Cards */
-.cardWrapper{
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
 
-.departmentCardWrapper{
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-  
-  width: 48%;
-  border: solid black;
-  padding: 1rem;
-  border-radius: 12px;
-}
 .altButton{
   flex:1;
   padding: 0.5rem;
@@ -190,67 +187,11 @@ input:focus, textarea:focus{
   
 }
 
-.navBarDepartmentCard{
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  background-color: black;
-  color: white;
-  width: 100%;
-  padding: 0;
-  margin: 0;
-  top: 0;
-  padding: 1rem;
-  padding-top: 2rem;
-  padding-right: 2rem;
-  border-radius: 0.5rem;
-  left: 0;
-  gap: 0.5rem;
-  text-align: right;
-}
-
-.departmentCardToggleActive{
-  top: 3px;
-  right: 1rem;
-  text-align: right;
-  position: absolute;
-  z-index: 5;
-  color: black;
-  font-weight: 600;
-  cursor: pointer;
-  height: 100%;
-}
-
-.departmentCardToggleInactive{
-  top: 3px;
-  right: 1rem;
-  cursor: pointer;
-  position: absolute;
-  text-align: right;
-  color: white;
-  z-index: 10;
-  
-}
 
 
 
-.searchFilterWrapper{
-  
-}
 
 
-
-.searchFilterWrapper::before{
-  content: "";
-  width: 30px;
-  height: 30px;
-  background-color: black;
-}
-
-.searchBar{
-  padding: 0.5rem 2rem 0.5rem 1rem;
-  position: relative;
-}
 
 .navbar{
   opacity: 0;

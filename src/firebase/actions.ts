@@ -289,16 +289,23 @@ export async function deleteEmployeer(departmentID:string, employeeID:string) {
 
 
 
-export async function addNewEmployee(departmentID: string, name: string, lastName: string, accidents: number) {
+
+
+export async function addNewEmployee(departmentID: string, name: string, lastName: string, accidents: number, employeeID: string) {
     try {
         if (typeof departmentID !== 'string' || !departmentID) {
             throw new Error('Invalid departmentID');
         }
 
+        // Reference to the employees collection
         const employeesCollectionRef = collection(db, "users", "Nik's", "departments", departmentID, "employees");
 
         if (!name || !lastName) {
             throw new Error('Name and last name are required');
+        }
+
+        if (!employeeID) {
+            throw new Error('EmployeeID is required');
         }
 
         const now = new Date();
@@ -308,25 +315,30 @@ export async function addNewEmployee(departmentID: string, name: string, lastNam
 
         const formattedTimestamp = `${day}-${month}-${year}`;
 
-        await addDoc(employeesCollectionRef, {
+        // Use setDoc() to assign a custom employeeID
+        await setDoc(doc(employeesCollectionRef, employeeID), {
             name,
             lastName,
             timestamp: formattedTimestamp,  
             accidents,
             photoURL: '/general/profile.png',
             departmentID,
+            employeeID,
         });
 
-        const departmentRef = doc(db, 'users', "Nik's",'departments', departmentID)
+        // Update the employee count in the department
+        const departmentRef = doc(db, 'users', "Nik's", 'departments', departmentID);
         await updateDoc(departmentRef, {
             employees: increment(1)
-        })
+        });
+
         alert('Employee data was created');
-        window.location.reload()
+        window.location.reload();
     } catch (error) {
         console.error("Error adding employee: ", error);
     }
 }
+
 
 
 
@@ -370,3 +382,27 @@ export async function getAllSeconds() {
     };
   }
 }
+
+
+
+
+
+export async function listAllTime() {
+    const collDep = collection(db, 'users', "Nik's", 'departments')
+    const getDep = await getDocs(collDep)
+
+    const allAcc = await Promise.all(
+        getDep.docs.map(async(dep) => {
+            const collAcc = collection(db, 'users', "Nik's", 'departments', dep.id, 'accidents')
+            const getAcc = await getDocs(collAcc)
+            return getAcc.docs.map((acc) => acc.data().time) 
+        })
+    )
+    return allAcc.flat()
+}
+
+
+
+
+
+

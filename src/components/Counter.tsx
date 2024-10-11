@@ -31,7 +31,7 @@ export default function Counter() {
       console.error(error);
     }
   };
-
+  console.log(seconds)
   useEffect(() => {
     fetchData();
     const startDate: Date = new Date("2022-05-09");
@@ -93,7 +93,7 @@ export default function Counter() {
                 <p className="counterNum">{seconds.length}</p>
               </div>
             {daysSinceLastAccident <= 0 ? (
-              <p className="daysSinceLast">Loading Stastic...</p>
+              <p className="daysSinceLast">Loading Statistic...</p>
             ) : (
               <div className="daysSinceLast">
                  <p > {daysSinceLastAccident} Days since the last accident </p>

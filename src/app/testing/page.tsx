@@ -1,16 +1,23 @@
 "use client"
-import { listAllEmployees } from "@/firebase/actions"
-import { useEffect, useState } from "react"
-import Notification from "@/components/Notification"
+import { listAllTime } from "@/firebase/actions"
+import { useState, useEffect } from "react"
 
-export default function EmployeeSearch() {
+export default function Time() {
+    const [seconds, setSeconds] = useState([])
 
+    const fetchData = async() =>{
+        const getSeconds = await listAllTime()
+        setSeconds(getSeconds)
+    }
+    useEffect(()=>{
+        fetchData()
+    },[])
 
-    return (
-        <>
-            <form>
-                <Notification />
-            </form>
-        </>
-    );
+return(
+    <>
+        {seconds.length > 0 ? seconds.map((item, index)=>(
+            <p key={index}>{item}</p>
+        )) :<p>nope</p>}
+    </>
+)
 }

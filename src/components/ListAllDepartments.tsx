@@ -2,7 +2,9 @@
 import { useEffect, useState } from "react";
 import { listAllDepartments } from "@/firebase/actions";
 import { useRouter } from "next/navigation";
+import "@/components/css-components/ListAllDepartments.css"
 import Link from "next/link";
+import Image from "next/image";
 
 export default function ListDepartments() {
     const [departments, setDepartments] = useState<any[]>([]);
@@ -61,23 +63,9 @@ export default function ListDepartments() {
                 <h6 className="altHeadline">Department Listing</h6>
                 <hr className="line" />
             </div>
-            <div className="searchFilterWrapper">
+            <div className="searchFilterWrapper relative">
                 <input onChange={handleSearch} type="search" placeholder="Search department" className="searchBar" value={search} />
-                <div className="sortingOptions flex gap-4">
-                    <p>Filter by</p>
-                    <div className="flex gap-2">
-                        <p>Alphabet:</p>
-                        <p>A-Z</p>
-                    </div>
-                    <div className="flex gap-2">
-                        <p>Employee size:</p>
-                        <p>{'<>'}</p>
-                    </div>
-                    <div className="flex gap-2">
-                        <p>Accidents sw</p>
-                        <p>{'<>'}</p>
-                    </div>
-                </div>
+                <img className="searchIcon" src="/general/search.svg"/>
             </div>
             {!loading && !error ? (
                 <div className="cardWrapper">
@@ -90,20 +78,42 @@ export default function ListDepartments() {
                                     <p onClick={() => handleToggle(department.id)} className="departmentCardToggleActive">&#8942;</p>
                                 )}
                                 {toggle === department.id && (
-                                    <ul className="navBarDepartmentCard">
-                                        <li><Link href={`/admin/departments/${department.id}`}>Edit Department</Link></li>
-                                        <hr className="text-white" />
-                                        <li><Link href={`/admin/departments/${department.id}/employees`}>Add & list employees</Link></li>
-                                        <hr className="text-white" />
-                                        <li><Link href={`/admin/departments/${department.id}/accidents`}>Add & list Accidents</Link></li>
-                                    </ul>
+                        <ul className="navBarDepartmentCard">
+
+                        <Link href={`/admin/departments/${department.id}`}>
+                            <div className="linkWrapper">
+                                <li className="navLinks">Edit Department</li>
+                                <img src="/general/edit.svg"/>
+                            </div>
+                        </Link>
+                    
+                        <hr className="hrDecoration" />
+                    
+                        <Link href={`/admin/departments/${department.id}/employees`}>
+                            <div className="linkWrapper">
+                                <li className="navLinks">View Employees</li>
+                                <img src="/general/employees.svg"/>
+                            </div>
+                        </Link>
+                    
+                        <hr className="hrDecoration" />
+                    
+                        <Link href={`/admin/departments/${department.id}/accidents`}>
+                            <div className="linkWrapper">
+                                <li className="navLinks">View Accidents</li>
+                                <img src="/general/accident.svg"/>
+                            </div>
+                        </Link>
+                    
+                    </ul>
                                 )}
-                                <h3 className="font-semibold">{department.shortName}</h3>
-                                <p className="font-semibold">{department.fullName}</p>
-                                <p>Accidents <b>{department.accidents}</b></p>
+                                <h3 className="shortName">{department.shortName}</h3>
+                                <p className="mb-4">{department.fullName}</p>
+                                <hr></hr>
+                                <p className="mt-4">Accidents <b>{department.accidents}</b></p>
                                 <p className="mb-4">Employees <b>{department.employees}</b></p>
                             </div>
-                            <button className="altButton" onClick={() => router.push(`departments/${department.id}/accidents`)}>Report Accident</button>
+                            <button className="reportButton" onClick={() => router.push(`departments/${department.id}/accidents`)}>Report Accident</button>
                         </div>
                     ))}
                 </div>

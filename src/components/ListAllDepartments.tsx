@@ -54,7 +54,7 @@ export default function ListDepartments() {
     };
 
     const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearch(e.target.value); // Capture the search input
+        setSearch(e.target.value); 
     };
 
     return (
@@ -70,48 +70,53 @@ export default function ListDepartments() {
             {!loading && !error ? (
                 <div className="cardWrapper">
                     {filteredDepartments.map(department => (
-                        <div className="departmentCardWrapper" key={department.id}>
+                        <div className="itemCardWrapper" key={department.id}>
                             <div className="h-full">
                                 {toggle === department.id ? (
-                                    <p onClick={() => handleToggle(department.id)} className="departmentCardToggleInactive">x</p>
+                                    <p onClick={() => handleToggle(department.id)} className="itemCardToggleInactive">x</p>
                                 ) : (
-                                    <p onClick={() => handleToggle(department.id)} className="departmentCardToggleActive">&#8942;</p>
+                                    <p onClick={() => handleToggle(department.id)} className="itemCardToggleActive">&#8942;</p>
                                 )}
                                 {toggle === department.id && (
-                        <ul className="navBarDepartmentCard">
-
-                        <Link href={`/admin/departments/${department.id}`}>
-                            <div className="linkWrapper">
-                                <li className="navLinks">Edit Department</li>
-                                <img src="/general/edit.svg"/>
-                            </div>
-                        </Link>
+                                <ul className="navBarItemCard">
+                                    <Link href={`/admin/departments/${department.id}`}>
+                                        <div className="linkWrapper">
+                                            <li className="navLinks">Edit Department</li>
+                                            <img src="/general/edit.svg"/>
+                                        </div>
+                                    </Link>
+                        
+                                    <hr className="hrDecoration" />
+                        
+                                    <Link href={`/admin/departments/${department.id}/employees`}>
+                                        <div className="linkWrapper">
+                                            <li className="navLinks">View Employees</li>
+                                            <img src="/general/employees.svg"/>
+                                        </div>
+                                    </Link>
+                        
+                                    <hr className="hrDecoration" />
+                        
+                                    <Link href={`/admin/departments/${department.id}/accidents`}>
+                                        <div className="linkWrapper">
+                                            <li className="navLinks">View Accidents</li>
+                                            <img src="/general/accident.svg"/>
+                                        </div>
+                                    </Link>
                     
-                        <hr className="hrDecoration" />
-                    
-                        <Link href={`/admin/departments/${department.id}/employees`}>
-                            <div className="linkWrapper">
-                                <li className="navLinks">View Employees</li>
-                                <img src="/general/employees.svg"/>
-                            </div>
-                        </Link>
-                    
-                        <hr className="hrDecoration" />
-                    
-                        <Link href={`/admin/departments/${department.id}/accidents`}>
-                            <div className="linkWrapper">
-                                <li className="navLinks">View Accidents</li>
-                                <img src="/general/accident.svg"/>
-                            </div>
-                        </Link>
-                    
-                    </ul>
+                                </ul>
                                 )}
                                 <h3 className="shortName">{department.shortName}</h3>
                                 <p className="mb-4">{department.fullName}</p>
                                 <hr className="hrDecorationzx"/>
-                                <p className="mt-4">Accidents <b>{department.accidents}</b></p>
-                                <p className="mb-4">Employees <b>{department.employees}</b></p>
+                                <div className="mt-4 mb-4">
+                                    <Link href={`/admin/departments/${department.id}/accidents`}>
+                                        <p className="cardLinks text-gray-200">Accidents <b>{department.accidents}</b></p>
+                                    </Link>
+                                    <Link href={`/admin/departments/${department.id}/employees`}>
+                                        <p className="cardLinks  text-gray-200">Employees <b>{department.employees}</b></p>
+                                    </Link>                              
+                                </div> 
                             </div>
                             <button className="reportButton" onClick={() => router.push(`departments/${department.id}/accidents`)}>Report Accident</button>
                         </div>

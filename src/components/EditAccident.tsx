@@ -1,6 +1,7 @@
 "use client"
 import { editAccidents } from '@/firebase/actions';
 import { useState } from 'react';
+import { deleteAccident } from '@/firebase/actions';
 
 export default function EditAccident({ departmentID, accidentID }) {
     const [newData, setNewData] = useState({});
@@ -8,6 +9,8 @@ export default function EditAccident({ departmentID, accidentID }) {
 
     const handleUpdate = (e) => {
         const { name, value } = e.target;
+
+
 
         // Update the newData state
         setNewData((prev) => ({
@@ -54,7 +57,9 @@ export default function EditAccident({ departmentID, accidentID }) {
                     />
                 )}
                 <button className="mainButton">Update</button>
+                
             </form>
+            <button onClick={() =>(deleteAccident( departmentID, accidentID))} className='mainButton'>Delete</button>
         </section>
     );
 }

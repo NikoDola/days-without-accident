@@ -1,4 +1,4 @@
-.navBarDepartmentCard{
+.navBarItemCard{
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -17,8 +17,16 @@
     text-align: right;
   }
 
-  
-  .departmentCardToggleActive{
+  .cardLinks {
+    color: gray; /* Default color */
+    transition: background-color 0.3s, color 0.3s; /* Optional: Add transition for smoothness */
+}
+
+.cardLinks:hover {
+ 
+    background-color: rgb(0, 0, 0);
+}
+  .itemCardToggleActive{
     top: 1rem;
     right: 1rem;
     text-align: right;
@@ -30,7 +38,7 @@
     height: 100%;
   }
   
-  .departmentCardToggleInactive{
+  .itemCardToggleInactive{
     top: 1rem;
     right: 1rem;
     cursor: pointer;
@@ -42,13 +50,9 @@
   }
 
   /* Cards */
-.cardWrapper{
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-  }
+
   
-  .departmentCardWrapper{
+  .itemCardWrapper{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -61,12 +65,12 @@
     transition: box-shadow 0.3s;
   }
 
-  .departmentCardWrapper:hover{
+  .itemCardWrapper:hover{
     box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
     background: linear-gradient(328deg, rgba(0,0,0,1) 0%, rgb(60, 60, 60) 100%);
   }
 
-  .departmentCardWrapper * p , h2, h3{
+  .itemCardWrapper * p , h2, h3{
     color: white;
   }
 
@@ -117,24 +121,6 @@
     background-repeat: no-repeat;
   }
   
-  .searchIcon{
-    position: absolute;
-    right: 1rem;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  .searchFilterWrapper::before{
-    content: "";
-    width: 30px;
-    height: 30px;
-    background-color: black;
-  }
-  
-  .searchBar{
-    position: relative;
-    padding: 0.5rem 2.5rem 0.5rem 1rem;
-    position: relative;
-  }
 
   @media screen and (max-width:780px){
 

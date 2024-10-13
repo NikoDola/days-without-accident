@@ -2,9 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { listDepartmentAccidents } from "@/firebase/actions";
-import { updateDoc, doc} from "firebase/firestore";
+import { updateDoc, doc } from "firebase/firestore";
 import { db } from "@/firebase";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import "@/components/css-components/ListDepartmentAccidents.css"
 
 interface AccidentType {
     id: string;
@@ -12,7 +14,6 @@ interface AccidentType {
     time: number;  // this will be in seconds
     involvedEmployees: any[]; 
     status: string;
-    
 }
 
 interface ListAllAccidentsProps {
@@ -22,19 +23,26 @@ interface ListAllAccidentsProps {
 export default function ListAllAccidents({ departmentID }: ListAllAccidentsProps) {
     const [allAccidents, setAllAccidents] = useState<AccidentType[]>([]);
     const [loading, setLoading] = useState(true);
-
+    const [search, setSearch] = useState('');
+    const [filteredAccidents, setFilteredAccidents] = useState<AccidentType[]>([]);
+    const [toggle, setToggle] = useState<string | null>(null);
+    const router = useRouter()
+    const handleToggle = (id: string) => {
+        setToggle(prevID => (prevID === id ? null : id));
+    };
     const startDate: Date = new Date("2022-05-10"); // Set your start date here
 
     useEffect(() => {
         async function fetchData() {
             try {
-                const accidents: AccidentType[] | any = await listDepartmentAccidents(departmentID); // Specify type here
+                const accidents: AccidentType[] = await listDepartmentAccidents(departmentID);
                 setAllAccidents(accidents);
 
                 const docRef = doc(db, 'users', "Nik's", 'departments', departmentID);
                 await updateDoc(docRef, {
-                    accidents: accidents.length as number
+                    accidents: accidents.length
                 });
+                setFilteredAccidents(accidents); // Set filtered accidents after fetching
             } catch (error) {
                 console.error("Error fetching accidents: ", error);
             } finally {
@@ -44,11 +52,31 @@ export default function ListAllAccidents({ departmentID }: ListAllAccidentsProps
         fetchData();
     }, [departmentID]);
 
-    // Helper function to convert time (in seconds) to a readable date
+    useEffect(() => {
+        if (search) {
+            const lowercasedSearch = search.toLowerCase();
+            const filtered = allAccidents.filter(accident => 
+                accident.title.toLowerCase().includes(lowercasedSearch) ||
+                accident.involvedEmployees.some(employee =>
+                    employee.name.toLowerCase().includes(lowercasedSearch) || 
+                    employee.lastName.toLowerCase().includes(lowercasedSearch) // Include last name in the search
+                )
+            );
+            setFilteredAccidents(filtered);
+        } else {
+            setFilteredAccidents(allAccidents); // Reset to full list if search is cleared
+        }
+    }, [search, allAccidents]); // Include allAccidents in the dependency array
+
+    const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearch(e.target.value);
+    }
+
+    // Converting Time from seconds to date
     function convertSecondsToDate(seconds: number) {
-        const milliseconds = seconds * 1000; // Convert seconds to milliseconds
-        const accidentDate = new Date(startDate.getTime() + milliseconds); // Add to the start date
-        return accidentDate.toLocaleDateString(); // Format to readable date
+        const milliseconds = seconds * 1000; 
+        const accidentDate = new Date(startDate.getTime() + milliseconds); 
+        return accidentDate.toLocaleDateString(); 
     }
 
     if (loading) {
@@ -56,22 +84,40 @@ export default function ListAllAccidents({ departmentID }: ListAllAccidentsProps
     }
 
     return (
-        <>
-            <ul>
-                {allAccidents.length > 0 ? (
-                    allAccidents.map((item) => (
-                        <div key={item.id}>
-                            <li>{item.title}</li>
-                            <li>{convertSecondsToDate(item.time )}</li> {/* Convert item.time to readable date */}
-                            <li>Involved {item.involvedEmployees.length} People</li>
-                            <li>{item.status}</li>
-                            <Link href={`/admin/departments/${departmentID}/accidents/${item.id}`}>View</Link>
-                        </div>
+        
+        <div className="sectionListing flex-col">
+            <div className="flex items-center gap-4">
+                <h6 className="altHeadline">Accident Listing</h6>
+                <hr className="line" />
+            </div>
+            <div className="searchFilterWrapper relative">
+                <input onChange={handleSearch} type="search" placeholder="Search department" className="searchBar" value={search} />
+                <img className="searchIcon" src="/general/search.svg" alt="Search Icon" />
+            </div>
+            <div className="cardWrapper">
+                {filteredAccidents.length > 0 ? (
+                    filteredAccidents.map(item => (
+                       
+                            <div className="itemCardWrapper" key={item.id}>
+                                 <div className="h-full">
+                                        {item.title.length < 20 ? <h5>{item.title}</h5>
+                                        :<h5>{item.title.substring(0, 20) + '...'}</h5>}
+                                        <hr className="mt-4"/>
+                                        
+                                    </div>
+                                    <p className="mt-4">Involved Employees {item.involvedEmployees.length}</p>
+                                        <p style={{ color: item.status === 'unsolved' ? 'red' : 'green' }}>Status {item.status}</p>
+                                        <p className="mb-4">{convertSecondsToDate(item.time)}</p> {/* Convert item.time to readable date */}
+                                        <button className="cardButton" onClick={()=> router.push(`/admin/departments/${departmentID}/accidents/${item.id}`)}>View Accident</button>
+                        
+                            </div>
+                           
                     ))
                 ) : (
                     <p>No data available</p>
                 )}
-            </ul>
-        </>
+            </div>
+           
+        </div>
     );
 }

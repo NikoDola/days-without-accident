@@ -90,7 +90,6 @@ export async function deleteDepartment(id: string): Promise<void> {
         // Deleting department under 'users/Nik's/departments/{id}'
         const docRef = doc(db, "users", "Nik's", "departments", id); 
         await deleteDoc(docRef);
-        console.log("Document deleted with ID: ", id);
     } catch (error) {
         console.error("Error deleting document: ", error.message || error);
     }
@@ -214,13 +213,14 @@ export async function editAccidents(departmentID: string, accidentID, newData: P
 
 export async function deleteAccident(departmentID: string, accidentID:string) {
     try {
-        const docRef = doc(db, 'users', "Niks", 'departments', departmentID, 'accidents', accidentID)
+        const docRef = doc(db, 'users', "Nik's", 'departments', departmentID, 'accidents', accidentID)
         await deleteDoc(docRef)
-        alert('accedent was deleted')
+    
         const departmentRef = doc(db, 'users', "Nik's",'departments', departmentID)
         await updateDoc(departmentRef, {
             employees: increment(-1)
         })
+        alert('accedent was deleted')
     } catch (error) {
         console.error(error)
     }

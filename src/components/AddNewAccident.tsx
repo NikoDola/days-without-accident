@@ -94,6 +94,10 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
     return (
         <section>
             <form className='sectionForm' onSubmit={handleReport}>
+            <div className="flex items-center gap-4">
+                <h6 className="altHeadline">Add New Accident</h6>
+                <hr className="line" />
+            </div>
                 <input 
                     placeholder='title'
                     value={title}

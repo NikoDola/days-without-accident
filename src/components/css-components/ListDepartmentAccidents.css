@@ -1,0 +1,18 @@
+.listInfoHeader{
+    display: flex;
+    gap: 4rem;
+}
+
+.accidentCard{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 45%;
+    padding: 1rem;
+    background-color: rgb(255, 132, 132);
+    color: white;
+    background-color: black;
+    border-radius: 1rem;
+}
+

@@ -116,9 +116,11 @@ body{
 
 .departmentHeader{
     font-size: 1.2rem;
+    line-height: 0;
+    background-color: black;
 }
 
-@media only screen and (min-width: 1920px) and
+@media only screen and (min-width: 1600px) and
  (min-height: 1080px) {
 
     .CounterWrapper{
@@ -126,6 +128,7 @@ body{
         gap: 1rem;
         align-items: center;
         margin-bottom: 1rem;
+        background-color: black;
     }
     
    
@@ -226,26 +229,29 @@ body{
   }
 
  .CounterWrapperLoading{
-    margin-bottom: 1.7rem;
+
+    margin-top: 2rem;
     
  }
 
 .departmentWrapperLoading{
     display: flex;
     flex-direction: column;
-    justify-content: end;
+    justify-content: space-between;
     align-items: end;
-    gap: 0.5rem;
+    gap: 1rem;
 }
  
 .shortNameLoading{
     color: transparent;
     background-color: black;
+    height: 1rem;
 }
 .fullNameLoading{
-    margin-top: 3px;
+    margin-top: 1rem;
     color:transparent;
     background-color: black;
+    height: 30px;
 }
 .counterNumLoading{
     border:none;

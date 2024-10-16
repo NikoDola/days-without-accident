@@ -1,9 +1,9 @@
 "use client"
 import { addNewEmployee } from "@/firebase/actions";
-import { updateDoc, doc, increment } from 'firebase/firestore';
-import { db } from "@/firebase";
+import { useState } from "react";
 
 export default function AddNewEmployee({ departmentID }) {
+    const [error, setError] = useState<string | null>(null);
     const addEmployeeHandle = async (e) => {
         e.preventDefault();
         const name = e.target.elements.name.value;
@@ -23,11 +23,18 @@ export default function AddNewEmployee({ departmentID }) {
     }
 
     return (
-        <form className="w-1/3" onSubmit={addEmployeeHandle}>
-            <input name="name" placeholder="Name" />
-            <input name="lastName" placeholder="Last Name" />
-            <input name="employeeID" placeholder="employee ID"/>
-            <button className="mainButton">Add Employee</button>
+        <section>
+            <form className="sectionForm" onSubmit={addEmployeeHandle}>
+            <div className="flex items-center gap-4">
+                <h6 className="altHeadline">Add New Employee</h6>
+                <hr className="line"/>
+            </div>
+                <input name="name" placeholder="Name" />
+                <input name="lastName" placeholder="Last Name" />
+                <input name="employeeID" placeholder="employee ID"/>
+                <button className="mainButton">Add Employee</button>
+                {error && <p className="text-red-500">Error: {error}</p>}
         </form>
+        </section>
     );
 }

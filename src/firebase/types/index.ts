@@ -23,5 +23,6 @@ export interface EmployeeType {
     id: string;
     name: string;
     lastName: string;
+    photoURL: string;
    
 }

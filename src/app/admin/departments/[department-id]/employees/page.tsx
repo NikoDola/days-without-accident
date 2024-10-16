@@ -19,12 +19,11 @@ export default async function Employees({ params }) {
     }
 
     return (
-        <div>
-            <p>{department?.shortName}</p>
-            <p>{department?.fullName}</p>
-            <p>{department?.employees}</p>
-            <AddNewEmployee departmentID={selectedDepartment.id} />
-            <ListDepartmentEmployees departmentID={selectedDepartment.id} />
-        </div>
+        <main>
+            <div className="sectionWrapper">
+                <AddNewEmployee departmentID={selectedDepartment.id} />
+                <ListDepartmentEmployees departmentID={selectedDepartment.id} />
+            </div>
+        </main>
     );
 }

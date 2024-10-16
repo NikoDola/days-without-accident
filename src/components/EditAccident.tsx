@@ -1,24 +1,19 @@
 "use client"
-import { editAccidents } from '@/firebase/actions';
 import { useState } from 'react';
-import { deleteAccident } from '@/firebase/actions';
+import { editAccidents, deleteAccident } from '@/firebase/actions'; // Assume these are your actions
 
 export default function EditAccident({ departmentID, accidentID }) {
     const [newData, setNewData] = useState({});
-    const [toggle, setToggle] = useState<boolean>(false);
+    const [toggle, setToggle] = useState(false);
+    const [loading, setLoading] = useState(false); // Loading state
 
     const handleUpdate = (e) => {
         const { name, value } = e.target;
-
-
-
-        // Update the newData state
         setNewData((prev) => ({
             ...prev,
             [name]: value,
         }));
 
-        // Toggle the textarea visibility based on status
         if (name === 'status') {
             setToggle(value === 'solved');
         }
@@ -26,22 +21,37 @@ export default function EditAccident({ departmentID, accidentID }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true); // Show loading animation
 
         try {
-            const accidentUpdate = await editAccidents(departmentID, accidentID, newData);
+            await editAccidents(departmentID, accidentID, newData);
             console.log('Accident updated successfully!');
-
-            if (accidentUpdate) {
-                window.location.reload();
-            }
+            window.location.reload();
         } catch (error) {
             console.error('Error updating accident:', error);
-            // Handle specific error types and display user-friendly messages
+        } finally {
+            setLoading(false); // Hide loading animation
+        }
+    };
+
+    const handleDelete = async () => {
+        setLoading(true); // Show loading animation
+
+        try {
+            await deleteAccident(departmentID, accidentID);
+            console.log('Accident deleted successfully!');
+            window.location.reload();
+        } catch (error) {
+            console.error('Error deleting accident:', error);
+        } finally {
+            setLoading(false); // Hide loading animation
         }
     };
 
     return (
         <section>
+            {loading && <div className="loading-spinner">Loading...</div>} {/* Display spinner when loading */}
+            
             <form className="sectionForm" onSubmit={handleSubmit}>
                 <input onChange={handleUpdate} placeholder="Title" name="title" />
                 <select name="status" onChange={handleUpdate}>
@@ -52,14 +62,14 @@ export default function EditAccident({ departmentID, accidentID }) {
                 {toggle && (
                     <textarea
                         placeholder="Measurement description"
-                        name="description" // Don't forget to add a name for the textarea
-                        onChange={handleUpdate} // Make sure to handle updates for the textarea as well
+                        name="description"
+                        onChange={handleUpdate}
                     />
                 )}
                 <button className="mainButton">Update</button>
-                
             </form>
-            <button onClick={() =>(deleteAccident( departmentID, accidentID))} className='mainButton'>Delete</button>
+            
+            <button onClick={handleDelete} className="mainButton">Delete</button>
         </section>
     );
 }

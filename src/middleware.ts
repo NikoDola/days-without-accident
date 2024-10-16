@@ -31,12 +31,6 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     '/add/:path*',
-    '/null/add/:path*',
-    '/settings/:path*',
-    '/null/settings/:path*',
-    '/documents/:path*',
-    '/null/documents/:path*',
-    '/search/:path*',
-    '/null/search/:path*'
+     '/null/login/:path*'
   ],
 };

@@ -62,7 +62,7 @@ export default function Counter() {
 
   // Function to render loading divs
   const renderLoadingDivs = () => {
-    return Array.from({ length: 6 }).map((_, index) => (
+    return Array.from({ length: 5 }).map((_, index) => (
       <div key={index} className="CounterWrapper CounterWrapperLoading">
         <div className="departmentWrapper loading departmentWrapperLoading">
           <p className="fullName fullNameLoading">loading loading</p>
@@ -108,7 +108,7 @@ export default function Counter() {
         </div>
 
         <div className="rightWrapper">
-          {departments.length > 0 ? <p className="departmentHeader" >Departments:</p >: <p className="departmentHeader" >Loading Departments...</p >}
+          {departments.length > 0 ? <p className="departmentHeader"><b>Departments:</b></p >: <p className="departmentHeader" > <b>Loading Departments...</b></p >}
           
           {departments.length > 0 ? (
             departments.sort((a, b) =>  a.accidents - b.accidents).map((item) => (

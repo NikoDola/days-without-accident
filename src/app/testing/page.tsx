@@ -1,23 +1,37 @@
-"use client"
-import { listAllTime } from "@/firebase/actions"
-import { useState, useEffect } from "react"
+"use client";
+import { storage } from "@/firebase"; // Import the initialized storage
+import { ref, uploadBytes } from "firebase/storage"; // Import necessary functions
+import { useEffect, useState } from "react";
 
-export default function Time() {
-    const [seconds, setSeconds] = useState([])
+export default function Testing() {
+    const [image, setImage] = useState(null); // Change initial state to null
 
-    const fetchData = async() =>{
-        const getSeconds = await listAllTime()
-        setSeconds(getSeconds)
-    }
-    useEffect(()=>{
-        fetchData()
-    },[])
+    useEffect(() => {
+        console.log(image);
+    }, [image]);
 
-return(
-    <>
-        {seconds.length > 0 ? seconds.map((item, index)=>(
-            <p key={index}>{item}</p>
-        )) :<p>nope</p>}
-    </>
-)
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const file = e.target.imageURL.files[0];
+
+        if (file) {
+            const imageRef = ref(storage, `images/${file.name}`); 
+            try {
+                await uploadBytes(imageRef, file); 
+                setImage(file);
+                console.log('File uploaded successfully!');
+            } catch (error) {
+                console.error('Error uploading file:', error);
+            }
+        } else {
+            console.error('No file selected');
+        }
+    };
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <input type="file" name="imageURL" accept="image/*" />
+            <button type="submit">Submit</button>
+        </form>
+    );
 }

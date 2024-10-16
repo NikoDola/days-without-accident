@@ -1,6 +1,7 @@
 import { collection, setDoc, doc, getDoc, getDocs, deleteDoc, addDoc, updateDoc, increment} from "firebase/firestore";
-import { db } from "@/firebase";
+import { db, storage } from "@/firebase";
 import { Department, AccidentType, EmployeeType } from "./types";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 
 
@@ -221,6 +222,7 @@ export async function deleteAccident(departmentID: string, accidentID:string) {
             employees: increment(-1)
         })
         alert('accedent was deleted')
+        
     } catch (error) {
         console.error(error)
     }
@@ -229,6 +231,8 @@ export async function deleteAccident(departmentID: string, accidentID:string) {
 
 
 //Employees
+
+
 
 export async function listAllEmployees() {
 try {
@@ -272,17 +276,18 @@ export async function listDepartmentEmployees(departmentID) {
 
 export async function editEmployee(departmentID: string, employeeID: string, newData: Partial<Department>) {
     try {
-      const docRef = doc(db, 'users', "Nik's", 'departments', departmentID, 'accidents', employeeID);
-      
-      await updateDoc(docRef, newData);
-      
-      alert('The department has been updated');
-      return true;
+        const docRef = doc(db, 'users', "Nik's", 'departments', departmentID, 'employees', employeeID);
+        
+        await updateDoc(docRef, newData);
+        
+        alert('The department has been updated');
+        return true;
     } catch (error) {
-      console.error("Error updating department: ", error);
-      return false;
+        console.error("Error updating department: ", error);
+        return false;
     }
-  }
+}
+
 
 export async function deleteEmployeer(departmentID:string, employeeID:string) {
     try {

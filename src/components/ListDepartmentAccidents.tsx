@@ -90,26 +90,25 @@ export default function ListAllAccidents({ departmentID }: ListAllAccidentsProps
                 <h6 className="altHeadline">Accident Listing</h6>
                 <hr className="line" />
             </div>
+
             <div className="searchFilterWrapper relative">
                 <input onChange={handleSearch} type="search" placeholder="Search department" className="searchBar" value={search} />
                 <img className="searchIcon" src="/general/search.svg" alt="Search Icon" />
             </div>
+
             <div className="cardWrapper">
                 {filteredAccidents.length > 0 ? (
                     filteredAccidents.map(item => (
-                       
                             <div className="itemCardWrapper" key={item.id}>
-                                 <div className="h-full">
-                                        {item.title.length < 20 ? <h5>{item.title}</h5>
-                                        :<h5>{item.title.substring(0, 20) + '...'}</h5>}
-                                        <hr className="mt-4"/>
-                                        
-                                    </div>
-                                    <p className="mt-4">Involved Employees {item.involvedEmployees.length}</p>
-                                        <p style={{ color: item.status === 'unsolved' ? 'red' : 'green' }}>Status {item.status}</p>
-                                        <p className="mb-4">{convertSecondsToDate(item.time)}</p> {/* Convert item.time to readable date */}
-                                        <button className="cardButton" onClick={()=> router.push(`/admin/departments/${departmentID}/accidents/${item.id}`)}>View Accident</button>
-                        
+                                <div className="h-full">
+                                    {item.title.length < 20 ? <h5>{item.title}</h5>
+                                    :<h5>{item.title.substring(0, 20) + '...'}</h5>}
+                                    <hr className="mt-4"/>
+                                </div>
+                                <p className="mt-4">Involved Employees {item.involvedEmployees.length}</p>
+                                <p style={{ color: item.status === 'unsolved' ? 'red' : 'green' }}>Status {item.status}</p>
+                                <p className="mb-4">{convertSecondsToDate(item.time)}</p> {/* Convert item.time to readable date */}
+                                <button className="cardButton" onClick={()=> router.push(`/admin/departments/${departmentID}/accidents/${item.id}`)}>View Accident</button>
                             </div>
                            
                     ))

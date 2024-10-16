@@ -35,7 +35,7 @@ export default function ListAllAccidents({ departmentID }: ListAllAccidentsProps
     useEffect(() => {
         async function fetchData() {
             try {
-                const accidents: AccidentType[] = await listDepartmentAccidents(departmentID);
+                const accidents: any = await listDepartmentAccidents(departmentID);
                 setAllAccidents(accidents);
 
                 const docRef = doc(db, 'users', "Nik's", 'departments', departmentID);

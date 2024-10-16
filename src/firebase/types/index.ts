@@ -14,7 +14,7 @@ export interface AccidentType {
     title: string;          
     status: string;           
     time: number;          
-    involvedEmployees: EmployeeType[]; 
+    envolvedEmployees: EmployeeType[]; 
     description: string;     
 }
 
@@ -23,6 +23,6 @@ export interface EmployeeType {
     id: string;
     name: string;
     lastName: string;
-    photoURL: string;
-   
+    envolvedEmployees: [];
+    photoURL: string; // Add the missing property
 }

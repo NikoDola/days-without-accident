@@ -4,13 +4,8 @@ import { useEffect, useState } from 'react';
 import { addNewAccident, listDepartmentEmployees } from "@/firebase/actions";
 import { updateDoc, doc, increment } from 'firebase/firestore';
 import { db } from '@/firebase';
+import { EmployeeType } from '@/firebase/types';
 
-
-interface EmployeeType {
-    id: string;
-    name: string;
-    lastName: string;
-}
 
 export default function ReportAccident({ departmentID }: { departmentID: string }) {
     const [employees, setEmployees] = useState<EmployeeType[] | null>(null);

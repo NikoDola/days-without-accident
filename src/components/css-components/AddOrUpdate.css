@@ -1,0 +1,26 @@
+.addOrUpdateWrapper{
+
+   
+}
+
+.formPopUpActive {
+    position:relative;
+    display: block;
+}
+
+.formPopUpInactive {
+    /* Your styles for the inactive form */
+    display: none; /* Ensure it's not visible */
+}
+
+.buttonActive, .buttonInactive{
+    padding: 1rem;
+    background: rgb(255, 255, 255);
+    z-index:100;
+    right: 4rem;
+    bottom: 4rem;
+    border-radius: 1rem;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    margin-bottom: 2rem;
+    margin-top: -1rem;
+}

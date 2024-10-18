@@ -31,11 +31,11 @@ h5{font-size: 1.5rem;} h6{font-size: 1.2rem;} .ts{font-size: 0.8rem} .txs{font-s
   font-weight: 800;
   text-align: center;
   margin-bottom: 4rem;
-  margin-top: 2rem;
+
   font-size: 40px;
   display: inline-block; /* Ensures the element's width matches the text */
-  left: 50%;
-  transform: translate(-50%);
+  left: 0;
+
 }
 
 .mainHeadline::after {
@@ -60,6 +60,7 @@ h5{font-size: 1.5rem;} h6{font-size: 1.2rem;} .ts{font-size: 0.8rem} .txs{font-s
 }
 
 main{
+ 
   width: 60%;
   margin: 0 auto;
 }
@@ -147,6 +148,7 @@ input:focus, textarea:focus{
 
 .sectionWrapper {
   display: flex;
+  flex-direction: column;
   justify-content: space-around; /* Maintain spacing between sections */
   gap: 5rem;
 }
@@ -261,14 +263,14 @@ input:focus, textarea:focus{
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  min-width: 150px;
-  width: 48%;
+  min-width: 210px;
+  width: 32%;
+  color: white;
   background: linear-gradient(328deg, rgba(0,0,0,1) 0%, rgb(39, 39, 39) 100%);
   padding: 1rem;
   border-radius: 12px;
   transition: border 0.3s ease;
   transition: box-shadow 0.3s;
-  color: var(--brand-color-light-gray);
 }
 
 .itemCardWrapper:hover{
@@ -279,7 +281,6 @@ input:focus, textarea:focus{
 .itemCardWrapper * p , h2, h3{
   color: white;
 }
-
 
 .reportButton{
   flex:1;

@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { listAllDepartments } from "@/firebase/actions";
 import { useRouter } from "next/navigation";
-import "@/components/css-components/ListAllDepartments.css"
+
 import Link from "next/link";
 import Image from "next/image";
 
@@ -67,6 +67,7 @@ export default function ListDepartments() {
                 <input onChange={handleSearch} type="search" placeholder="Search department" className="searchBar" value={search} />
                 <img className="searchIcon" src="/general/search.svg"/>
             </div>
+            
             {!loading && !error ? (
                 <div className="cardWrapper">
                     {filteredDepartments.map(department => (

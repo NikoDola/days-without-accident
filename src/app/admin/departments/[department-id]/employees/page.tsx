@@ -2,6 +2,7 @@ import { listAllDepartments } from "@/firebase/actions";
 import ListDepartmentEmployees from "@/components/ListDepartmentEmployees";
 import AddNewEmployee from "@/components/AddNewEmployee";
 import { singleDepartment } from "@/firebase/actions";
+import AddOrUpdate from "@/components/AddOrUpdate";
 
 interface Department{
     shortName:string,
@@ -20,10 +21,13 @@ export default async function Employees({ params }) {
 
     return (
         <main>
-            <div className="sectionWrapper">
-                <AddNewEmployee departmentID={selectedDepartment.id} />
+            <h4 className="mainHeadline">{selectedDepartment.shortName} Employees</h4>
+                <AddOrUpdate form={<AddNewEmployee departmentID={selectedDepartment.id} />} />
+                
+                <div>
                 <ListDepartmentEmployees departmentID={selectedDepartment.id} />
-            </div>
+                </div>
+          
         </main>
     );
 }

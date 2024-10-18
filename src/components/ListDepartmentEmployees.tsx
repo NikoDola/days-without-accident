@@ -50,16 +50,11 @@ export default function ListDepartmentEmployees({ departmentID }) {
                 <hr className="line" />
             </div>
             <div className="searchFilterWrapper relative">
-                <input 
-                    type="search" 
-                    placeholder="Search department" 
-                    className="searchBar" 
-                    value={search} 
-                    onChange={handleSearch}
-                />
+                <input  onChange={handleSearch} type="search" placeholder="Search department" className="searchBar" value={search} />
                 <img className="searchIcon" src="/general/search.svg" alt="Search"/>
             </div>
-            <div className="flex w-full flex-col flex-nowrap w-3/5 gap-2 items-center">
+
+            <div className="cardWrapper">
                 <div className="cardWrapper">
                     {!employeesList.length ? <p>Loading...</p> : 
                 filteredEmployees.map((item: EmployeeTypeCheck) => (

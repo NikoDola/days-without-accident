@@ -1,6 +1,7 @@
 
 import { listAllDepartments, singleDepartment } from "@/firebase/actions";
 import AddNewAccident from "@/components/AddNewAccident";
+import AddOrUpdate from "@/components/AddOrUpdate";
 import ListDepartmentAccidents from "@/components/ListDepartmentAccidents"
 import { Department } from "@/firebase/types";
 interface ReportPageProps {
@@ -21,10 +22,10 @@ export default  async function accidentPage({ params }: ReportPageProps) {
   
   return (
     <main>
-     
-      <h4 className="mainHeadline">Accidents</h4>
+      <h4 className="mainHeadline">{selectedDepartment.shortName} Accidents</h4>
+      <AddOrUpdate form={<AddNewAccident departmentID={selectedDepartment.id}/>} />
       <div className="sectionWrapper">
-        <AddNewAccident departmentID={selectedDepartment.id}/>
+
         <ListDepartmentAccidents departmentID={selectedDepartment.id}/>
       </div>
 

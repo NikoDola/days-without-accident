@@ -14,8 +14,10 @@
 .notification{
     position: relative;
     right: 0;
-    width: 1.5rem;
-    height: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1.2rem;
+    height: 1.2rem;
     background-image: url('/general/notification.svg');
     background-repeat: no-repeat;
     background-size: contain; 
@@ -27,7 +29,7 @@
     color: red;
     position: absolute;
     font-weight: 600;
-    top: -0.5rem;
+    top: -0.3rem;
     font-size: 1rem;
 }
 

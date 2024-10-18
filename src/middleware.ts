@@ -1,36 +1,21 @@
 import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { cookies } from 'next/headers';
 
-// Define the protected routes
-const protectedRoutes = [
-  '/add',
-  '/null/add',
-  '/settings',
-  '/null/settings',
-  '/documents',
-  '/null/documents',
-  '/search',
-  '/null/search'
-];
-
-export function middleware(request: NextRequest) {
+export function middleware(request) {
+  const cookieStore = cookies();
+  const userId = cookieStore.get('user_id');
   const { pathname } = request.nextUrl;
 
-  // Check if the pathname is in the protectedRoutes list
-  if (protectedRoutes.includes(pathname)) {
-    const isAuthenticated = false; // Replace with your actual authentication logic
-    if (!isAuthenticated) {
-      return NextResponse.redirect(new URL('/login', request.url));
-    }
+  // Allow access to home and login pages for unauthenticated users
+  if (!userId && pathname !== '/' && pathname !== '/login') {
+    return NextResponse.redirect(new URL('/login', request.url));
   }
 
+  // Allow access to all pages for authenticated users
   return NextResponse.next();
 }
 
-// Configure the matcher to include all specified paths
+// Apply middleware to specific paths
 export const config = {
-  matcher: [
-    '/add/:path*',
-     '/null/login/:path*'
-  ],
+  matcher: ['/admin/:path*', '/other-protected-routes/:path*'], // Add any other protected routes here
 };

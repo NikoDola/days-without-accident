@@ -305,57 +305,83 @@ export async function deleteEmployeer(departmentID:string, employeeID:string) {
 }
 
 
-
-
-
-export async function addNewEmployee(departmentID: string, name: string, lastName: string, accidents: number, employeeID: string) {
+export async function addNewEmployee(
+    departmentID: string,
+    name: string,
+    lastName: string,
+    accidents: number,
+    employeeID: string,
+    gender: string = 'male',
+    email: string = 'undefined',
+    phoneNumber: number = 0,
+    emergencyContact: string = 'undefined',
+    homeAddress: string = 'undefined',
+    dateOfBirth: string = 'undefined',
+    medicalCondition: string = 'healthy',
+    employeeStatus: string = 'active',
+    notes: string = 'none',
+    promotions: {} = {},
+    salary: number = 24000, // Corrected format for salary
+    hireDate: string = 'undefined',
+    jobPosition: string = 'undefined'
+) {
     try {
+        // Basic validation
         if (typeof departmentID !== 'string' || !departmentID) {
             throw new Error('Invalid departmentID');
         }
-
-        // Reference to the employees collection
-        const employeesCollectionRef = collection(db, "users", "Nik's", "departments", departmentID, "employees");
-
         if (!name || !lastName) {
             throw new Error('Name and last name are required');
         }
-
         if (!employeeID) {
             throw new Error('EmployeeID is required');
         }
 
-        const now = new Date();
-        const day = String(now.getDate()).padStart(2, '0'); // Ensures 2 digits
-        const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-based, so we add 1
-        const year = now.getFullYear();
+        // Reference to employees collection
+        const employeesCollectionRef = collection(db, "users", "Nik's", "departments", departmentID, "employees");
 
+        const now = new Date();
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-based, so add 1
+        const year = now.getFullYear();
         const formattedTimestamp = `${day}-${month}-${year}`;
 
-        // Use setDoc() to assign a custom employeeID
+        // Set the employee document with custom employeeID
         await setDoc(doc(employeesCollectionRef, employeeID), {
             name,
             lastName,
-            timestamp: formattedTimestamp,  
+            timestamp: formattedTimestamp,
             accidents,
-            photoURL: '/general/profile.png',
+            photoURL: '/general/profile.png',  // You might want to pass photoURL dynamically
             departmentID,
             employeeID,
+            gender,
+            email,
+            phoneNumber,
+            emergencyContact,
+            homeAddress,
+            dateOfBirth,
+            medicalCondition,
+            employeeStatus,
+            notes,
+            promotions,
+            salary,
+            hireDate,
+            jobPosition,
         });
 
         // Update the employee count in the department
         const departmentRef = doc(db, 'users', "Nik's", 'departments', departmentID);
         await updateDoc(departmentRef, {
-            employees: increment(1)
+            employees: increment(1)  // Assuming there's a field `employees` to track the count
         });
-
-        alert('Employee data was created');
-        window.location.reload();
+        alert('Employee added successfully.');
+        window.location.reload()
     } catch (error) {
         console.error("Error adding employee: ", error);
+        alert(`Failed to add employee: ${error.message}`);
     }
 }
-
 
 
 

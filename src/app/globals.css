@@ -192,6 +192,9 @@ input:focus, textarea:focus{
   border-radius: 0.7rem;
   cursor: pointer;
 }
+.altButton:hover{
+  background-color: rgb(0, 0, 0);
+}
 /* Cards */
 .cardWrapper{
   display: flex;
@@ -293,10 +296,12 @@ input:focus, textarea:focus{
   width: 100%;
   border-radius: 0.5rem;
   background: var(--brand-color-light-gray);
-  font-weight: 500;
+  font-weight: 600;
   color: rgb(0, 0, 0);
 }
-
+.cardButton:hover{
+  background-color: rgb(255, 255, 255);
+}
 .shortName{
   color: var(--brand-color);
   font-weight: 500;
@@ -366,6 +371,43 @@ input:focus, textarea:focus{
   background: linear-gradient(45deg, black, gray);
   background-size: 200% 200%;
   animation: gradientAnimation 2s ease infinite;
+}
+
+.loadingButton {
+  position: relative; /* Ensure the button is a positioned element */
+  color: white; /* Ensure the text color is visible */
+  gap: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 1rem;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 4rem;
+  background-color: black; /* Background color of the button */
+  width: 100%;
+}
+
+.loadingButton:after {
+  content: "";
+  position: absolute; 
+  top: 30%;
+  right: 15%; /* Position it towards the right of the button */
+  width: 20px; 
+  height: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.3); /* Light gray border */
+  border-top: 3px solid white; /* White top border for the spinner effect */
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite; /* Continuous spinning animation */
+  transform: translate(-50%, -50%); /* Center the spinner */
+  display: block; /* Ensure the spinner is always displayed when loading */
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); /* Start rotation */
+  }
+  100% {
+    transform: rotate(360deg); /* Complete rotation */
+  }
 }
 
 

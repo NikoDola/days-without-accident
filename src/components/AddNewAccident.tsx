@@ -14,6 +14,8 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
     const [envolvedEmployees, setEnvolvedEmployees] = useState<EmployeeType[]>([]);
     const [envolvedNumber, setEnvolvedNumber] = useState<number>(0);
     const [timeNow, setTimeNow] = useState<string>("");
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false)
     
 
     useEffect(() => {
@@ -34,7 +36,8 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
 
     function handleReport(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
-    
+        setError(null)
+        setLoading(true)
         if (Array.isArray(employees) && employees.length > 0) {
             const timestamp = new Date(timeNow); 
             
@@ -56,6 +59,7 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
     
                         console.log(`Accident count updated for employee ${employee.name} ${employee.lastName}`);
                     } catch (error) {
+                        setError(error)
                         console.error(`Error updating accident count for employee ${employee.name} ${employee.lastName}:`, error);
                     }
                 }
@@ -135,7 +139,9 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
                     min="2022-05-15" 
                     max={timeNow} // Use timeNow for max date
                 />
-                <button className='mainButton'>Submit</button>
+                      <button type="submit" className={!loading ? "mainButton mb-8": "loadingButton mb-8"}>Submit</button>
+               
+               {error && <p className="text-red-500">Error: {error}</p>}
             </form>
         </section>
     );

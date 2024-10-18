@@ -78,7 +78,7 @@ export default function ListDepartmentEmployees({ departmentID }) {
                         </div>
                      
                         <div className="flex items-center gap-2">
-                            <button onClick={() => router.push(`/admin/departments/${departmentID}/employees/${item.id}`)} className="altButton text-black"> <b>View</b></button>
+                            <button onClick={() => router.push(`/admin/departments/${departmentID}/employees/${item.id}`)} className="cardButton text-black"> <b>View</b></button>
                         </div>
                     </div>
                 ))}

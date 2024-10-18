@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 
 export default function Login() {
   const [visualPassword, setVisualPassword] = useState("password");
+  const [loading, setLoading] = useState(false)
   const [credential, setCredential] = useState({
     userName: "",
     password: ""
@@ -19,9 +20,16 @@ export default function Login() {
 
 
 
-  const handleLogin = () => {
-    login(credential.userName, credential.password);
-  };
+const handleLogin = async () => {
+    try {
+        setLoading(true); // Start loading
+        await login(credential.userName, credential.password); // Await the login process
+    } catch (error) {
+        console.error(error);
+    } finally {
+        setLoading(false); // End loading after login completes
+    }
+};
 
   const userOnChange = (e) => {
     setCredential((prev) => ({
@@ -70,8 +78,9 @@ export default function Login() {
               className="formIconsImage" src="branding/logo/niks_password.png" alt="Password Icon"/>
             <img onClick={handleVisualPassword} className="eyeIcon" src={visualPassword === "password" ? "branding/icons/blind.svg": "branding/icons/visual.svg" } alt="Toggle Password Visibility"/>
           </div>
+         
+          <button type="submit" className={!loading ? "mainButton mt-2": "loadingButton mt-2"}>Submit</button>
           {errorCode && <p className="text-red-500">{errorCode}</p>}
-          <button className="mainButton mt-2" type="submit">Login</button>
           <div className="flex items-center gap-4">
             <hr className="flex-grow border-t border-black" />
             <p className="text-black">or</p>

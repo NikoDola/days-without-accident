@@ -20,8 +20,8 @@ export default function ListAllEmployees(){
           ) : (
             <div>
                  <p>{selectedEmployee.length}</p>
-                {selectedEmployee.map((employee)=>(
-                    <div key={employee.id}>
+                {selectedEmployee.map((employee, index)=>(
+                    <div key={index}>
                         <p>{employee.name} {employee.lastName}</p>
                         <p>{employee.departmentName}</p>
                         <p>{employee.accidents}</p>

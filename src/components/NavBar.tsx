@@ -15,9 +15,9 @@ export default function NavBar(){
                 {user ? 
                 <>
                     <li className={ path === '/' ? 'navLinkActive': 'navLinkInactive'}><Link href={'/'}> Counter</Link></li>
-                    <li className={ path === '/admin' ? 'navLinkActive': 'navLinkInactive'}><Link href={'/admin'}> Admin</Link></li>
                     <li className={ path === '/admin/departments' ? 'navLinkActive': 'navLinkInactive'}><Link href={'/admin/departments'}> Departments</Link></li>
-                    <li  className="cursor-pointer" onClick={logoutUser}>Logout</li>
+           
+                    <li  className="navLinkInactive cursor-pointer" onClick={logoutUser}>Logout</li>
           
                 </>:
                 <>

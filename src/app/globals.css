@@ -454,7 +454,16 @@ input:focus, textarea:focus{
 
 
 .navLinkInactive{
-  
+  font-weight: 500;
+  color: rgb(79, 79, 79);
+}
+
+.navLinkInactive:hover{
+  font-weight: 600;
+}
+
+.navLinkActive{
+  font-weight: 600;
 }
 .navLinkActive::after{
   font-weight: 600;

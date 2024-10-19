@@ -3,32 +3,31 @@
 import { useState, useRef } from "react"
 import "./css-components/AddOrUpdate.css"
 
-export default function AddOrUpdate({form}){
+export default function AddOrUpdate({form, text}){
+
+    
+
     const [visibility, setVisibility] = useState(false)
-
-
+    
     const handleVisibility = () =>{
-        visibility ? setVisibility(false): setVisibility(true)
-        
-   
+        visibility ? setVisibility(false): setVisibility(true)        
     }
-
     return(
         <div className="addOrUpdateWrapper">
+                <div onClick={handleVisibility} className="buttonAdd">
+                    <img className="w-6" src={text.includes('Edit') ? '/general/edit-black.svg': '/general/add.svg'}/>
+                    <p >{text}</p>
+                   
+                </div>
             {visibility ? 
             <>
-                <div>
-                    <button onClick={handleVisibility} className="buttonActive">Add New Department X</button>
-                </div>
+  
                 <div className="formPopUpActive">
                     {form}
                 </div>
             </>
             :
             <>
-                <div>
-                    <button onClick={handleVisibility}  className="buttonInactive">Add new Department +</button>
-                </div>
                 <div className="formPopUpInactive">
                     {form}
                 </div>

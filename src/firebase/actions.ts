@@ -2,6 +2,7 @@ import { collection, setDoc, doc, getDoc, getDocs, deleteDoc, addDoc, updateDoc,
 import { db, storage } from "@/firebase";
 import { Department, AccidentType, EmployeeType } from "./types";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { redirect } from "next/navigation";
 
 
 
@@ -274,14 +275,28 @@ export async function listDepartmentEmployees(departmentID) {
     }
 }
 
-export async function editEmployee(departmentID: string, employeeID: string, newData: Partial<Department>) {
+
+export async function editEmployee(departmentID: string, employeeID: string, newData: Partial<EmployeeType>, file: File | null) {
     try {
         const docRef = doc(db, 'users', "Nik's", 'departments', departmentID, 'employees', employeeID);
         
-        await updateDoc(docRef, newData);
+        // Handle file upload if a file is provided
+        if (file) {
+            const imageRef = ref(storage, `images/${file.name}`); // Create a reference for the file
+            await uploadBytes(imageRef, file); // Upload the file
+            const photoURL = await getDownloadURL(imageRef); // Get the download URL after upload
+
+            // Update newData with the new photoURL
+            newData.photoURL = photoURL;
+           
+        }
+        
+        await updateDoc(docRef, newData); // Update the document in Firestore
         
         alert('The department has been updated');
+        window.location.reload()
         return true;
+        
     } catch (error) {
         console.error("Error updating department: ", error);
         return false;
@@ -289,18 +304,22 @@ export async function editEmployee(departmentID: string, employeeID: string, new
 }
 
 
-export async function deleteEmployeer(departmentID:string, employeeID:string) {
-    try {
-        const docRef = doc(db, 'users', "Nik's",'departments', departmentID, 'employees', employeeID)
-        await deleteDoc(docRef)
-        alert('Employee was deleted')
 
-        const departmentRef = doc(db, 'users', "Nik's",'departments', departmentID)
+export async function deleteEmployeer(departmentID: string, employeeID: string): Promise<boolean> {
+    try {
+        const docRef = doc(db, "users", "Nik's", 'departments', departmentID, 'employees', employeeID);
+        await deleteDoc(docRef);
+        alert('Employee was deleted');
+
+        const departmentRef = doc(db, "users", "Nik's", 'departments', departmentID);
         await updateDoc(departmentRef, {
             employees: increment(-1)
-        })
+        });
+        
+        return true; // Indicate success
     } catch (error) {
-        console.error(error)
+        console.error(error);
+        return false; // Indicate failure
     }
 }
 

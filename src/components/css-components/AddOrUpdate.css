@@ -1,6 +1,5 @@
-.addOrUpdateWrapper{
 
-   
+.addOrUpdateWrapper{
 }
 
 .formPopUpActive {
@@ -13,14 +12,24 @@
     display: none; /* Ensure it's not visible */
 }
 
-.buttonActive, .buttonInactive{
+.buttonAdd {
+    display: flex;
+    gap: 1rem;
     padding: 1rem;
     background: rgb(255, 255, 255);
-    z-index:100;
+    z-index: 100;
     right: 4rem;
     bottom: 4rem;
     border-radius: 1rem;
     box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
     margin-bottom: 2rem;
     margin-top: -1rem;
+    width: max-content;
+    cursor: pointer;
+    transition: box-shadow 0.3s, transform 0.3s; /* Change transition to box-shadow */
+}
+
+.buttonAdd:hover {
+    box-shadow: 0px 0px 0px 1px #ec4599; /* Simulate the outline with a shadow */
+    transform: scale(1.05); /* Slightly scale the button for a smoother hover effect */
 }

@@ -22,7 +22,7 @@ export default async function Employees({ params }) {
     return (
         <main>
             <h4 className="mainHeadline">{selectedDepartment.shortName} Employees</h4>
-                <AddOrUpdate form={<AddNewEmployee departmentID={selectedDepartment.id} />} />
+                <AddOrUpdate text ={'Add New Employee '}form={<AddNewEmployee departmentID={selectedDepartment.id} />} />
                 
                 <div>
                 <ListDepartmentEmployees departmentID={selectedDepartment.id} />

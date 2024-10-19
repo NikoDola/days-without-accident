@@ -23,7 +23,7 @@ export default  async function accidentPage({ params }: ReportPageProps) {
   return (
     <main>
       <h4 className="mainHeadline">{selectedDepartment.shortName} Accidents</h4>
-      <AddOrUpdate form={<AddNewAccident departmentID={selectedDepartment.id}/>} />
+      <AddOrUpdate text={'Add New Accident'} form={<AddNewAccident departmentID={selectedDepartment.id}/>} />
       <div className="sectionWrapper">
 
         <ListDepartmentAccidents departmentID={selectedDepartment.id}/>

@@ -8,7 +8,7 @@ export default function AdminPage() {
   return (
     <main>
         <h4 className="mainHeadline">Departments</h4>
-        <AddOrUpdate form={<AddNewDepartment/>}/>
+        <AddOrUpdate form={<AddNewDepartment/>} text={'Add New Department'}/>
 
       <div className="sectionWrapper">
         <ListAllDepartments />

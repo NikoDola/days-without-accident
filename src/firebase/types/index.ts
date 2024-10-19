@@ -20,9 +20,27 @@ export interface AccidentType {
 
 
 export interface EmployeeType {
-    id: string;
+    id:string;
     name: string;
     lastName: string;
+    accidents: number;
+    departmentName: string;
+    description: string;
+    photoURL: string;
+    timestamp: string;
+    gender: string;
+    email: string;
+    phoneNumber: number;
+    emergencyContact: string;
+    homeAddress: string;
+    dateOfBirth: string;
+    medicalCondition: string;
+    employeeStatus: string;
+    notes: string;
+    promotions: {};
+    salary: number;
+    hireDate: string;
+    jobPosition: string;
     envolvedEmployees: [];
-    photoURL: string; // Add the missing property
+
 }

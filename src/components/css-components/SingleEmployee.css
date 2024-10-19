@@ -1,0 +1,11 @@
+.profileImage{
+    width: 8rem;
+}
+
+.image_name{
+    display: flex;
+}
+
+.nameLastName{
+    font-size: x-large;
+}

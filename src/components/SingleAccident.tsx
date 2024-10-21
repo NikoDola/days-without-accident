@@ -1,7 +1,7 @@
 "use client"
 
 
-export default function SingleDepartment({title, status, involvedEmployees, time, description}){
+export default function SingleAccident({title, status, involvedEmployees, time, description}){
     return(
         <section>
             <h2>{title}</h2>

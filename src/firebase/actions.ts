@@ -147,7 +147,7 @@ export async function addNewAccident(
     title: string = 'default', 
     description: string = 'Unamed', 
     involvedEmployees: EmployeeType[] = [],
-    timestamp: Date // Add this new parameter
+    timestamp: Date,
 ) {
     try {
         const collRef = collection(db, "users", "Nik's", 'departments', departmentID, 'accidents');
@@ -160,24 +160,37 @@ export async function addNewAccident(
             name: emp.name,
             lastName: emp.lastName,
             description,
-   
         }));
     
-        await addDoc(collRef, {
+        const docRef = await addDoc(collRef, {
             title,
             description,
             status: 'unsolved',
             time: differenceInSeconds, // This is a number
             involvedEmployees: involvedEmployeesData, // Add involved employees here
-            departmentID, 
+            departmentID,
         });
+
+        const docID = docRef.id
+
+        await updateDoc(docRef, {
+            id: docID
+        })
+
+        involvedEmployeesData.forEach( async (item)=>{
+            const docRef = doc(db,'users', "Nik's",'departments', departmentID, 'employees', item.id )
+
+            await updateDoc(docRef, {
+                accidents: increment(1),
+            })
+        })
 
         const departmentRef = doc(db, 'users', "Nik's",'departments', departmentID)
         await updateDoc(departmentRef, {
             accidents: increment(1)
         })
         
-         
+
         alert('accident was added')
         window.location.reload()
         console.log('Accident reported successfully with involved employees.');
@@ -216,11 +229,25 @@ export async function editAccidents(departmentID: string, accidentID, newData: P
 export async function deleteAccident(departmentID: string, accidentID:string) {
     try {
         const docRef = doc(db, 'users', "Nik's", 'departments', departmentID, 'accidents', accidentID)
+
+        const involvedEmployees = await getDoc(docRef)
+        
+        if(involvedEmployees.exists()){
+            const data = involvedEmployees.data()?.involvedEmployees
+            data.forEach( async(item) => {
+                const empRef = doc(db, "users", "Nik's", 'departments', departmentID, 'employees', item.id)
+
+                updateDoc(empRef, {
+                    accidents: increment(-1)
+                })
+            })
+        }
+
         await deleteDoc(docRef)
     
         const departmentRef = doc(db, 'users', "Nik's",'departments', departmentID)
         await updateDoc(departmentRef, {
-            employees: increment(-1)
+            accidents: increment(-1)
         })
         alert('accedent was deleted')
         

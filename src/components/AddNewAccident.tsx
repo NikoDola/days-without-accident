@@ -29,7 +29,6 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
         async function fetchData() {
             const employeesList: EmployeeType[] = await listDepartmentEmployees(departmentID) as EmployeeType[];
             setEmployees(employeesList);
-            console.log(employeesList);
         }
         fetchData();
     }, [departmentID]);
@@ -41,7 +40,7 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
         if (Array.isArray(employees) && employees.length > 0) {
             const timestamp = new Date(timeNow); 
             
-            if (isNaN(timestamp.getTime())) { // Check if timestamp is valid
+            if (isNaN(timestamp.getTime())) {
                 console.error("Invalid timestamp:", timeNow);
                 return; // Exit if the timestamp is not valid
             }
@@ -49,21 +48,21 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
             addNewAccident(departmentID, title, description, envolvedEmployees, timestamp); 
             console.log("Accident reported with involved employees:", envolvedEmployees);
     
-            envolvedEmployees.forEach(async (employee) => {
-                if (employee && employee.id) {
-                    try {
-                        const docRef = doc(db, 'users', "Nik's", 'departments', departmentID, 'employees', employee.id);
-                        await updateDoc(docRef, {
-                            accidents: increment(1)
-                        });
+            // envolvedEmployees.forEach(async (employee) => {
+            //     if (employee && employee.id) {
+            //         try {
+            //             const docRef = doc(db, 'users', "Nik's", 'departments', departmentID, 'employees', employee.id);
+            //             await updateDoc(docRef, {
+            //                 accidents: increment(1)
+            //             });
     
-                        console.log(`Accident count updated for employee ${employee.name} ${employee.lastName}`);
-                    } catch (error) {
-                        setError(error)
-                        console.error(`Error updating accident count for employee ${employee.name} ${employee.lastName}:`, error);
-                    }
-                }
-            });
+            //             console.log(`Accident count updated for employee ${employee.name} ${employee.lastName}`);
+            //         } catch (error) {
+            //             setError(error)
+            //             console.error(`Error updating accident count for employee ${employee.name} ${employee.lastName}:`, error);
+            //         }
+            //     }
+            // });
         }
     }
     

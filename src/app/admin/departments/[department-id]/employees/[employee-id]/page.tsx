@@ -34,9 +34,14 @@ export default async function Employees({params}){
             </main>
         )
     }
-    return(
+    return (
         <main>
-            <SingleEmployee departmentID={selectedDepartment.id} employeeID={selectedEmployee.id} selected={selectedEmployee}/>
+            <div className="inline-flex items-center">
+                <img className="profileImage mr-4" src={selectedEmployee.photoURL || "/default-avatar.png"} alt={`${selectedEmployee.id}`} />
+                <h4 className="mainHeadline">Employee: {selectedEmployee.id}</h4>
+            </div>
+    
+            <SingleEmployee departmentID={selectedDepartment.id} employeeID={selectedEmployee.id} selected={selectedEmployee} />
         </main>
-    )
+    );
 }

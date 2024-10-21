@@ -15,32 +15,51 @@ export interface AccidentType {
     status: string;           
     time: number;          
     envolvedEmployees: EmployeeType[]; 
-    description: string;     
+    description: string; 
+    involvedEmployees: EmployeeType[];    
+    accidentID: 'string' 
 }
 
 
-export interface EmployeeType {
-    id:string;
+export enum Gender {
+    Male = "Male",
+    Female = "Female",
+    Other = "Other", // for inclusivity
+  }
+  
+  export enum EmployeeStatus {
+    Active = "Active",
+    Inactive = "Inactive",
+    OnLeave = "OnLeave",
+    Terminated = "Terminated",
+  }
+  
+  export enum JobPosition {
+    Manager = "Manager",
+    Engineer = "Engineer",
+    Technician = "Technician",
+    HR = "HR",
+    // add as many as you need
+  }
+  
+  export interface EmployeeType {
+    id: string;
     name: string;
     lastName: string;
-    accidents: number;
-    departmentName: string;
-    description: string;
-    photoURL: string;
-    timestamp: string;
-    gender: string;
-    email: string;
-    phoneNumber: number;
-    emergencyContact: string;
+    gender: Gender;
+    dateOfBirth: string  // can be a string (YYYY-MM-DD) or a Date object
     homeAddress: string;
-    dateOfBirth: string;
-    medicalCondition: string;
-    employeeStatus: string;
-    notes: string;
-    promotions: {};
-    salary: number;
-    hireDate: string;
-    jobPosition: string;
-    envolvedEmployees: [];
-
-}
+    email: string;
+    phoneNumber: string;
+    emergencyContact: string | null; // can be null if not provided
+    employeeStatus: EmployeeStatus;
+    jobPosition: JobPosition;
+    medicalCondition?: string; // optional, use if applicable
+    notes?: string; // optional, if you allow it
+    photoURL?: string; // optional, for employee photos
+    salary?: number; // optional, make sure to handle precision if needed
+    departmentID: string;
+    hireDate?: string ; // optional, same approach as dateOfBirth
+  
+  }
+  

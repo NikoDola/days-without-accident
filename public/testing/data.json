@@ -1,0 +1,203 @@
+[
+    {
+      "firstName": "John",
+      "lastName": "Doe",
+      "dateOfBirth": "1985-06-15",
+      "hiringDate": "2010-04-20",
+      "accidents": 0,
+      "phoneNumber": "+1-202-555-0110",
+      "emergencyPhoneNumber": "+1-202-555-0199",
+      "workStatus": "active"
+    },
+    {
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "dateOfBirth": "1990-08-22",
+      "hiringDate": "2015-07-10",
+      "accidents": 1,
+      "phoneNumber": "+1-202-555-0135",
+      "emergencyPhoneNumber": "+1-202-555-0177",
+      "workStatus": "active"
+    },
+    {
+      "firstName": "Michael",
+      "lastName": "Johnson",
+      "dateOfBirth": "1978-02-17",
+      "hiringDate": "2005-11-01",
+      "accidents": 2,
+      "phoneNumber": "+1-202-555-0142",
+      "emergencyPhoneNumber": "+1-202-555-0188",
+      "workStatus": "on leave"
+    },
+    {
+      "firstName": "Emily",
+      "lastName": "Williams",
+      "dateOfBirth": "1992-05-30",
+      "hiringDate": "2016-03-25",
+      "accidents": 0,
+      "phoneNumber": "+1-202-555-0164",
+      "emergencyPhoneNumber": "+1-202-555-0192",
+      "workStatus": "active"
+    },
+    {
+      "firstName": "David",
+      "lastName": "Brown",
+      "dateOfBirth": "1987-12-12",
+      "hiringDate": "2011-09-15",
+      "accidents": 3,
+      "phoneNumber": "+1-202-555-0187",
+      "emergencyPhoneNumber": "+1-202-555-0123",
+      "workStatus": "active"
+    },
+    {
+      "firstName": "Laura",
+      "lastName": "Jones",
+      "dateOfBirth": "1980-09-10",
+      "hiringDate": "2009-06-18",
+      "accidents": 1,
+      "phoneNumber": "+1-202-555-0115",
+      "emergencyPhoneNumber": "+1-202-555-0198",
+      "workStatus": "terminated"
+    },
+    {
+      "firstName": "Paul",
+      "lastName": "Garcia",
+      "dateOfBirth": "1975-01-23",
+      "hiringDate": "2000-02-14",
+      "accidents": 4,
+      "phoneNumber": "+1-202-555-0120",
+      "emergencyPhoneNumber": "+1-202-555-0180",
+      "workStatus": "retired"
+    },
+    {
+      "firstName": "Linda",
+      "lastName": "Martinez",
+      "dateOfBirth": "1995-11-07",
+      "hiringDate": "2020-08-12",
+      "accidents": 0,
+      "phoneNumber": "+1-202-555-0167",
+      "emergencyPhoneNumber": "+1-202-555-0176",
+      "workStatus": "active"
+    },
+    {
+      "firstName": "James",
+      "lastName": "Lee",
+      "dateOfBirth": "1983-04-02",
+      "hiringDate": "2007-05-19",
+      "accidents": 2,
+      "phoneNumber": "+1-202-555-0138",
+      "emergencyPhoneNumber": "+1-202-555-0191",
+      "workStatus": "active"
+    },
+    {
+      "firstName": "Karen",
+      "lastName": "Hernandez",
+      "dateOfBirth": "1989-07-11",
+      "hiringDate": "2014-03-30",
+      "accidents": 0,
+      "phoneNumber": "+1-202-555-0151",
+      "emergencyPhoneNumber": "+1-202-555-0185",
+      "workStatus": "active"
+    },
+    {
+      "firstName": "Robert",
+      "lastName": "Clark",
+      "dateOfBirth": "1972-10-18",
+      "hiringDate": "1998-12-22",
+      "accidents": 5,
+      "phoneNumber": "+1-202-555-0108",
+      "emergencyPhoneNumber": "+1-202-555-0172",
+      "workStatus": "terminated"
+    },
+    {
+      "firstName": "Nancy",
+      "lastName": "Lopez",
+      "dateOfBirth": "1993-01-14",
+      "hiringDate": "2018-11-05",
+      "accidents": 0,
+      "phoneNumber": "+1-202-555-0168",
+      "emergencyPhoneNumber": "+1-202-555-0190",
+      "workStatus": "active"
+    },
+    {
+      "firstName": "Steven",
+      "lastName": "Gonzalez",
+      "dateOfBirth": "1979-03-27",
+      "hiringDate": "2006-08-08",
+      "accidents": 1,
+      "phoneNumber": "+1-202-555-0158",
+      "emergencyPhoneNumber": "+1-202-555-0183",
+      "workStatus": "on leave"
+    },
+    {
+      "firstName": "Susan",
+      "lastName": "Wilson",
+      "dateOfBirth": "1986-02-25",
+      "hiringDate": "2012-09-30",
+      "accidents": 0,
+      "phoneNumber": "+1-202-555-0114",
+      "emergencyPhoneNumber": "+1-202-555-0129",
+      "workStatus": "active"
+    },
+    {
+      "firstName": "Charles",
+      "lastName": "White",
+      "dateOfBirth": "1991-12-03",
+      "hiringDate": "2016-04-22",
+      "accidents": 2,
+      "phoneNumber": "+1-202-555-0149",
+      "emergencyPhoneNumber": "+1-202-555-0137",
+      "workStatus": "active"
+    },
+    {
+      "firstName": "Maria",
+      "lastName": "Anderson",
+      "dateOfBirth": "1984-06-01",
+      "hiringDate": "2008-10-14",
+      "accidents": 1,
+      "phoneNumber": "+1-202-555-0121",
+      "emergencyPhoneNumber": "+1-202-555-0159",
+      "workStatus": "active"
+    },
+    {
+      "firstName": "Patrick",
+      "lastName": "Thomas",
+      "dateOfBirth": "1973-09-05",
+      "hiringDate": "1999-02-28",
+      "accidents": 3,
+      "phoneNumber": "+1-202-555-0140",
+      "emergencyPhoneNumber": "+1-202-555-0127",
+      "workStatus": "retired"
+    },
+    {
+      "firstName": "Megan",
+      "lastName": "Taylor",
+      "dateOfBirth": "1997-05-18",
+      "hiringDate": "2021-01-20",
+      "accidents": 0,
+      "phoneNumber": "+1-202-555-0170",
+      "emergencyPhoneNumber": "+1-202-555-0182",
+      "workStatus": "active"
+    },
+    {
+      "firstName": "Gregory",
+      "lastName": "Moore",
+      "dateOfBirth": "1982-11-09",
+      "hiringDate": "2006-12-12",
+      "accidents": 2,
+      "phoneNumber": "+1-202-555-0145",
+      "emergencyPhoneNumber": "+1-202-555-0179",
+      "workStatus": "active"
+    },
+    {
+      "firstName": "Angela",
+      "lastName": "Martin",
+      "dateOfBirth": "1988-08-06",
+      "hiringDate": "2013-07-27",
+      "accidents": 1,
+      "phoneNumber": "+1-202-555-0155",
+      "emergencyPhoneNumber": "+1-202-555-0163",
+      "workStatus": "active"
+    }
+  ]
+  

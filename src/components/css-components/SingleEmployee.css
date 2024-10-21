@@ -1,11 +1,49 @@
-.profileImage{
-    width: 8rem;
+/* Add this rule to display the sections in a row */
+.employeeInfo {
+    display: flex; /* Ensures that the sections inside are aligned horizontally */
+    flex-wrap: wrap; /* Allows wrapping if the sections are too wide for the container */
+    gap: 2rem; /* Space between sections */
 }
 
-.image_name{
+.sectionListing {
     display: flex;
+    flex-direction: column; /* Keeps the content within each section stacked vertically */
+    width: 30%; /* Adjust the width of each section as needed */
+
 }
 
-.nameLastName{
-    font-size: x-large;
+.altHeadline {
+    font-weight: bold;
 }
+
+.line {
+    width: 100%;
+}
+.profileImage{
+    height: 100px;
+
+}
+
+.gridCol {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 1rem;
+    width: 100%; 
+  }
+
+.keyInput{
+    line-height: 0;
+    font-size: 1rem;
+    padding: 0.5rem;
+}
+
+.valueInput{
+    padding-top:0;
+    padding-bottom:0;
+    font-size: 1rem;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+  
+

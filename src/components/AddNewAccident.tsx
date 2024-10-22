@@ -1,9 +1,7 @@
 "use client";
 
 import { useEffect, useState } from 'react';
-import { addNewAccident, listDepartmentEmployees } from "@/firebase/actions";
-import { updateDoc, doc, increment } from 'firebase/firestore';
-import { db } from '@/firebase';
+import { addNewAccident,  listAllEmployees } from "@/firebase/actions";
 import { EmployeeType } from '@/firebase/types';
 
 
@@ -27,7 +25,7 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
         setTimeNow(formattedDate); // Set the formatted date
 
         async function fetchData() {
-            const employeesList: EmployeeType[] = await listDepartmentEmployees(departmentID) as EmployeeType[];
+            const employeesList: EmployeeType[] = await listAllEmployees() as EmployeeType[];
             setEmployees(employeesList);
         }
         fetchData();
@@ -48,21 +46,6 @@ export default function ReportAccident({ departmentID }: { departmentID: string 
             addNewAccident(departmentID, title, description, envolvedEmployees, timestamp); 
             console.log("Accident reported with involved employees:", envolvedEmployees);
     
-            // envolvedEmployees.forEach(async (employee) => {
-            //     if (employee && employee.id) {
-            //         try {
-            //             const docRef = doc(db, 'users', "Nik's", 'departments', departmentID, 'employees', employee.id);
-            //             await updateDoc(docRef, {
-            //                 accidents: increment(1)
-            //             });
-    
-            //             console.log(`Accident count updated for employee ${employee.name} ${employee.lastName}`);
-            //         } catch (error) {
-            //             setError(error)
-            //             console.error(`Error updating accident count for employee ${employee.name} ${employee.lastName}:`, error);
-            //         }
-            //     }
-            // });
         }
     }
     

@@ -40,7 +40,8 @@ export default function ListDepartmentEmployees({ departmentID }) {
 
     const filteredEmployees = Array.isArray(employeesList) ? employeesList.filter((employee) =>
         employee.name.toLowerCase().includes(search.toLowerCase()) ||
-        employee.lastName.toLowerCase().includes(search.toLowerCase())
+        employee.lastName.toLowerCase().includes(search.toLowerCase()) ||
+        employee.id.startsWith(search)
     ) : [];
     
     return (

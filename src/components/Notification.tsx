@@ -9,6 +9,7 @@ export default function Notification() {
     const [unsolvedAccidents, setUnsolvedAccidents] = useState<AccidentType[]>([]);
     const [toggle, setToggle] = useState<boolean>(false);
     const notificationRef = useRef<HTMLDivElement | null>(null);
+    const bellIconRef = useRef<HTMLDivElement | null>(null); // Ref for the bell icon
 
     useEffect(() => {
         async function fetchAccidents() {
@@ -26,7 +27,13 @@ export default function Notification() {
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
-            if (notificationRef.current && !notificationRef.current.contains(event.target as Node)) {
+            // Close the notification if clicked outside, but not when clicking the bell icon
+            if (
+                notificationRef.current &&
+                !notificationRef.current.contains(event.target as Node) &&
+                bellIconRef.current &&
+                !bellIconRef.current.contains(event.target as Node)
+            ) {
                 setToggle(false);
             }
         };
@@ -39,24 +46,34 @@ export default function Notification() {
 
     return (
         <div>
-            <div onClick={handleToggle} className={unsolvedAccidents.length > 0 ? 'notificationCounter' : 'notification'}>
+            {/* Ref added to the bell icon */}
+            <div onClick={handleToggle} ref={bellIconRef} className={unsolvedAccidents.length > 0 ? 'notificationCounter' : 'notification'}>
                 {unsolvedAccidents.length > 0 && <p className="notificationNumber">{unsolvedAccidents.length}</p>}
             </div>
+
+            <div>
             {toggle && ( // Only render the notification list when toggle is true
                 <div className="notificationListWrapper" ref={notificationRef}>
+                    <div className="flex p-4 justify-between">
+                        <p className="text-right">Notifications</p>
+     
+                    </div>
+              
                     {unsolvedAccidents.length > 0 && (
                         unsolvedAccidents.map((item: AccidentType) => (
-                            <div key={item.id}>
-                                <p>{item.title}</p>
-                                <p>{item.id}</p>
-                                <Link href={`/admin/departments/${item.departmentID}/accidents/${item.id}`}>
-                                    View
+                            <div className="actionWrapper" key={item.id}>
+                                  <Link href={`/admin/departments/${item.departmentID}/accidents/${item.id}`}>
+                                <div className="singleNotification">
+                                    <p>{item.title}</p>
+                                    <p className="text-red-600">Accident {item.status}</p>
+                                </div>
                                 </Link>
                             </div>
                         ))
                     )}
                 </div>
             )}
+            </div>
         </div>
     );
 }

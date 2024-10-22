@@ -1,12 +1,9 @@
 "use server"
 
-import ListAllAccidents from "@/components/ListDepartmentAccidents";
 import { listDepartmentAccidents, listAllDepartments} from "@/firebase/actions";
 import { notFound } from "next/navigation";
 import EditAccident from "@/components/EditAccident";
-import SingleDepartment from "@/components/SingleAccident";
-import Link from "next/link";
-import { AccidentType } from "@/firebase/types";
+
 import SingleAccident from "@/components/SingleAccident"
 
 interface AccidentsPageProps {

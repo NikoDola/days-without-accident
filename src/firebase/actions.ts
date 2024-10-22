@@ -179,16 +179,25 @@ export async function addNewAccident(
 
         involvedEmployeesData.forEach( async (item)=>{
             const docRef = doc(db,'users', "Nik's",'departments', departmentID, 'employees', item.id )
-
-            await updateDoc(docRef, {
-                accidents: increment(1),
-            })
+            try {
+                await updateDoc(docRef, {
+                    accidents: increment(1),
+                })
+            } catch (error) {
+                console.error(error)
+            }
+          
         })
 
         const departmentRef = doc(db, 'users', "Nik's",'departments', departmentID)
-        await updateDoc(departmentRef, {
-            accidents: increment(1)
-        })
+        try {
+            await updateDoc(departmentRef, {
+                accidents: increment(1)
+            })
+        } catch (error) {
+            console.error(error)
+        }
+   
         
 
         alert('accident was added')
@@ -419,7 +428,7 @@ export async function addNewEmployee(
         // Update the employee count in the department
         const departmentRef = doc(db, 'users', "Nik's", 'departments', departmentID);
         await updateDoc(departmentRef, {
-            employees: increment(1)  // Assuming there's a field `employees` to track the count
+            employees: increment(1)  
         });
         alert('Employee added successfully.');
         window.location.reload()
@@ -494,4 +503,42 @@ export async function listAllTime() {
 
 
 
+//Global
 
+export async function addNewAccidentGlobal(){
+    //Get All Departments
+    const depColRef = collection(db, 'users', "Nik's", 'departments')
+    const depGetDocs = await getDocs(depColRef)
+    const departments = depGetDocs.docs.map((item) => ({
+        id: item.id,
+        ...item.data()
+    }))
+
+    //Get All Employees
+    let employees = []
+    let accidents = [
+
+    ]
+   departments.forEach( async(item) =>{
+        const empColRef = collection(db, 'users', "Nik's", 'departments', `${item.id}`, 'employees')
+        const empGetDocs = await getDocs(empColRef)
+         employees.push(empGetDocs.docs.map((item) => ({
+            id: item.id,
+            ...item.data()
+         }))) 
+    })
+
+    departments.forEach( async(item) =>{
+        const accColRef = collection(db, 'users', "Nik's", 'departments', `${item.id}`, 'accidents')
+        const accGetDocs = await getDocs(accColRef)
+         accidents.push(accGetDocs.docs.map((item) => ({
+            id: item.id,
+            ...item.data()
+         }))) 
+    })
+    return {
+        departments,
+        employees,
+        accidents
+    }
+}

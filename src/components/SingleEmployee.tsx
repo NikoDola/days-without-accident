@@ -145,7 +145,7 @@ export default function SingleEmployee({
 
         <div className="gridItems">
           <label className="keyInput">Emergency Contact</label>
-          <input className="valueInput" onChange={handleNewData} type="tel" name="emergencyContact" value={selected.emergencyContact} placeholder="Emergency Contact" />
+          <input className="valueInput" onChange={handleNewData} type="number" name="emergencyContact" placeholder="Emergency Contact" />
           <hr className="line invisible" />
         </div>
 
@@ -183,13 +183,6 @@ export default function SingleEmployee({
         <div className="gridItems">
           <label className="keyInput">Salary</label>
           <input className="valueInput" onChange={handleNewData} type="number" name="salary" value={newData.salary} placeholder="Salary" />
-          <hr className="line invisible" />
-        </div>
-
-
-        <div className="gridItems">
-          <label className="keyInput">Department ID</label>
-          <input className="valueInput" onChange={handleNewData} type="text" name="departmentID" value={selected.id} placeholder="Department ID" />
           <hr className="line invisible" />
         </div>
 

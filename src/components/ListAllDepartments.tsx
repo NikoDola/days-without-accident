@@ -58,7 +58,7 @@ export default function ListDepartments() {
     };
 
     return (
-        <div className="sectionListing flex-col">
+        <div className="sectionListing flex-col w-full">
             <div className="flex items-center gap-4">
                 <h6 className="altHeadline">Department Listing</h6>
                 <hr className="line" />

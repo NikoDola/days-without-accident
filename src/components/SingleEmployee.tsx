@@ -23,6 +23,7 @@ export default function SingleEmployee({
   const [employeeAccidents, setEmployeesAccident] = useState<AccidentType[] | null>(null); // Type array or null
   const [file, setFile] = useState<File | null>(null); // State for the selected file
   const router = useRouter();
+  
 
   useEffect(() => {
     setNewData(selected);
@@ -103,49 +104,49 @@ export default function SingleEmployee({
 
         <div className="gridItems">
           <label className="keyInput">First Name</label>
-          <input className="valueInput" onChange={handleNewData} type="text" name="name" value={selected.name} placeholder="First Name" />
+          <input className="valueInput" onChange={handleNewData} type="text" name="name" value={newData.name } placeholder="First Name" />
           <hr className="line invisible" />
         </div>
 
         <div className="gridItems">
           <label className="keyInput">Last Name</label>
-          <input className="valueInput" onChange={handleNewData} type="text" name="lastName" value={selected.lastName} placeholder="Last Name" />
+          <input className="valueInput" onChange={handleNewData} type="text" value={newData.lastName} name="lastName" placeholder="e.g Doe" />
           <hr className="line invisible" />
         </div>
 
         <div className="gridItems">
           <label className="keyInput">Gender</label>
-          <input className="valueInput" onChange={handleNewData} type="text" name="gender" value={selected.gender} placeholder="Gender" />
+          <input className="valueInput" onChange={handleNewData} type="text" name="gender" value={newData.gender} placeholder="Gender" />
           <hr className="line invisible" />
         </div>
 
         <div className="gridItems">
           <label className="keyInput">Date of Birth</label>
-          <input className="valueInput" onChange={handleNewData} type='string' name="dateOfBirth" value={selected.dateOfBirth} />
+          <input className="valueInput" onChange={handleNewData} type='string' name="dateOfBirth" value={newData.dateOfBirth} placeholder="e.g 23/11/1984" />
           <hr className="line invisible" />
         </div>
 
         <div className="gridItems">
           <label className="keyInput">Home Address</label>
-          <input className="valueInput" onChange={handleNewData} type="text" name="homeAddress" value={selected.homeAddress} placeholder="Home Address" />
+          <input className="valueInput" onChange={handleNewData} type="text" name="homeAddress" value={newData.homeAddress} placeholder="Home Address" />
           <hr className="line invisible" />
         </div>
 
         <div className="gridItems">
           <label className="keyInput">Email</label>
-          <input className="valueInput" onChange={handleNewData} type="email" name="email" value={selected.email} placeholder="Email" />
+          <input className="valueInput" onChange={handleNewData} type="email" name="email" value={newData.email} placeholder="Email" />
           <hr className="line invisible" />
         </div>
 
         <div className="gridItems">
           <label className="keyInput">Phone Number</label>
-          <input className="valueInput" onChange={handleNewData} type="tel" name="phoneNumber" value={selected.phoneNumber} placeholder="Phone Number" />
+          <input className="valueInput" onChange={handleNewData} type="tel" name="phoneNumber" value={newData.phoneNumber} placeholder="Phone Number" />
           <hr className="line invisible" />
         </div>
 
         <div className="gridItems">
           <label className="keyInput">Emergency Contact</label>
-          <input className="valueInput" onChange={handleNewData} type="number" name="emergencyContact" placeholder="Emergency Contact" />
+          <input className="valueInput" onChange={handleNewData} type="tel" name="emergencyContact" placeholder="Emergency Contact" />
           <hr className="line invisible" />
         </div>
 
@@ -188,7 +189,7 @@ export default function SingleEmployee({
 
         <div className="gridItems">
           <label className="keyInput">Hire Date</label>
-          <input className="valueInput" onChange={handleNewData} type="text" name="hireDate" value={newData.hireDate} placeholder="Hire Date" />
+          <input className="valueInput" onChange={handleNewData} type="text" name="hireDate" value={newData.hireDate} placeholder=".e.g 23/11/1984" />
           <hr className="line invisible" />
         </div>
 
@@ -205,6 +206,7 @@ export default function SingleEmployee({
 
  viewInfo = {
   <div>
+    
     <div className="flex items-center gap-4 whitespace-nowrap my-4">
       <h6 className="altHeadline">Employee Information</h6>
       <hr className="line" />

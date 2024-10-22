@@ -171,7 +171,7 @@ export async function addNewAccident(
         const docRef = await addDoc(collRef, {
             title,
             description,
-            status: 'unsolved',
+            status: 'Unsolved',
             time: differenceInSeconds, // This is a number
             involvedEmployees: involvedEmployeesData, // Add involved employees here
             departmentID,
@@ -512,7 +512,7 @@ export async function listAllTime() {
 
 //Global
 
-export async function addNewAccidentGlobal(){
+export async function getAll(){
     //Get All Departments
     const depColRef = collection(db, 'users', "Nik's", 'departments')
     const depGetDocs = await getDocs(depColRef)

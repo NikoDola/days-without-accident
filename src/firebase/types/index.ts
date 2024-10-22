@@ -18,6 +18,7 @@ export interface AccidentType {
     description: string; 
     involvedEmployees: EmployeeType[];    
     accidentID: 'string' 
+    dataReported: 'string'
 }
 
 

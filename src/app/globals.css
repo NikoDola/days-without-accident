@@ -167,9 +167,9 @@ input:focus, textarea:focus{
 
 .sectionListing{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 1rem;
-  flex:2
+  flex:2;
 }
 
 .adminWrapper{

@@ -45,8 +45,8 @@ export default function ListDepartmentEmployees({ departmentID }) {
     ) : [];
     
     return (
-        <div className="sectionListing flex-col">
-            <div className="flex items-center gap-4">
+        <div className="sectionListing w-full">
+            <div className="flex items-baseline gap-4">
                 <h6 className="altHeadline">Department Listing</h6>
                 <hr className="line" />
             </div>
@@ -55,8 +55,8 @@ export default function ListDepartmentEmployees({ departmentID }) {
                 <img className="searchIcon" src="/general/search.svg" alt="Search"/>
             </div>
 
-            <div className="cardWrapper">
-                <div className="cardWrapper">
+            <div className="cardWrapper ">
+                <div className="cardWrapper ">
                     {!employeesList.length ? <p>Loading...</p> : 
                 filteredEmployees.map((item: EmployeeTypeCheck) => (
                     <div key={item.id} className="itemCardWrapper">

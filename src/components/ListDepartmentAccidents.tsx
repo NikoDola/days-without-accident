@@ -85,7 +85,7 @@ export default function ListAllAccidents({ departmentID }: ListAllAccidentsProps
 
     return (
         
-        <div className="sectionListing flex-col">
+        <div className="sectionListing flex-col w-full">
             <div className="flex items-center gap-4">
                 <h6 className="altHeadline">Accident Listing</h6>
                 <hr className="line" />

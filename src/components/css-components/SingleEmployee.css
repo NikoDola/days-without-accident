@@ -33,17 +33,17 @@
 
 .keyInput{
     line-height: 0;
-    font-size: 1rem;
+    font-size: 0.8rem;
     padding: 0.5rem;
 }
 
 .valueInput{
     padding-top:0;
     padding-bottom:0;
-    font-size: 1rem;
+    font-size: 1.1rem;
     padding: 0.5rem;
-    font-size: 1.2rem;
-    font-weight: 700;
+   
+    font-weight: 400;
 }
   
 

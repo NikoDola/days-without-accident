@@ -18,7 +18,7 @@ export default function ListAllEmployees(){
           {(!selectedEmployee || selectedEmployee.length === 0) ? (
             <p>No data</p>
           ) : (
-            <div>
+            <div >
                  <p>{selectedEmployee.length}</p>
                 {selectedEmployee.map((employee, index)=>(
                     <div key={index}>

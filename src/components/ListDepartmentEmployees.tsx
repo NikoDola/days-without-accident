@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react"
 
 import { listDepartmentEmployees } from "@/firebase/actions"
-import Link from "next/link"
+
 import { useRouter } from "next/navigation"
 
 interface EmployeeTypeCheck {

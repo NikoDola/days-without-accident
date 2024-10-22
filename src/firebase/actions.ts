@@ -161,6 +161,12 @@ export async function addNewAccident(
             lastName: emp.lastName,
             description,
         }));
+
+        // Format the current date to dd/MM/yyyy
+        const day = String(timestamp.getDate()).padStart(2, '0');
+        const month = String(timestamp.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
+        const year = timestamp.getFullYear();
+        const dataReported = `${day}/${month}/${year}`;
     
         const docRef = await addDoc(collRef, {
             title,
@@ -169,6 +175,7 @@ export async function addNewAccident(
             time: differenceInSeconds, // This is a number
             involvedEmployees: involvedEmployeesData, // Add involved employees here
             departmentID,
+            dataReported,
         });
 
         const docID = docRef.id

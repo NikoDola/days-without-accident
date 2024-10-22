@@ -54,7 +54,7 @@ export default function Notification() {
             <div>
             {toggle && ( // Only render the notification list when toggle is true
                 <div className="notificationListWrapper" ref={notificationRef}>
-                    <div className="flex p-4 justify-between">
+                    <div className=" p-4 ">
                         <p className="text-right">Notifications</p>
      
                     </div>

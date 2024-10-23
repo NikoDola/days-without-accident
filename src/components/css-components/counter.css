@@ -101,9 +101,17 @@ body{
 .rightWrapper{
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: start;
     align-items: end;
+    gap: 3rem;
 }
+
+.departmentHeader{
+    
+    margin-left: auto;
+    margin-bottom: 2rem;
+   
+ }
 
 .statisticWrapper{
     margin-top: 1rem;
@@ -169,8 +177,13 @@ body{
   
 
   @media only screen and (max-width: 767px) {
-
+    .departmentHeader{
     
+     
+        margin-top: 6rem;
+       
+     }
+
     .analiticAndTotal{
         flex-direction: column-reverse;
     }

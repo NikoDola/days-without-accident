@@ -1,6 +1,12 @@
 @import '../../app/globals.css';
 
-
+/* body{
+    background-image:url('/general/bg-niks.png');
+    background-position: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    
+} */
 *{
     font-family: roboto;
     padding: 0;

@@ -106,7 +106,7 @@ export default function ListAllAccidents({ departmentID }: ListAllAccidentsProps
                                     <hr className="mt-4"/>
                                 </div>
                                 <p className="mt-4">Involved Employees {item.involvedEmployees.length}</p>
-                                <p style={{ color: item.status === 'unsolved' ? 'red' : 'green' }}>Status {item.status}</p>
+                                <p style={{ color: item.status === 'Unsolved' ? 'red' : 'green' }}>Status {item.status}</p>
                                 <p className="mb-4">{convertSecondsToDate(item.time)}</p> {/* Convert item.time to readable date */}
                                 <button className="cardButton" onClick={()=> router.push(`/admin/departments/${departmentID}/accidents/${item.id}`)}>View Accident</button>
                             </div>

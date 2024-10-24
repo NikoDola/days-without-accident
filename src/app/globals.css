@@ -331,11 +331,7 @@ input:focus, textarea:focus{
 }
 
 
-.navLinks{
-  position: relative;
-  color: rgb(205, 205, 205);
-  margin-right: 1rem;
-}
+
 
 .linkWrapper{
   display: flex;
@@ -358,17 +354,7 @@ input:focus, textarea:focus{
 }
 
 
-.navbar{
-  opacity: 0;
-  padding: 1rem;
-  padding-right: 6rem;
-  text-align: right;
-  transition: opacity 0.3s;
-}
-.navbar:hover{
-  opacity: 1;
-  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
-}
+
 
 @media screen and (min-width: 1024px) {
   .login{
@@ -478,6 +464,7 @@ input:focus, textarea:focus{
 .navLinkActive{
   font-weight: 600;
 }
+
 .navLinkActive::after{
   font-weight: 600;
   content: "";
@@ -486,4 +473,62 @@ input:focus, textarea:focus{
   height: 4px;
   background-color: var(--brand-color);
 
+}
+
+.navbar{
+  display: flex;
+  width: 60%;
+  margin: 0 auto;
+  padding-top: 1rem;
+  display: flex;
+  justify-content: end;
+  gap: 3rem;
+  
+}
+
+.navUls{
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  gap: 1.5rem;
+  text-align: right;
+  margin: 0;
+  padding: 0;
+  justify-content: end;
+  margin-left: auto;
+
+}
+
+
+.navLinks{
+  position: relative;
+  color: rgb(205, 205, 205);
+  margin-right: 1rem;
+}
+
+.loginNav{
+  display: flex;
+  gap: 1.5rem;
+}
+
+.burger{
+  width: 30px;
+  height: 30px;
+  background-color: black;
+}
+
+.mobileMenu{
+  display: flex;
+  gap: 1rem;
+  margin-right: 1rem;
+}
+
+.burger{
+  display: none;
+}
+
+
+
+@media (max-width: 768px) {
+  
 }

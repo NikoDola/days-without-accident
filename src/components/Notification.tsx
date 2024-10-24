@@ -14,7 +14,7 @@ export default function Notification() {
     useEffect(() => {
         async function fetchAccidents() {
             const accidents: any = await listAllAccidents();
-            const unsolved: AccidentType[] = accidents.filter((item: any) => item.status === "unsolved");
+            const unsolved: AccidentType[] = accidents.filter((item: any) => item.status === "Unsolved");
             setUnsolvedAccidents(unsolved);
         }
 
@@ -48,7 +48,7 @@ export default function Notification() {
     useEffect(() => {
     async function fetchAccidents() {
         const accidents: any = await listAllAccidents();
-        const unsolved: AccidentType[] = accidents.filter((item: any) => item.status === "unsolved");
+        const unsolved: AccidentType[] = accidents.filter((item: any) => item.status === "Unsolved");
         setUnsolvedAccidents(unsolved);
         console.log("Unsolved Accidents:", unsolved); // Add this to check if unsolved accidents exist
     }

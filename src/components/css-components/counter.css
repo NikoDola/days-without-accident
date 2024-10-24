@@ -7,9 +7,6 @@
     margin: 0;
 }
 
-body{
-    
-}
 
 
 .currentTime{
@@ -27,7 +24,6 @@ body{
 }
 
 .day{
-
     font-size: 3em;
     bottom: 0;
 }

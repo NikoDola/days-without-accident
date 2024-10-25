@@ -10,6 +10,7 @@ import { useState, useEffect } from "react";
 export default function NavBar(){
     const {logoutUser, user} = useUser();
     const [burger, setBurger] = useState(true)
+    const [profile, setProfile] = useState(false)
 
     useEffect(()=>{
      const checkingInnerWith = innerWidth
@@ -24,10 +25,19 @@ export default function NavBar(){
     const handleBurger = () =>{
       burger ? setBurger(false): setBurger(true)
     }
+
+    const handleProfile = () =>{
+      !profile ? setProfile(true): setProfile(false)
+      console.log(profile)
+    }
     return (
         <nav className="navbar">
           {user ? (
             <div className="loggedIn">
+                <div onClick={handleBurger} className="burger">
+                  <div className={!burger ? "top": "topClicked"}></div>
+                  <div className={!burger ? "bottom": "bottomClicked"}></div>
+                </div>
               <ul className={burger ? "navUrls": "navUrlsHidden"}>
                 <li className="navLinks"><Link href={"/"}>Counter</Link></li>
                 <hr className="hrDecoration"/>
@@ -37,14 +47,15 @@ export default function NavBar(){
                 <hr className="hrDecoration"/>
                 <li className="navLinks">Employees</li>
               </ul>
+              
               <div className="notificationAndBurger">
                 <Notification />
-                <li className="navLinkInactive cursor-pointer" onClick={logoutUser}>Logout</li>
-                <div onClick={handleBurger} className="burger">
-                  <div className="top"></div>
-                  <div className="middle"></div>
-                  <div className="bottom"></div>
-                </div>
+                <img onClick={handleProfile} className="profile" src="/general/images/admin.jpg"/>
+                <ul className={profile ? "profileMenuInactive": "profileMenuActive"}>
+                  <li className="logout " onClick={logoutUser}>Logout</li>
+                </ul>
+                
+           
               </div>
           
             </div>

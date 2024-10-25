@@ -51,6 +51,7 @@
 }
 
 .mainWrapper {
+    margin-top: 2rem;
     display: flex;
     justify-content: space-between;
     height: 80vh;
@@ -60,6 +61,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     flex-wrap: nowrap;
+  
 }
 
 .departmentWrapper{

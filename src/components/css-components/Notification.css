@@ -5,24 +5,22 @@
     height: 1.5rem;
     background-image: url('/general/notificationCounter.svg');
     background-repeat: no-repeat;
-    background-size: contain; /* This makes the image fit within the div */
+    background-size: contain; 
     cursor: pointer;
-    background-size: 100%; /* This will stretch the image to cover the div */
+    background-size: 100%; 
 }
 
 
 .notification{
     position: relative;
     right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 1.2rem;
-    height: 1.2rem;
+    width: 1.5rem;
+    height: 1.5rem;
     background-image: url('/general/notification.svg');
     background-repeat: no-repeat;
     background-size: contain; 
     cursor: pointer;
-    background-size: 100%; /* This will stretch the image to cover the div */
+    background-size: 100%; 
 }
 
 .notificationNumber{

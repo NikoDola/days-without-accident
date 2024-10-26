@@ -1,6 +1,6 @@
-1. Nav Menito da se napraj poubo i responsive za na telefon
+
 2.search ikonata da se smeni od levo
-3.departmentot da ima samo delete i warning message deka vo departmentot mozi da sse editira samo datata
+3.departmentot da ima samo delete i warning message deka vo departmentot mozi da se editira samo datata
 4.department edit page
 5.heading "department listing" wihtespace-no wrap'
 6.dummy employees dummy departments dummy accidents

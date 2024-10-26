@@ -33,7 +33,7 @@ export default function NavBar(){
      
     }
     return (
-        <nav className={path === '/' ? "navBarCounter": "navbar"  }>
+        <nav className={path === '/' || path === '/login' ? "navBarCounter": "navbar"  }>
           {user ? (
             <div className="loggedIn">
                 <div onClick={handleBurger} className="burger">
@@ -59,12 +59,12 @@ export default function NavBar(){
           
             </div>
           ) : (
-            <div className="loggedOut">
-              <ul className="navUls">
-                <li  > <Link href="/">Counter</Link></li>
-                <li><Link href="/login">Login</Link></li>
-              </ul>
-            </div>
+              <div className="loggedOut">
+                <ul className={burger ? "navUrls": "navUrlsHidden"}>
+                  <li  className={path === '/' ? "urlSelected": 'navUrl'}><Link href={"/"}>Counter</Link></li>
+                  <li  className={path === '/login' ? "urlSelected": 'navUrl'}><Link href={"/login"}>Login</Link></li>
+                </ul>
+              </div>
           )}
         </nav>
       );

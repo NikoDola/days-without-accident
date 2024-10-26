@@ -33,6 +33,7 @@
     display: none;
     opacity: 0;
     transition: opacity 0.3s;
+   
   }
   .profileMenuActive{
     display: block;
@@ -46,6 +47,7 @@
     border-radius: 0.3rem;
     opacity: 1;
     transition: opacity 0.3s;
+    z-index: 20;
    
   }
   .profileMenuActive::before{
@@ -169,7 +171,6 @@
       color: white;
       position: absolute;
       top: 3rem;
-      z-index: 3;
       gap: 0.5rem;
       padding: 1rem;
       width: 100%;
@@ -207,7 +208,7 @@
 
 
     
-  .loggedIn{
+  .loggedIn, .loggedOut{
     margin-top: 1rem;
     display: flex;
     justify-content: space-between;

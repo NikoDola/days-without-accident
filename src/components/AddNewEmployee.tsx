@@ -81,15 +81,15 @@ export default function AddNewEmployee({ departmentID }: AddNewEmployeeProps) {
             <div className="gridCol">
                 <div className="gridItems ">
                     <label className="keyInput">First Name</label>
-                    <input className="valueInput" onChange={getData} type="text" name="name" value={employee.name} placeholder=".e.g. Jane" />
+                    <input className="valueInput" onChange={getData} type="text" name="name" value={employee.name} placeholder=".e.g. Jane" required/>
                 </div>
                 <div className="gridItems">
                     <label className="keyInput">Last Name</label>
-                    <input className="valueInput" onChange={getData} type="text" name="lastName" value={employee.lastName} placeholder=".e.g. Doe" />
+                    <input className="valueInput" onChange={getData} type="text" name="lastName" value={employee.lastName} placeholder=".e.g. Doe" required/>
                 </div>
                 <div className="gridItems">
                     <label className="keyInput">Employee ID</label>
-                    <input className="valueInput" onChange={getData} type="text" name="employeeID" value={employee.employeeID} placeholder=".e.g. 12345" />
+                    <input className="valueInput" onChange={getData} type="text" name="employeeID" value={employee.employeeID} placeholder=".e.g. 12345" required/>
                 </div>
                 <div className="gridItems">
                     <label className="keyInput">Gender</label>

@@ -5,7 +5,8 @@ export interface Department{
     createdAt:Timestamp;
     fullName: string;
     accidents:number;
-    employees:number
+    employees:number;
+    id:string;
 }
 
 export interface AccidentType {

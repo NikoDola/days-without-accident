@@ -64,8 +64,9 @@ export default function ListDepartments() {
                 <hr className="line" />
             </div>
             <div className="searchFilterWrapper relative">
-                <input onChange={handleSearch} type="search" placeholder="Search department" className="searchBar" value={search} />
                 <img className="searchIcon" src="/general/search.svg"/>
+                <input onChange={handleSearch} type="search" placeholder="Search department" className="searchBar" value={search} />
+                
             </div>
             
             {!loading && !error ? (
@@ -107,7 +108,7 @@ export default function ListDepartments() {
                     
                                 </ul>
                                 )}
-                                <h3 className="shortName">{department.shortName}</h3>
+                                <Link href={`/admin/departments/${department.id}`}><h3 className="shortName">{department.shortName}</h3></Link>
                                 <p className="mb-4">{department.fullName}</p>
                                 <hr className="hrDecorationzx"/>
                                 <div className="mt-4 mb-4">

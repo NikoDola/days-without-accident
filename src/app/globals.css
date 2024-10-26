@@ -63,6 +63,7 @@ label{
 
 .altHeadline{
   font-weight: 600;
+  white-space: nowrap; 
 }
 
 .line {
@@ -439,8 +440,9 @@ input:focus, textarea:focus{
 
 .searchIcon{
   position: absolute;
-  right: 1rem;
+  left: 1rem;
   top: 50%;
+  z-index: 2;
   transform: translateY(-50%);
 }
 .searchFilterWrapper::before{
@@ -452,10 +454,13 @@ input:focus, textarea:focus{
 
 .searchBar{
   position: relative;
-  padding: 0.5rem 2.5rem 0.5rem 1rem;
+  padding: 0.5rem 2.5rem 0.5rem 3rem;
   position: relative;
 }
 
+.navLinks{
+  padding-right: 1rem;
+}
 
 .navLinkInactive{
   font-weight: 500;
@@ -480,3 +485,19 @@ input:focus, textarea:focus{
 
 }
 
+.gridCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  gap: 1rem;
+  width: 100%; 
+}
+
+.deleteUpdate{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+  position: relative;
+  right: 0;
+
+}

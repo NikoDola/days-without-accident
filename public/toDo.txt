@@ -1,5 +1,3 @@
-
-2.search ikonata da se smeni od levo
 3.departmentot da ima samo delete i warning message deka vo departmentot mozi da se editira samo datata
 4.department edit page
 5.heading "department listing" wihtespace-no wrap'

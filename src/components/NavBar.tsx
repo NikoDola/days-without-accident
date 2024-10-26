@@ -9,13 +9,17 @@ import { useState, useEffect } from "react";
 
 export default function NavBar(){
     const {logoutUser, user} = useUser();
-    const [burger, setBurger] = useState(true)
+    const [burger, setBurger] = useState(false)
     const [profile, setProfile] = useState(false)
  
     useEffect(()=>{
-     const checkingInnerWith = innerWidth
-     checkingInnerWith < 1000 && setBurger(false)
-     checkingInnerWith < 1000 && setProfile(false)
+    
+      if(innerWidth < 1000){
+        setBurger(false)
+        setProfile(false)
+      }else{
+        setBurger(true)
+      }
     },[])
     
     const path = usePathname();

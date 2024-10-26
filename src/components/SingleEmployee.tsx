@@ -195,7 +195,7 @@ export default function SingleEmployee({
 
       </div>
 
-      <div className="flex gap-4 my-8">
+      <div className="deleteUpdate">
         <button onClick={handleDelete} className="deleteButton">Delete Employee</button>
         <button className="mainButton">Update Employee</button>
       </div>
@@ -291,10 +291,6 @@ export default function SingleEmployee({
         <p className="valueInput">{selected.notes}</p>
         <hr className="line" />
       </div>
-
-
-
-
 
       <div className="gridItems">
         <label className="keyInput">Salary</label>

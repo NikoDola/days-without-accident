@@ -19,9 +19,9 @@ export default function SingleEmployee({
   departmentID,
   selected,
 }: SingleEmployeeProps) {
-  const [newData, setNewData] = useState<EmployeeType>(selected); // Ensure EmployeeType is used for state
+  const [newData, setNewData] = useState<EmployeeType>(selected); 
   const [employeeAccidents, setEmployeesAccident] = useState<AccidentType[] | null>(null); // Type array or null
-  const [file, setFile] = useState<File | null>(null); // State for the selected file
+  const [file, setFile] = useState<File | null>(null); 
   const router = useRouter();
   
 
@@ -83,10 +83,8 @@ export default function SingleEmployee({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const result = await editEmployee(departmentID, employeeID, newData, file);
-    if (result) {
-      // Handle success if needed
-    }
+     await editEmployee(departmentID, employeeID, newData, file);
+  
   };
 
 
@@ -311,7 +309,7 @@ export default function SingleEmployee({
         <li key={item.accidentID}>
           <Link
             href={`/admin/departments/${departmentID}/accidents/${item.id}`}
-            className="accidentLink" // Optional: Add a class for styling
+            className="accidentLink" 
           >
             {item.description || "Accident details not available."}
           </Link>

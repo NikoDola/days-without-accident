@@ -2,9 +2,7 @@
 
 import { listDepartmentAccidents, listAllDepartments} from "@/firebase/actions";
 import { notFound } from "next/navigation";
-import EditAccident from "@/components/EditAccident";
-
-import SingleAccident from "@/components/SingleAccident"
+import SingleAccident from "@/components/SingleAccident";
 
 interface AccidentsPageProps {
     params: {
@@ -48,17 +46,12 @@ export default async function Accident({ params }: AccidentsPageProps) {
     }
 
     return (
-        <main className="flex justify-between">
-            <section>
-            <SingleAccident 
-            title={selectedAccident.title} 
-            description={selectedAccident.description} 
-            status={selectedAccident.status}
-            time={selectedAccident.time}
-            involvedEmployees={selectedAccident.involvedEmployees}
-            />
-            </section>
-            <EditAccident departmentID={selectedDepartment.id} accidentID={selectedAccident.id}/>
+        <main >
+            <div className="inline-flex items-center">
+              
+                <h4 className="mainHeadline">Accident</h4>
+            </div>
+            <SingleAccident departmentID={selectedDepartment.id} accidentID={selectedAccident.id} selected={selectedAccident} />
         </main>
     );
 }

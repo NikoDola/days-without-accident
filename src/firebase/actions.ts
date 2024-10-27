@@ -40,8 +40,6 @@ export async function addNewDepartment(
     }
 }
 
-
-
 export async function listAllDepartments(): Promise<any[]> { 
     try {
         // Assuming departments are stored under 'users/Nik's/departments'
@@ -102,14 +100,12 @@ export async function deleteDepartment(id: string): Promise<void> {
 export async function listDepartmentAccidents(departmentID: string): Promise<AccidentType[]> {
     try {
         const docRef = collection(db, "users", "Nik's", 'departments', departmentID, 'accidents');
-        console.log(docRef.path);
         const docSnap = await getDocs(docRef);
 
         const accidents = docSnap.docs.map((item) => ({
             id: item.id,
             ...item.data() as AccidentType
         }));
-        console.log(accidents)
         return accidents;
     } catch (error) {
         console.error(error);

@@ -1,54 +1,34 @@
-
-import { listAllDepartments, deleteDepartment } from "@/firebase/actions"
+import { listAllDepartments } from "@/firebase/actions";
+import { notFound } from "next/navigation";
 import SingleDepartment from "@/components/SingleDepartment";
-import { singleDepartment } from "@/firebase/actions";
-import { notFound } from "next/navigation"
-import EditDepartment from "@/components/EditDepartment";
-import { Department } from "@/firebase/types";
 
-
-
-export default async function department({params}){
-    const department = await singleDepartment(params['department-id']) as Department
-    const timestamp = department.createdAt.toDate().toLocaleDateString('en-GB', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-      });
-
-    const departments = await listAllDepartments();
-    const selectedDepartment = departments.find((item) => 
-        (item?.id).toUpperCase() === params['department-id'].toUpperCase()
-    );
-    console.log(selectedDepartment)
-    !selectedDepartment && notFound()
- 
-    if (params.method === 'POST') {
-        console.log('deleted')
+interface DepartmentProps {
+    params: {
+        'department-id': string;
     }
-    
-    return(
-<main >
-
-    <div className="sectionWrapper">
-        <SingleDepartment 
-        shortName={department.shortName} 
-        fullName={department.fullName} 
-        accidents={department.accidents}
-        employees={department.employees}
-        createdAt={timestamp}
-        />
-        <EditDepartment departmentID={selectedDepartment.id}/>
-    </div>
-</main>
-    )
 }
 
-{/* <main>
-<p className="url">{urlslice}</p>
-<h4 className="mainHeadline">Departments</h4>
-<div className="sectionWrapper">
-  <AddNewDepartment />
-  <ListAllDepartments />
-</div>
-</main> */}
+export default async function Department({ params }: DepartmentProps) {
+    const department = await listAllDepartments();
+    const selectedDepartment = department.find((item) =>
+        item.id.toLowerCase() === params['department-id'].toLowerCase()
+    );
+
+    if (!selectedDepartment) {
+        notFound();
+    }
+
+    return (
+        <main>
+            <div className="inline-flex items-center">
+                {selectedDepartment ? (
+                    <h4 className="mainHeadline">Department {selectedDepartment.shortName}</h4>
+                ) : (
+                    <h4 className="mainHeadline">Department Not Found</h4>
+                )}
+            </div>
+
+            {selectedDepartment && <SingleDepartment departmentID={selectedDepartment.id} />}
+        </main>
+    );
+}

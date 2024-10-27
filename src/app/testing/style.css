@@ -1,0 +1,11 @@
+.burger{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.top, .middle,.bottom{
+    width: 30px;
+    height: 3px;
+    background-color: black;
+}

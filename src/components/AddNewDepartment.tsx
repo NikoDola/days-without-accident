@@ -26,18 +26,24 @@ export default function AddNewDepartment() {
 
     return (
         <section>
+          
             <form className="sectionForm"  onSubmit={handleAddDepartment}>
-            <div className="flex items-center gap-4">
-                <h6 className="altHeadline">Add New Department</h6>
-                <hr className="line"/>
-            </div>
-                <input value={newDepartmentName} onChange={(e) => setNewDepartmentName(e.target.value)} placeholder="e.g. HR*" required />
-                <input value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="e.g. Human Resources *" required />
-               
-                 <button type="submit" className={!loading ? "mainButton mb-8": "loadingButton mb-8"}>Submit</button>
-               
-                {error && <p className="text-red-500">Error: {error}</p>}
-            </form>
+             
+                <div className="flex items-center gap-4">
+                    <h6 className="altHeadline">Add New Department</h6>
+                    <hr className="line"/>
+                </div>
+                <div className="gridCol">
+                    <input value={newDepartmentName} onChange={(e) => setNewDepartmentName(e.target.value)} placeholder="e.g. HR*" required />
+                    <input value={fullName} onChange={(e) => setFullName(e.target.value)} placeholder="e.g. Human Resources *" required />
+                    {error && <p className="text-red-500">Error: {error}</p>}
+                    <div className="w-full">
+                        <button type="submit" className={!loading ? "mainButton mb-8": "loadingButton mb-8"}>Submit</button>
+                    </div>
+                
+                    </div>
+                </form>
+        
         </section>
     );
 }

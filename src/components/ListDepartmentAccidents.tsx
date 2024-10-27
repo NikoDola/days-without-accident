@@ -92,8 +92,9 @@ export default function ListAllAccidents({ departmentID }: ListAllAccidentsProps
             </div>
 
             <div className="searchFilterWrapper relative">
-                <input onChange={handleSearch} type="search" placeholder="Search department" className="searchBar" value={search} />
                 <img className="searchIcon" src="/general/search.svg" alt="Search Icon" />
+                <input onChange={handleSearch} type="search" placeholder="Search Accident" className="searchBar" value={search} />
+
             </div>
 
             <div className="cardWrapper">

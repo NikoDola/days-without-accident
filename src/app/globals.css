@@ -13,7 +13,15 @@
 :root {
   --brand-color:#ec4599; --brand-color-light:#ef6faa; --brand-color-extra-light:#f9c2d6; --brand-color-light-gray: #EBEBEB;
 }
+ul {
+  list-style-type: none;
+  padding: 0; /* Optional: Removes the default padding */
+  margin: 0;  /* Optional: Removes the default margin */
+}
 
+li {
+  list-style-type: none;
+}
 body {
   display: flex;
   flex-direction: column;
@@ -55,6 +63,7 @@ label{
 
 .altHeadline{
   font-weight: 600;
+  white-space: nowrap; 
 }
 
 .line {
@@ -330,13 +339,6 @@ input:focus, textarea:focus{
   border: none; /* Remove the default border */
 }
 
-
-.navLinks{
-  position: relative;
-  color: rgb(205, 205, 205);
-  margin-right: 1rem;
-}
-
 .linkWrapper{
   display: flex;
   justify-content: end;
@@ -358,17 +360,7 @@ input:focus, textarea:focus{
 }
 
 
-.navbar{
-  opacity: 0;
-  padding: 1rem;
-  padding-right: 6rem;
-  text-align: right;
-  transition: opacity 0.3s;
-}
-.navbar:hover{
-  opacity: 1;
-  box-shadow: 0px 10px 15px -3px rgba(0,0,0,0.1);
-}
+
 
 @media screen and (min-width: 1024px) {
   .login{
@@ -448,8 +440,9 @@ input:focus, textarea:focus{
 
 .searchIcon{
   position: absolute;
-  right: 1rem;
+  left: 1rem;
   top: 50%;
+  z-index: 2;
   transform: translateY(-50%);
 }
 .searchFilterWrapper::before{
@@ -461,10 +454,13 @@ input:focus, textarea:focus{
 
 .searchBar{
   position: relative;
-  padding: 0.5rem 2.5rem 0.5rem 1rem;
+  padding: 0.5rem 2.5rem 0.5rem 3rem;
   position: relative;
 }
 
+.navLinks{
+  padding-right: 1rem;
+}
 
 .navLinkInactive{
   font-weight: 500;
@@ -478,6 +474,7 @@ input:focus, textarea:focus{
 .navLinkActive{
   font-weight: 600;
 }
+
 .navLinkActive::after{
   font-weight: 600;
   content: "";
@@ -485,5 +482,22 @@ input:focus, textarea:focus{
   width: 100%;
   height: 4px;
   background-color: var(--brand-color);
+
+}
+
+.gridCol {
+  display: grid;
+  grid-template-columns: 1fr 1fr; 
+  gap: 1rem;
+  width: 100%; 
+}
+
+.deleteUpdate{
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 1rem;
+  position: relative;
+  right: 0;
 
 }

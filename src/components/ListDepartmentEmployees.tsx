@@ -47,12 +47,12 @@ export default function ListDepartmentEmployees({ departmentID }) {
     return (
         <div className="sectionListing w-full">
             <div className="flex items-baseline gap-4">
-                <h6 className="altHeadline">Department Listing</h6>
+                <h6 className="altHeadline">Employees Listing</h6>
                 <hr className="line" />
             </div>
             <div className="searchFilterWrapper relative">
-                <input  onChange={handleSearch} type="search" placeholder="Search department" className="searchBar" value={search} />
                 <img className="searchIcon" src="/general/search.svg" alt="Search"/>
+                <input  onChange={handleSearch} type="search" placeholder="Search Employee" className="searchBar" value={search} />
             </div>
 
             <div className="cardWrapper ">

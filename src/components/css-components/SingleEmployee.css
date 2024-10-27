@@ -24,12 +24,7 @@
 
 }
 
-.gridCol {
-    display: grid;
-    grid-template-columns: 1fr 1fr; 
-    gap: 1rem;
-    width: 100%; 
-  }
+
 
 .keyInput{
     line-height: 0;

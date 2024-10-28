@@ -9,7 +9,6 @@ export default function Update({viewInfo, editForm, text}){
     const handleVisibility = () =>{
         !visibility ? setVisibility(true): setVisibility(false)
     }
-    console.log(visibility)
     return(
         <>
         {visibility ? 

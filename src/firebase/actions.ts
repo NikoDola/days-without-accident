@@ -138,80 +138,76 @@ export async function listAllAccidents() {
     }
     
 
-export async function addNewAccident(
-    departmentID: string, 
-    title: string = 'default', 
-    description: string = 'Unamed', 
-    involvedEmployees: EmployeeType[] = [],
-    timestamp: Date,
-) {
-    try {
-        const collRef = collection(db, "users", "Nik's", 'departments', departmentID, 'accidents');
-        
-        const startDate: Date = new Date('2022-05-10');
-        const differenceInMilliseconds: number = timestamp.getTime() - startDate.getTime(); // Use the timestamp
-        const differenceInSeconds: number = Math.floor(differenceInMilliseconds / 1000);
-        const involvedEmployeesData = involvedEmployees.map(emp => ({
-            id: emp.id,
-            name: emp.name,
-            lastName: emp.lastName,
-            description,
-        }));
-
-        // Format the current date to dd/MM/yyyy
-        const day = String(timestamp.getDate()).padStart(2, '0');
-        const month = String(timestamp.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
-        const year = timestamp.getFullYear();
-        const dataReported = `${day}/${month}/${year}`;
-    
-        const docRef = await addDoc(collRef, {
-            title,
-            description,
-            status: 'Unsolved',
-            time: differenceInSeconds, // This is a number
-            involvedEmployees: involvedEmployeesData, // Add involved employees here
-            departmentID,
-            dataReported,
-        });
-
-        const docID = docRef.id
-
-        await updateDoc(docRef, {
-            id: docID
-        })
-
-        involvedEmployeesData.forEach( async (item)=>{
-            const docRef = doc(db,'users', "Nik's",'departments', departmentID, 'employees', item.id )
-            try {
-                await updateDoc(docRef, {
-                    accidents: increment(1),
-                })
-            } catch (error) {
-                console.error(error)
-            }
-          
-        })
-
-        const departmentRef = doc(db, 'users', "Nik's",'departments', departmentID)
-        try {
-            await updateDoc(departmentRef, {
-                accidents: increment(1)
-            })
-        } catch (error) {
-            console.error(error)
-        }
    
+    
+    export async function addNewAccident(
+        departmentID: string, 
+        title: string = 'default', 
+        description: string = 'Unnamed', 
+        involvedEmployees: EmployeeType[] = [],
+        timestamp: Date,
+    ) {
+        try {
+            const collRef = collection(db, "users", "Nik's", 'departments', departmentID, 'accidents');
+            
+            const startDate: Date = new Date('2022-05-10');
+            const differenceInMilliseconds: number = timestamp.getTime() - startDate.getTime(); // Use the timestamp
+            const differenceInSeconds: number = Math.floor(differenceInMilliseconds / 1000);
+            const involvedEmployeesData = involvedEmployees.map(emp => ({
+                ...emp
+            }));
+    
+            // Format the current date to dd/MM/yyyy
+            const day = String(timestamp.getDate()).padStart(2, '0');
+            const month = String(timestamp.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
+            const year = timestamp.getFullYear();
+            const dataReported = `${day}/${month}/${year}`;
         
-
-        alert('accident was added')
-        window.location.reload()
-        console.log('Accident reported successfully with involved employees.');
-        
-    } catch (error) {
-        console.error("Error adding accident: ", error);
+            const docRef = await addDoc(collRef, {
+                title,
+                description,
+                status: 'Unsolved',
+                time: differenceInSeconds, // This is a number
+                involvedEmployees: involvedEmployeesData, // Add involved employees here
+                departmentID,
+                dataReported,
+            });
+    
+            const docID = docRef.id;
+    
+            await updateDoc(docRef, {
+                id: docID
+            });
+    
+            involvedEmployeesData.forEach(async (item) => {
+                const empDocRef = doc(db, 'users', "Nik's", 'departments', departmentID, 'employees', item.id);
+                try {
+                    await updateDoc(empDocRef, {
+                        accidents: increment(1),
+                    });
+                } catch (error) {
+                    console.error(error);
+                }
+            });
+    
+            const departmentRef = doc(db, 'users', "Nik's", 'departments', departmentID);
+            try {
+                await updateDoc(departmentRef, {
+                    accidents: increment(1)
+                });
+            } catch (error) {
+                console.error(error);
+            }
+    
+            alert('Accident was added');
+            window.location.reload();
+            console.log('Accident reported successfully with involved employees.');
+            
+        } catch (error) {
+            console.error("Error adding accident: ", error);
+        }
     }
-}
-
+    
 export async function singleAccident(departmentID: string, accidentID: string) {
     try {
         const docRef = doc(db, 'users', "Nik's", 'departments', departmentID, 'accidents', accidentID)
@@ -224,19 +220,22 @@ export async function singleAccident(departmentID: string, accidentID: string) {
     
 }
 
-export async function editAccidents(departmentID: string, accidentID, newData: Partial<Department>) {
+
+
+export async function editAccidents(departmentID: string, accidentID: string, newData: Partial<Department>) {
     try {
-      const docRef = doc(db, 'users', "Nik's", 'departments', departmentID, 'accidents', accidentID);
-      
-      await updateDoc(docRef, newData);
-      
-      alert('The department has been updated');
-      return true;
+        const docRef = doc(db, 'users', "Nik's", 'departments', departmentID, 'accidents', accidentID);
+        
+        await updateDoc(docRef, newData);
+        
+        alert('The accident has been updated');
+        return true;
     } catch (error) {
-      console.error("Error updating department: ", error);
-      return false;
+        console.error("Error updating accident: ", error);
+        return false;
     }
-  }
+}
+
 
 export async function deleteAccident(departmentID: string, accidentID:string) {
     try {

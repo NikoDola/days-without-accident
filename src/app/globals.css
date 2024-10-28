@@ -367,9 +367,7 @@ select:hover{
 }
 
 
-@media screen and (max-width:780px){
 
-}
 
 
 
@@ -502,8 +500,15 @@ select:hover{
   grid-template-columns: 1fr 1fr; 
   gap: 1rem;
   width: 100%; 
+ 
 }
 
+
+@media  (max-width:1000px){
+  .gridCol{
+    grid-template-columns: 1fr;
+  }
+}
 .deleteUpdate{
   display: flex;
   flex-direction: column;

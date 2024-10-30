@@ -40,6 +40,8 @@ export async function addNewDepartment(
     }
 }
 
+
+
 export async function listAllDepartments(): Promise<any[]> { 
     try {
         // Assuming departments are stored under 'users/Nik's/departments'
@@ -100,12 +102,14 @@ export async function deleteDepartment(id: string): Promise<void> {
 export async function listDepartmentAccidents(departmentID: string): Promise<AccidentType[]> {
     try {
         const docRef = collection(db, "users", "Nik's", 'departments', departmentID, 'accidents');
+        console.log(docRef.path);
         const docSnap = await getDocs(docRef);
 
         const accidents = docSnap.docs.map((item) => ({
             id: item.id,
             ...item.data() as AccidentType
         }));
+        console.log(accidents)
         return accidents;
     } catch (error) {
         console.error(error);
@@ -138,76 +142,80 @@ export async function listAllAccidents() {
     }
     
 
-   
-    
-    export async function addNewAccident(
-        departmentID: string, 
-        title: string = 'default', 
-        description: string = 'Unnamed', 
-        involvedEmployees: EmployeeType[] = [],
-        timestamp: Date,
-    ) {
-        try {
-            const collRef = collection(db, "users", "Nik's", 'departments', departmentID, 'accidents');
-            
-            const startDate: Date = new Date('2022-05-10');
-            const differenceInMilliseconds: number = timestamp.getTime() - startDate.getTime(); // Use the timestamp
-            const differenceInSeconds: number = Math.floor(differenceInMilliseconds / 1000);
-            const involvedEmployeesData = involvedEmployees.map(emp => ({
-                ...emp
-            }));
-    
-            // Format the current date to dd/MM/yyyy
-            const day = String(timestamp.getDate()).padStart(2, '0');
-            const month = String(timestamp.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
-            const year = timestamp.getFullYear();
-            const dataReported = `${day}/${month}/${year}`;
+export async function addNewAccident(
+    departmentID: string, 
+    title: string = 'default', 
+    description: string = 'Unamed', 
+    involvedEmployees: EmployeeType[] = [],
+    timestamp: Date,
+) {
+    try {
+        const collRef = collection(db, "users", "Nik's", 'departments', departmentID, 'accidents');
         
-            const docRef = await addDoc(collRef, {
-                title,
-                description,
-                status: 'Unsolved',
-                time: differenceInSeconds, // This is a number
-                involvedEmployees: involvedEmployeesData, // Add involved employees here
-                departmentID,
-                dataReported,
-            });
+        const startDate: Date = new Date('2022-05-10');
+        const differenceInMilliseconds: number = timestamp.getTime() - startDate.getTime(); // Use the timestamp
+        const differenceInSeconds: number = Math.floor(differenceInMilliseconds / 1000);
+        const involvedEmployeesData = involvedEmployees.map(emp => ({
+            id: emp.id,
+            name: emp.name,
+            lastName: emp.lastName,
+            description,
+        }));
+
+        // Format the current date to dd/MM/yyyy
+        const day = String(timestamp.getDate()).padStart(2, '0');
+        const month = String(timestamp.getMonth() + 1).padStart(2, '0'); // Month is 0-indexed
+        const year = timestamp.getFullYear();
+        const dataReported = `${day}/${month}/${year}`;
     
-            const docID = docRef.id;
-    
-            await updateDoc(docRef, {
-                id: docID
-            });
-    
-            involvedEmployeesData.forEach(async (item) => {
-                const empDocRef = doc(db, 'users', "Nik's", 'departments', departmentID, 'employees', item.id);
-                try {
-                    await updateDoc(empDocRef, {
-                        accidents: increment(1),
-                    });
-                } catch (error) {
-                    console.error(error);
-                }
-            });
-    
-            const departmentRef = doc(db, 'users', "Nik's", 'departments', departmentID);
+        const docRef = await addDoc(collRef, {
+            title,
+            description,
+            status: 'Unsolved',
+            time: differenceInSeconds, // This is a number
+            involvedEmployees: involvedEmployeesData, // Add involved employees here
+            departmentID,
+            dataReported,
+        });
+
+        const docID = docRef.id
+
+        await updateDoc(docRef, {
+            id: docID
+        })
+
+        involvedEmployeesData.forEach( async (item)=>{
+            const docRef = doc(db,'users', "Nik's",'departments', departmentID, 'employees', item.id )
             try {
-                await updateDoc(departmentRef, {
-                    accidents: increment(1)
-                });
+                await updateDoc(docRef, {
+                    accidents: increment(1),
+                })
             } catch (error) {
-                console.error(error);
+                console.error(error)
             }
-    
-            alert('Accident was added');
-            window.location.reload();
-            console.log('Accident reported successfully with involved employees.');
-            
+          
+        })
+
+        const departmentRef = doc(db, 'users', "Nik's",'departments', departmentID)
+        try {
+            await updateDoc(departmentRef, {
+                accidents: increment(1)
+            })
         } catch (error) {
-            console.error("Error adding accident: ", error);
+            console.error(error)
         }
+   
+        
+
+        alert('accident was added')
+        window.location.reload()
+        console.log('Accident reported successfully with involved employees.');
+        
+    } catch (error) {
+        console.error("Error adding accident: ", error);
     }
-    
+}
+
 export async function singleAccident(departmentID: string, accidentID: string) {
     try {
         const docRef = doc(db, 'users', "Nik's", 'departments', departmentID, 'accidents', accidentID)
@@ -220,22 +228,19 @@ export async function singleAccident(departmentID: string, accidentID: string) {
     
 }
 
-
-
-export async function editAccidents(departmentID: string, accidentID: string, newData: Partial<Department>) {
+export async function editAccidents(departmentID: string, accidentID, newData: Partial<Department>) {
     try {
-        const docRef = doc(db, 'users', "Nik's", 'departments', departmentID, 'accidents', accidentID);
-        
-        await updateDoc(docRef, newData);
-        
-        alert('The accident has been updated');
-        return true;
+      const docRef = doc(db, 'users', "Nik's", 'departments', departmentID, 'accidents', accidentID);
+      
+      await updateDoc(docRef, newData);
+      
+      alert('The department has been updated');
+      return true;
     } catch (error) {
-        console.error("Error updating accident: ", error);
-        return false;
+      console.error("Error updating department: ", error);
+      return false;
     }
-}
-
+  }
 
 export async function deleteAccident(departmentID: string, accidentID:string) {
     try {
@@ -318,7 +323,6 @@ export async function editEmployee(departmentID: string, employeeID: string, new
     try {
         const docRef = doc(db, 'users', "Nik's", 'departments', departmentID, 'employees', employeeID);
         
-        // Handle file upload if a file is provided
         if (file) {
             const imageRef = ref(storage, `images/${file.name}`); // Create a reference for the file
             await uploadBytes(imageRef, file); // Upload the file
@@ -363,53 +367,44 @@ export async function deleteEmployeer(departmentID: string, employeeID: string):
 
 
 export async function addNewEmployee(
-    departmentID: string,
-    name: string,
-    lastName: string,
-    accidents: number,
-    employeeID: string,
-    gender: string = 'male',
-    email: string = 'undefined',
-    phoneNumber: number = 0,
-    emergencyContact: string = 'undefined',
-    homeAddress: string = 'undefined',
-    dateOfBirth: string = 'undefined',
-    medicalCondition: string = 'healthy',
-    employeeStatus: string = 'active',
-    notes: string = 'none',
-    promotions: {} = {},
-    salary: number = 24000, // Corrected format for salary
-    hireDate: string = 'undefined',
-    jobPosition: string = 'undefined'
+    departmentID,
+    name,
+    lastName,
+    accidents,
+    employeeID,
+    gender = 'male',
+    email = 'undefined',
+    phoneNumber = 0,
+    emergencyContact = 'undefined',
+    homeAddress = 'undefined',
+    dateOfBirth = 'undefined',
+    medicalCondition = 'healthy',
+    employeeStatus = 'active',
+    notes = 'none',
+    promotions = {},
+    salary = 24000,
+    hireDate = 'undefined',
+    jobPosition = 'undefined',
+    file
 ) {
     try {
-        // Basic validation
-        if (typeof departmentID !== 'string' || !departmentID) {
-            throw new Error('Invalid departmentID');
-        }
-        if (!name || !lastName) {
-            throw new Error('Name and last name are required');
-        }
-        if (!employeeID) {
-            throw new Error('EmployeeID is required');
-        }
+        if (!file) throw new Error("File is required for image upload");
 
-        // Reference to employees collection
+        const imageRef = ref(storage, `images/${file.name}`);
+        await uploadBytes(imageRef, file); 
+        const photoURL = await getDownloadURL(imageRef);
+
         const employeesCollectionRef = collection(db, "users", "Nik's", "departments", departmentID, "employees");
 
         const now = new Date();
-        const day = String(now.getDate()).padStart(2, '0');
-        const month = String(now.getMonth() + 1).padStart(2, '0'); // Months are 0-based, so add 1
-        const year = now.getFullYear();
-        const formattedTimestamp = `${day}-${month}-${year}`;
+        const formattedTimestamp = `${String(now.getDate()).padStart(2, '0')}-${String(now.getMonth() + 1).padStart(2, '0')}-${now.getFullYear()}`;
 
-        // Set the employee document with custom employeeID
         await setDoc(doc(employeesCollectionRef, employeeID), {
             name,
             lastName,
             timestamp: formattedTimestamp,
             accidents,
-            photoURL: '/general/profile.png',  // You might want to pass photoURL dynamically
+            photoURL,
             departmentID,
             employeeID,
             gender,
@@ -427,13 +422,12 @@ export async function addNewEmployee(
             jobPosition,
         });
 
-        // Update the employee count in the department
         const departmentRef = doc(db, 'users', "Nik's", 'departments', departmentID);
         await updateDoc(departmentRef, {
-            employees: increment(1)  
+            employees: increment(1)
         });
         alert('Employee added successfully.');
-        window.location.reload()
+        window.location.reload();
     } catch (error) {
         console.error("Error adding employee: ", error);
         alert(`Failed to add employee: ${error.message}`);
@@ -542,5 +536,19 @@ export async function getAll(){
         departments,
         employees,
         accidents
+    }
+}
+
+
+export default async function addNewMachine(name: string, serialNum: string, Instructions:File, departmentID: string, category:string ){
+    try {
+        const docRef = doc(db, 'users', "Nik's", 'departments', departmentID)
+        await setDoc(docRef, {
+            name,
+            serialNum,
+            Instructions
+        })
+    } catch (error) {
+        console.error(error)
     }
 }

@@ -20,7 +20,7 @@ export default async function Department({ params }: DepartmentProps) {
 
     return (
         <main>
-            <div className="inline-flex items-center">
+            <div>
                 {selectedDepartment ? (
                     <h4 className="mainHeadline">Department {selectedDepartment.shortName}</h4>
                 ) : (

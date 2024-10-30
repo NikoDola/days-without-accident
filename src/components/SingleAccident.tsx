@@ -87,15 +87,16 @@ export default function SingleAccident({ departmentID, accidentID, selected }) {
                                 <label>Involved Employees</label>
                                 
                                 {involvedEmployees.length > 0 ? (
-                                    involvedEmployees.map((item) => (
-                                        <div className="flex justify-between items-center gap-4" key={item.id}>
-                                            <p className="flex 1/4">{item.name} {item.lastName}, ID: {item.id}</p>
-                                            <button className="altButton w-1/4" type="button" onClick={() => handleRemoveEmployee(item.id)}>Remove </button>
-                                        </div>
-                                    ))
+                                involvedEmployees.map((item) => (
+                                <div className="flex items-center gap-4" key={item.id}>
+                                    <p className="w-3/5 text-lg">{item.name} {item.lastName}, ID: {item.id}</p>
+                                    <button className="w-3/10 altButton" type="button" onClick={() => handleRemoveEmployee(item.id)}>Remove</button>
+                                </div>
+                                ))
                                 ) : (
                                     <p>No employees involved.</p>
                                 )}
+
                                 <div className="flex gap-4 items-center">
                                 <select value={newEmployeeId} onChange={(e) => setNewEmployeeId(e.target.value)}>
                                     <option value="">Select an employee</option>

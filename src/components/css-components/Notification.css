@@ -35,15 +35,18 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-    background-color: rgb(255, 255, 255);
+    background: linear-gradient(328deg, rgba(0,0,0,1) 0%, rgb(39, 39, 39) 100%);
     width: 300px;
-    color: rgb(0, 0, 0);
+    color: rgb(234, 234, 234);
     transform: translate(-280px);
     top: 3.5rem;
-    right: -20rem;
+    right: -17rem;
     text-align: right;
     z-index: 30;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    border-radius: 1rem;
+    box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
+
 }
 
 .notificationListWrapper::before{
@@ -51,22 +54,23 @@
     display: block;
     width: 30px;
     height: 30px;
-    background-color: rgb(255, 255, 255);
+    background: linear-gradient(328deg, rgba(0,0,0,1) 0%, rgb(60, 60, 60) 100%);
     position: absolute;
     top: -10px;
     right: 2.5rem;
     transform: rotate(45deg);
     z-index: -1;
+    
 }
 
 .actionWrapper{
     padding: 1rem;
-    border-top: solid rgb(218, 218, 218) 1px;
-    border-bottom: solid rgb(218, 218, 218) 1px;
+    border-top: solid rgb(77, 77, 77) 1px;
+    border-bottom: solid rgb(54, 54, 54) 1px;
     
 }
 .actionWrapper:hover{
-    background-color: rgb(240, 240, 240);
+    background: linear-gradient(328deg, rgba(0,0,0,1) 0%, rgb(60, 60, 60) 100%);
 }
 
 .settingsWrapper{

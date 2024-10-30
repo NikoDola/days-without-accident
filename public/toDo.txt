@@ -1,6 +1,6 @@
-3.departmentot da ima samo delete i warning message deka vo departmentot mozi da se editira samo datata
-4.department edit page
-5.heading "department listing" wihtespace-no wrap'
+
+
+
 6.dummy employees dummy departments dummy accidents
 7. employees list nema margin dolu
 8. na add employee da ima slika za vmetnuvanje odma.

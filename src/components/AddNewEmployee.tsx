@@ -26,15 +26,25 @@ export default function AddNewEmployee({ departmentID }: AddNewEmployeeProps) {
         salary: 24000,
         hireDate: '',
         jobPosition: '',
-        gender: 'male' // Default gender selection
+        gender: 'male',
+        file: null
     });
 
     const getData = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        setEmployee((prev) => ({
-            ...prev,
-            [name]: value,
-        }));
+    
+        if (e.target instanceof HTMLInputElement && e.target.type === "file") {
+            const file = e.target.files ? e.target.files[0] : null;
+            setEmployee((prev) => ({
+                ...prev,
+                [name]: file 
+            }));
+        } else {
+            setEmployee((prev) => ({
+                ...prev,
+                [name]: value
+            }));
+        }
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -61,7 +71,9 @@ export default function AddNewEmployee({ departmentID }: AddNewEmployeeProps) {
                 employee.promotions,
                 employee.salary,
                 employee.hireDate || 'undefined',
-                employee.jobPosition || 'undefined'
+                employee.jobPosition || 'undefined',
+                employee.file // Pass the file object here
+                
             );
             setLoading(false);
         } catch (err) {
@@ -79,6 +91,7 @@ export default function AddNewEmployee({ departmentID }: AddNewEmployeeProps) {
         </div>
         <form onSubmit={handleSubmit}>
             <div className="gridCol">
+
                 <div className="gridItems ">
                     <label className="keyInput">First Name</label>
                     <input className="valueInput" onChange={getData} type="text" name="name" value={employee.name} placeholder=".e.g. Jane" required/>
@@ -155,6 +168,10 @@ export default function AddNewEmployee({ departmentID }: AddNewEmployeeProps) {
                 <div className="gridItems">
                     <label className="keyInput">Notes</label>
                     <textarea className="valueInput" onChange={getData} name="notes" value={employee.notes} placeholder=".e.g. Additional details..."></textarea>
+                </div>
+                <div className="gridItems">
+                    <label className="keyInput">Employee Image</label>
+                    <input className="valueInput bg-transparent " onChange={getData} type="file" name="file" placeholder=".e.g. Jane" required/>
                 </div>
             </div>
             {error && <p>{error}</p>}

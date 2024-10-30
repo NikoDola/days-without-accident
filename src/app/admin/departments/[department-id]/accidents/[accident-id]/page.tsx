@@ -47,8 +47,7 @@ export default async function Accident({ params }: AccidentsPageProps) {
 
     return (
         <main >
-            <div className="inline-flex items-center">
-              
+            <div>
                 <h4 className="mainHeadline">Accident</h4>
             </div>
             <SingleAccident departmentID={selectedDepartment.id} accidentID={selectedAccident.id} selected={selectedAccident} />

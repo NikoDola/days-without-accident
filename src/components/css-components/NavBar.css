@@ -1,12 +1,17 @@
 .navbar{
     width: 60%;
     margin: 0 auto;
+  
   }
+
+  .kurle{
+    background-color: black;
+  }
+
 
   .navBarCounter{
     width: 80%;
     margin: 0 auto;
- 
     transition: opacity 0.3s ease;
   }
 
@@ -16,9 +21,6 @@
 
   .loggedIn, .loggedOut{
     margin-top: 1rem;
-    display: flex;
-    justify-content: space-between;
- 
   }
 
   .navUrls{
@@ -153,12 +155,14 @@
 
 
   @media (max-width: 1000px) {
+    
     .navbar{
         width: 90%;
       }
     .burger{
         display: block;
         transition: 0.3s;
+        left: 0;
         
     }
 
@@ -166,7 +170,6 @@
       display: flex;
       opacity: 0;
       flex-direction: column;
-      text-align: right;
       background: linear-gradient(328deg, rgb(32, 32, 32) 0%, rgb(62, 62, 62) 100%);
       color: white;
       position: absolute;
@@ -181,12 +184,12 @@
       box-shadow: rgb(38, 57, 77, 0.4) 0px 20px 30px -10px;
       filter:blur(5px);
       transition: 0.3s;
+      text-align: left;
       
     }
     .navUrls{
        
         flex-direction: column;
-        text-align: right;
         background: linear-gradient(328deg, rgb(32, 32, 32) 0%, rgb(62, 62, 62) 100%);
         color: white;
         position: absolute;
@@ -202,16 +205,15 @@
         box-shadow: rgb(38, 57, 77, 0.4) 0px 20px 30px -10px;
         transition: 0.3s;
         margin-top: 0.8rem;
-        
     }
 
 
 
     
-  .loggedIn, .loggedOut{
-    margin-top: 1rem;
-    display: flex;
-    justify-content: space-between;
+
+
+  .loggedOut{
+    background-color: red;
   }
 
   .notificationAndBurger{

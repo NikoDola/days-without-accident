@@ -41,6 +41,7 @@ export default function NavBar(){
     return (
          <nav className={path === '/' && windowInnerWith >= 1000 ? 'navBarCounter': 'navbar'}>
           {user ? (
+            
             <div className="loggedIn">
               <div onClick={handleBurger} className="burger">
                 <div className={!burger ? "top": "topClicked"}></div>

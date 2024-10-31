@@ -57,7 +57,8 @@ export enum Gender {
     employeeStatus: EmployeeStatus;
     jobPosition: JobPosition;
     medicalCondition?: string; // optional, use if applicable
-    notes?: string; // optional, if you allow it
+    positiveNotes?: string; // optional, if you allow it
+    negativeNotes?: string,
     photoURL?: string; // optional, for employee photos
     salary?: number; // optional, make sure to handle precision if needed
     departmentID: string;

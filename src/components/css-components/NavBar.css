@@ -4,23 +4,28 @@
   
   }
 
-  .kurle{
-    background-color: black;
-  }
-
-
   .navBarCounter{
     width: 80%;
     margin: 0 auto;
     transition: opacity 0.3s ease;
   }
 
+  .kurle{
+    background-color: black;
+  }
+
+
+
+
   .navBarCounter:hover{
     opacity: 1;
   }
 
-  .loggedIn, .loggedOut{
+  .loggedIn{
     margin-top: 1rem;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
   }
 
   .navUrls{
@@ -212,9 +217,7 @@
     
 
 
-  .loggedOut{
-    background-color: red;
-  }
+ 
 
   .notificationAndBurger{
     display: flex;

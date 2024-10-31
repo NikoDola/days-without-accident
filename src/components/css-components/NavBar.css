@@ -7,7 +7,6 @@
   .navBarCounter{
     width: 80%;
     margin: 0 auto;
-    transition: opacity 0.3s ease;
   }
 
   .kurle{
@@ -211,11 +210,15 @@
         transition: 0.3s;
         margin-top: 0.8rem;
     }
-
-
-
+    .navbar{
+      width: 90%;
+      margin: 0 auto;
     
-
+    }
+    .navBarCounter{
+      width: 90%;
+      margin: 0 auto;
+    }
 
  
 

@@ -12,7 +12,7 @@
 .loader {
     width: 40px;
     height: 20px;
-    --c:no-repeat radial-gradient(farthest-side,#f22696 93%,#f22696);
+    --c:no-repeat radial-gradient(farthest-side,#f22696 93%,transparent) ;
     background:
       var(--c) 0    0,
       var(--c) 50%  0,
@@ -25,10 +25,11 @@
     content: "";
     position: absolute;
     width: 8px;
-    height: 12px;
+    height: 25px;
     background: #f22696;
     left: 0;
-    top: 0;
+    top: 0.15px;
+
     animation: 
       l4-1 1s  linear infinite alternate,
       l4-2 0.5s cubic-bezier(0,200,.8,200) infinite;

@@ -177,7 +177,7 @@ export default function AddNewEmployee({ departmentID }: AddNewEmployeeProps) {
                 </div>
                 <div className="gridItems">
                     <label className="keyInput">Employee Image</label>
-                    <input className="valueInput bg-transparent " onChange={getData} type="file" name="file" placeholder=".e.g. Jane" required/>
+                    <input className="valueInput bg-transparent " value={''} onChange={getData} type="file" name="file" placeholder=".e.g. Jane" />
                 </div>
             </div>
             {error && <p>{error}</p>}

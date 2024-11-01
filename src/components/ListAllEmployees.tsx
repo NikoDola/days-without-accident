@@ -1,6 +1,7 @@
 "use client"
 import { listAllEmployees } from "@/firebase/actions"
 import { useEffect, useState } from "react"
+import Image from "next/image"
 
 export default function ListAllEmployees(){
     const [selectedEmployee, setSelectedEmployee] = useState([])
@@ -25,7 +26,7 @@ export default function ListAllEmployees(){
                         <p>{employee.name} {employee.lastName}</p>
                         <p>{employee.departmentName}</p>
                         <p>{employee.accidents}</p>
-                        <img className='w-12' src={employee.photoURL}/>
+                        <Image alt="employee image" width={100} height={100} className='w-12' src={employee.photoURL}/>
                     </div>
                 ))}
             </div>

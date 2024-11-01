@@ -168,8 +168,14 @@ export default function SingleEmployee({
         </div>
 
         <div className="gridItems">
-          <label className="keyInput">Notes</label>
-          <input className="valueInput" onChange={handleNewData} type="text" name="notes" value={newData.notes} placeholder="Notes" />
+          <label className="keyInput">Positive Notes</label>
+          <input className="valueInput" onChange={handleNewData} type="text" name="notes" value={newData.positiveNotes} placeholder="Positive Notes" />
+          <hr className="line invisible" />
+        </div>
+
+        <div className="gridItems">
+          <label className="keyInput">Negative Notes</label>
+          <input className="valueInput" onChange={handleNewData} type="text" name="notes" value={newData.negativeNotes} placeholder="Negative Notes" />
           <hr className="line invisible" />
         </div>
 
@@ -285,8 +291,14 @@ export default function SingleEmployee({
       </div>
 
       <div className="gridItems">
-        <label className="keyInput">Notes</label>
-        <p className="valueInput">{selected.notes}</p>
+        <label className="keyInput">Positive Notes</label>
+        <p className="valueInput">{selected.positiveNotes}</p>
+        <hr className="line" />
+      </div>
+
+      <div className="gridItems">
+        <label className="keyInput">Negative Notes</label>
+        <p className="valueInput">{selected.negativeNotes}</p>
         <hr className="line" />
       </div>
 

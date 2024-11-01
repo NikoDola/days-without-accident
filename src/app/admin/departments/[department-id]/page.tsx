@@ -1,6 +1,7 @@
 import { listAllDepartments } from "@/firebase/actions";
 import { notFound } from "next/navigation";
 import SingleDepartment from "@/components/SingleDepartment";
+import "@/components/css-components/loader.css"
 
 interface DepartmentProps {
     params: {

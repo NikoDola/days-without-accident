@@ -21,7 +21,8 @@ export default function AddNewEmployee({ departmentID }: AddNewEmployeeProps) {
         dateOfBirth: '',
         medicalCondition: '',
         employeeStatus: '',
-        notes: '',
+        negativeNotes: '',
+        positiveNotes: '',
         promotions: {},
         salary: 24000,
         hireDate: '',
@@ -67,7 +68,8 @@ export default function AddNewEmployee({ departmentID }: AddNewEmployeeProps) {
                 employee.dateOfBirth || 'undefined',
                 employee.medicalCondition || 'Healthy',
                 employee.employeeStatus || 'active',
-                employee.notes || 'undefined',
+                employee.positiveNotes || 'undefined',
+                employee.negativeNotes || 'undifined',
                 employee.promotions,
                 employee.salary,
                 employee.hireDate || 'undefined',
@@ -166,12 +168,16 @@ export default function AddNewEmployee({ departmentID }: AddNewEmployeeProps) {
                     <input className="valueInput" onChange={getData} type="text" name="hireDate" value={employee.hireDate} placeholder=".e.g. 01/01/2023" />
                 </div>
                 <div className="gridItems">
-                    <label className="keyInput">Notes</label>
-                    <textarea className="valueInput" onChange={getData} name="notes" value={employee.notes} placeholder=".e.g. Additional details..."></textarea>
+                    <label className="keyInput">Positive Notes</label>
+                    <textarea className="valueInput" onChange={getData} name="positiveNotes" value={employee.positiveNotes} placeholder=".e.g. Additional details..."></textarea>
+                </div>
+                <div className="gridItems">
+                    <label className="keyInput">Negative Notes</label>
+                    <textarea className="valueInput" onChange={getData} name="negativeNotes" value={employee.negativeNotes} placeholder=".e.g. Additional details..."></textarea>
                 </div>
                 <div className="gridItems">
                     <label className="keyInput">Employee Image</label>
-                    <input className="valueInput bg-transparent " onChange={getData} type="file" name="file" placeholder=".e.g. Jane" required/>
+                    <input className="valueInput bg-transparent " value={''} onChange={getData} type="file" name="file" placeholder=".e.g. Jane" />
                 </div>
             </div>
             {error && <p>{error}</p>}

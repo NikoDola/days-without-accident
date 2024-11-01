@@ -41,26 +41,29 @@ export default function NavBar(){
     return (
          <nav className={path === '/' && windowInnerWith >= 1000 ? 'navBarCounter': 'navbar'}>
           {user ? (
-            
+
             <div className="loggedIn">
               <div onClick={handleBurger} className="burger">
                 <div className={!burger ? "top": "topClicked"}></div>
                 <div className={!burger ? "bottom": "bottomClicked"}></div>
               </div>
+   
 
-              <ul className={burger ? "navUrls": "navUrlsHidden"}>       
-                <li onClick={() => innerWidth < 1000 && setBurger(false)}  className={path === '/' ? "urlSelected": 'navUrl'}><Link href={"/"}>Counter</Link></li>
-                <hr className="hrDecoration"/>
-                <li  onClick={() => innerWidth < 1000 && setBurger(false)} className={path === '/admin/departments' ? "urlSelected": 'navUrl'}><Link href="/admin/departments">Departments</Link></li>
-              </ul>
-              <div className="notificationAndBurger">
-                <Notification />
-                <img onClick={handleProfile} className="profile" src="/general/images/admin.jpg"/>
-                <ul className={profile ? "profileMenuActive": "profileMenuInactive"}>
-                  <li  className="cursor-pointer" onClick={logoutUser}>Logout</li>
+                <ul className={burger ? "navUrls": "navUrlsHidden"}>       
+                  <li onClick={() => innerWidth < 1000 && setBurger(false)}  className={path === '/' ? "urlSelected": 'navUrl'}><Link href={"/"}>Counter</Link></li>
+                  <hr className="hrDecoration"/>
+                  <li  onClick={() => innerWidth < 1000 && setBurger(false)} className={path === '/admin/departments' ? "urlSelected": 'navUrl'}><Link href="/admin/departments">Departments</Link></li>
                 </ul>
-              </div>
-          
+
+                <div className="notificationAndBurger">
+                  <Notification />
+                  <img onClick={handleProfile} className="profile" src="/general/images/admin.jpg"/>
+                  <ul className={profile ? "profileMenuActive": "profileMenuInactive"}>
+                    <li  className="cursor-pointer" onClick={logoutUser}>Logout</li>
+                  </ul>
+                </div>
+   
+           
             </div>
           ) : (
             (

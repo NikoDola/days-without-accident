@@ -367,11 +367,11 @@ export async function deleteEmployeer(departmentID: string, employeeID: string):
 
 
 export async function addNewEmployee(
-    departmentID,
-    name,
-    lastName,
-    accidents,
-    employeeID,
+    departmentID: string,
+    name: string,
+    lastName: string,
+    accidents: number,
+    employeeID:string,
     gender = 'male',
     email = 'undefined',
     phoneNumber = 0,
@@ -380,7 +380,8 @@ export async function addNewEmployee(
     dateOfBirth = 'undefined',
     medicalCondition = 'healthy',
     employeeStatus = 'active',
-    notes = 'none',
+    positiveNotes = 'none',
+    negativeNotes ='',
     promotions = {},
     salary = 24000,
     hireDate = 'undefined',
@@ -388,17 +389,24 @@ export async function addNewEmployee(
     file
 ) {
     try {
-        if (!file) throw new Error("File is required for image upload");
-
-        const imageRef = ref(storage, `images/${file.name}`);
-        await uploadBytes(imageRef, file); 
-        const photoURL = await getDownloadURL(imageRef);
-
+        let photoURL;
+    
+        // Check if a file is provided for upload
+        if (file) {
+            const imageRef = ref(storage, `images/${file.name}`);
+            await uploadBytes(imageRef, file); 
+            photoURL = await getDownloadURL(imageRef); // Get the download URL for the uploaded image
+        } else {
+            // Use the default image URL if no file is uploaded
+            photoURL = 'https://firebasestorage.googleapis.com/v0/b/testing-2f4f1.appspot.com/o/images%2Fdefault.png?alt=media&token=a797dcf1-cdef-45db-9acd-b8152ba4dcaa'; // Your provided default image URL
+        }
+    
+        // Reference to the employees collection in Firestore
         const employeesCollectionRef = collection(db, "users", "Nik's", "departments", departmentID, "employees");
-
+    
         const now = new Date();
         const formattedTimestamp = `${String(now.getDate()).padStart(2, '0')}-${String(now.getMonth() + 1).padStart(2, '0')}-${now.getFullYear()}`;
-
+        
         await setDoc(doc(employeesCollectionRef, employeeID), {
             name,
             lastName,
@@ -415,7 +423,8 @@ export async function addNewEmployee(
             dateOfBirth,
             medicalCondition,
             employeeStatus,
-            notes,
+            positiveNotes,
+            negativeNotes,
             promotions,
             salary,
             hireDate,

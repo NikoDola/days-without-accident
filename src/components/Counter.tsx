@@ -50,12 +50,13 @@ export default function Counter() {
       clearInterval(refreshDataInterval);
     };
   }, []);
-
-  // Calculate the days since the last accident
   const daysSinceLastAccident = seconds.length > 0 && Math.floor((currentTime * 86400 - Math.max(...seconds)) / 86400);
-  // if(daysSinceLastAccident > record || record === null){
-  //   setRecordTime(daysSinceLastAccident)
-  // }
+  useEffect(() => {
+    console.log('there is a change!');
+  }, [daysSinceLastAccident]);
+
+
+  
 
 
 
@@ -96,7 +97,7 @@ export default function Counter() {
               <p className="daysSinceLast">Loading Statistic...</p>
             ) : (
               <div className="daysSinceLast">
-                 <p > {daysSinceLastAccident} Days since the last accident </p>
+                 <p className="daysSinceLast" ><b> {daysSinceLastAccident}</b> Days since the last accident </p>
                  {/* {!isNaN(record) && <p>Record days with out accident {record}</p>} */}
               </div>
              

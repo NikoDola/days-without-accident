@@ -335,7 +335,7 @@ export async function editEmployee(departmentID: string, employeeID: string, new
         
         await updateDoc(docRef, newData); // Update the document in Firestore
         
-        alert('The department has been updated');
+        alert('The Employee has been updated');
         window.location.reload()
         return true;
         
@@ -380,8 +380,8 @@ export async function addNewEmployee(
     dateOfBirth = 'undefined',
     medicalCondition = 'healthy',
     employeeStatus = 'active',
-    positiveNotes = 'none',
-    negativeNotes ='',
+    positiveNotes = 'undefined',
+    negativeNotes ='undefined',
     promotions = {},
     salary = 24000,
     hireDate = 'undefined',
@@ -390,8 +390,6 @@ export async function addNewEmployee(
 ) {
     try {
         let photoURL;
-    
-        // Check if a file is provided for upload
         if (file) {
             const imageRef = ref(storage, `images/${file.name}`);
             await uploadBytes(imageRef, file); 

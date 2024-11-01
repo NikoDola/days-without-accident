@@ -168,18 +168,6 @@ export default function SingleEmployee({
         </div>
 
         <div className="gridItems">
-          <label className="keyInput">Positive Notes</label>
-          <input className="valueInput" onChange={handleNewData} type="text" name="notes" value={newData.positiveNotes} placeholder="Positive Notes" />
-          <hr className="line invisible" />
-        </div>
-
-        <div className="gridItems">
-          <label className="keyInput">Negative Notes</label>
-          <input className="valueInput" onChange={handleNewData} type="text" name="notes" value={newData.negativeNotes} placeholder="Negative Notes" />
-          <hr className="line invisible" />
-        </div>
-
-        <div className="gridItems">
           <label className="keyInput">Photo</label>
           <input className="valueInput" onChange={handleNewData} type="file" name="photoURL" />
           <hr className="line invisible" />
@@ -194,6 +182,18 @@ export default function SingleEmployee({
         <div className="gridItems">
           <label className="keyInput">Hire Date</label>
           <input className="valueInput" onChange={handleNewData} type="text" name="hireDate" value={newData.hireDate} placeholder=".e.g 23/11/1984" />
+          <hr className="line invisible" />
+        </div>
+
+        <div className="gridItems">
+          <label className="keyInput">Positive Notes</label>
+          <textarea className="valueInput" onChange={handleNewData} name="positiveNotes" value={newData.positiveNotes} placeholder="Positive Notes" />
+          <hr className="line invisible" />
+        </div>
+
+        <div className="gridItems">
+          <label className="keyInput">Negative Notes</label>
+          <textarea className="valueInput" onChange={handleNewData}  name="negativeNotes" value={newData.negativeNotes} placeholder="Negative Notes" />
           <hr className="line invisible" />
         </div>
 

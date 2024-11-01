@@ -166,6 +166,10 @@ input:focus, textarea:focus{
   gap: 5rem;
 }
 
+form, section{
+  margin-bottom: 4rem;
+}
+
 
 
 .sectionForm {
@@ -500,7 +504,7 @@ select:hover{
   grid-template-columns: 1fr 1fr; 
   gap: 1rem;
   width: 100%; 
- 
+
 }
 
 

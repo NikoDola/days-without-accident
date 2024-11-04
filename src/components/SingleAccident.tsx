@@ -4,14 +4,16 @@ import { useEffect, useState } from "react"
 import { AccidentType } from "@/firebase/types"
 import { useRouter } from "next/navigation"
 import Update from "./Update"
-import { listAll } from "firebase/storage"
+import Image from "next/image"
+import "@/components/css-components/SingleAccident.css"
+
 
 export default function SingleAccident({ departmentID, accidentID, selected }) {
     const [newData, setNewData] = useState<AccidentType>(selected);
     const [involvedEmployees, setInvolvedEmployees] = useState(selected.involvedEmployees);
     const [allEmployees, setAllEmployees] = useState([]);
     const [newEmployeeId, setNewEmployeeId] = useState('');
-    const router = useRouter();
+
 
     useEffect(() => {
         setNewData(selected);
@@ -83,14 +85,25 @@ export default function SingleAccident({ departmentID, accidentID, selected }) {
                                 <textarea onChange={handleNewData} name="description" value={newData.description} />
                             </div>
 
-                            <div className="gridItems">
-                                <label>Involved Employees</label>
+                            <div className="gridItems ">
+                                <label >Involved Employees</label>
                                 
                                 {involvedEmployees.length > 0 ? (
                                 involvedEmployees.map((item) => (
-                                <div className="flex items-center gap-4" key={item.id}>
-                                    <p className="w-3/5 text-lg">{item.name} {item.lastName}, ID: {item.id}</p>
-                                    <button className="w-3/10 altButton" type="button" onClick={() => handleRemoveEmployee(item.id)}>Remove</button>
+
+                                <div className="editEmployeeWrapper" key={item.id}>
+                                    <div className="singleEmployeeWrapper">
+                                            <Image className="profileImage"  src={item.photoURL} width={100} height={100} alt={`employee ${item.name}`}></Image>
+                                            <div className="">
+                                                <p className="whitespace">{item.name} {item.lastName}</p>
+                                                <p>ID: {item.id}</p>
+                                                <div className="altButton">
+                                                    <button  type="button" onClick={() => handleRemoveEmployee(item.id)}>Remove Employee</button>
+                                                </div>
+                                            </div>
+                                           
+                                    </div>
+                                    
                                 </div>
                                 ))
                                 ) : (
@@ -101,6 +114,7 @@ export default function SingleAccident({ departmentID, accidentID, selected }) {
                                 <select value={newEmployeeId} onChange={(e) => setNewEmployeeId(e.target.value)}>
                                     <option value="">Select an employee</option>
                                     {allEmployees.map((item) => (
+                                        
                                         <option key={item.id} value={item.id}>{item.name} {item.lastName}, ID: {item.id}</option>
                                     ))}
                                 </select>
@@ -137,16 +151,7 @@ export default function SingleAccident({ departmentID, accidentID, selected }) {
                             <hr className="line" />
                         </div>
 
-                        <div className="gridItems">
-                            <label className="keyInput">Involved {involvedEmployees.length > 1 ? "Employees" : "Employee"}</label>
-                            <p className="valueInput"></p>
-                            {involvedEmployees.map((item) => (
-                                <div key={item.id}>
-                                    <p>{item.name} {item.lastName}, ID: {item.id}</p>
-                                </div>
-                            ))}
-                            <hr className="line" />
-                        </div>
+                      
 
                         <div className="gridItems">
                             <label className="keyInput">Accident Date</label>
@@ -158,6 +163,21 @@ export default function SingleAccident({ departmentID, accidentID, selected }) {
                             <label className="keyInput">Accident Description</label>
                             <p className="valueInput">{selected.description}</p>
                             <hr className="line" />
+                        </div>
+                        <div className="gridItems">
+                            <label className="keyInput">Involved {involvedEmployees.length > 1 ? "Employees" : "Employee"}</label>
+                            <p className="valueInput"></p>
+                            {involvedEmployees.map((item) => (
+                                <div className="viewEmployeeWrapper" key={item.id}>
+                                    <Image src={item.photoURL} width={50} height={50} alt={`eployee ${item.name}`}></Image>
+                                    <div className="employeeInfoWrapper">
+                                    <p>{item.name} {item.lastName}</p>
+                                        <p>ID: {item.id}</p>
+                                    </div>
+                                  
+                                </div>
+                            ))}
+                        
                         </div>
                     </div>
                 </div>

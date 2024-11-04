@@ -19,7 +19,7 @@ export default function AddNewDepartment() {
             setFullName("");
         } catch (error: any) {
             setError(error.message || "Error adding department");
-        }finally{
+        } finally{
             setLoading(false)
         }
     };

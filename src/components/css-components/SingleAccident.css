@@ -1,0 +1,25 @@
+
+
+  .profileImage{
+    width: 100px;
+    height: 100px;
+  }
+
+  .editEmployeeWrapper{
+    display: flex;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .singleEmployeeWrapper{
+    display: flex;
+    gap: 1rem;
+  }
+
+  .viewEmployeeWrapper{
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  

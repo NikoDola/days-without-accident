@@ -108,6 +108,7 @@ export default function ListDepartments() {
                     
                                 </ul>
                                 )}
+                                
                                 <Link href={`/admin/departments/${department.id}`}><h3 className="shortName">{department.shortName}</h3></Link>
                                 <p className="mb-4">{department.fullName}</p>
                                 <hr className="hrDecorationzx"/>

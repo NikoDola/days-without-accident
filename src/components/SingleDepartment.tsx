@@ -42,9 +42,17 @@ export default function SingleDepartment({ departmentID }) {
             ) : (
                 selected ? (
                     <Update text={`Department`} editForm={
-                        <form onSubmit={() => deleteDepartment(selected.id)}>
-                            
-                            <button className="deleteButton">Delete Department</button>
+                        <form onSubmit={async (event) => {
+                            event.preventDefault(); 
+                            try {
+                                await deleteDepartment(selected.id);
+                                setSelected(null); 
+                                console.log("Department deleted successfully");
+                            } catch (error) {
+                                console.error("Error deleting department: ", error); // Handle any errors
+                            }
+                        }}>
+                            <button className="deleteButton" type="submit">Delete Department</button>
                         </form>
                     } viewInfo={
                         <div>

@@ -89,7 +89,6 @@ export async function editDepartment(departmentID: string, newData: Partial<Depa
 
 export async function deleteDepartment(id: string): Promise<void> {
     try {
-        // Deleting department under 'users/Nik's/departments/{id}'
         const docRef = doc(db, "users", "Nik's", "departments", id); 
         await deleteDoc(docRef);
     } catch (error) {
@@ -148,6 +147,7 @@ export async function addNewAccident(
     description: string = 'Unamed', 
     involvedEmployees: EmployeeType[] = [],
     timestamp: Date,
+    
 ) {
     try {
         const collRef = collection(db, "users", "Nik's", 'departments', departmentID, 'accidents');
@@ -160,6 +160,7 @@ export async function addNewAccident(
             name: emp.name,
             lastName: emp.lastName,
             description,
+            photoURL: emp.photoURL,
         }));
 
         // Format the current date to dd/MM/yyyy
@@ -172,8 +173,8 @@ export async function addNewAccident(
             title,
             description,
             status: 'Unsolved',
-            time: differenceInSeconds, // This is a number
-            involvedEmployees: involvedEmployeesData, // Add involved employees here
+            time: differenceInSeconds,
+            involvedEmployees: involvedEmployeesData,
             departmentID,
             dataReported,
         });

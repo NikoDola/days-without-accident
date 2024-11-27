@@ -236,6 +236,7 @@ export async function editAccidents(departmentID: string, accidentID, newData: P
       await updateDoc(docRef, newData);
       
       alert('The department has been updated');
+      window.location.reload()
       return true;
     } catch (error) {
       console.error("Error updating department: ", error);

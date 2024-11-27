@@ -82,7 +82,7 @@
     /* flex gap-4 items-center */
 }
 .daysSinceLast{
-    margin-bottom: 4rem;
+
     font-size: 1rem;
 }
 
@@ -107,6 +107,7 @@
 
 .rightWrapper{
     display: flex;
+
     flex-direction: column;
     justify-content: start;
     align-items: end;

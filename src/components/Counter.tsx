@@ -80,7 +80,7 @@ export default function Counter() {
         <div className="leftWrapper">
           <div className="logoWrapper">
             <img src="branding/logo/niks_logo.svg" className="logo" alt="Logo" />
-            <p className="statistic">Accident Counter</p>
+            <p className="statistic">Incident Counter</p>
           </div>
 
           <div className="mainCounterWrapper">
@@ -108,11 +108,13 @@ export default function Counter() {
           </div>
         </div>
 
-        <div className="rightWrapper">
-          {departments.length > 0 ? <p className="departmentHeader"><b>Departments:</b></p >: <p className="departmentHeader" > <b>Loading Departments...</b></p >}
+        <div className="rightWrapper  ">
+          {departments.length > 0 ? <p className="departmentHeader mb-8"><b>Departments:</b></p >: <p className="departmentHeader" > <b>Loading Departments...</b></p >}
           
-          {departments.length > 0 ? (
+          {departments.length > 0  ? (
             departments.sort((a, b) =>  a.accidents - b.accidents).map((item) => (
+              item.accidents > 0 && 
+              
               <div key={item.shortName} className="CounterWrapper">
                 <div className="departmentWrapper">
                   <p className="fullName">{item.fullName}</p>

@@ -90,7 +90,7 @@ export default function Notification() {
                         <p >Notifications are empty</p>
                         
                     </div>}
-                  
+                  <div className="w-full h-8 bg-black rounded-2xl"/>
                 </div>
             )}
             </div>

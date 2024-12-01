@@ -1,22 +1,23 @@
 import { ReactNode } from 'react';
-import { Roboto } from 'next/font/google';
+import {Roboto} from "next/font/google"
 import './globals.css';
 
 import { Wrapper } from '@/contexts/userContext';
 import NavBar from '@/components/NavBar';
 
 // Specify the font weight(s) and style explicitly
-const roboto = Roboto({
+const roboto_init = Roboto({
   subsets: ['latin'],
-  weight: ['400', '700'], // You can add other weights like '100', '300', etc., if needed
-  style: ['normal'], // You can also add 'italic' if needed
-});
+  weight: ['100', '300', '400', '500', '700', '700'],
+  variable: '--font-roboto'
+
+})
 
 // Define metadata using the new API
 export const metadata = {
-  title: 'My Next.js App',
+  title: 'Incident Counter',
   icons: {
-    icon: '/favicon.ico',
+    icon: '/Managment App',
   },
 };
 
@@ -24,7 +25,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <Wrapper>
-        <body className={roboto.className}>
+        <body className={`${roboto_init} antialiased`}>
           <NavBar />
           {children}
         </body>

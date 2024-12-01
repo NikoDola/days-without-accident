@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import "./css-components/counter.css";
+import "./css-components/Counter.css";
 
 import { listAllDepartments, getAllSeconds } from "@/firebase/actions";
 
@@ -64,7 +64,7 @@ export default function Counter() {
   // Function to render loading divs
   const renderLoadingDivs = () => {
     return Array.from({ length: 5 }).map((_, index) => (
-      <div key={index} className="CounterWrapper CounterWrapperLoading">
+      <div key={index} className="CounterWrapper CounterWrapperLoading justify-end">
         <div className="departmentWrapper loading departmentWrapperLoading">
           <p className="fullName fullNameLoading">loading loading</p>
           <p className="shortName shortNameLoading">LG</p>
@@ -89,15 +89,18 @@ export default function Counter() {
           </div>
 
           <div className=" analiticAndTotal" >
-          <div className="departmentWrapper totalAccident mb-4">
+            {seconds.length >= 1 ? 
+              <div className="departmentWrapper totalAccident mb-4">
                 <p className="fullName">Total Accidents</p>
                 <p className="counterNum">{seconds.length}</p>
               </div>
+            :  <div>{renderLoadingDivs()}</div>}
+            
             {daysSinceLastAccident <= 0 ? (
               <p className="daysSinceLast">Loading Statistic...</p>
             ) : (
               <div className="daysSinceLast">
-                 <p className="daysSinceLast" ><b> {daysSinceLastAccident}</b> Days since the last accident </p>
+                 <p className="daysSinceLast mb-14" ><b> {daysSinceLastAccident}</b> Days since the last accident </p>
                  {/* {!isNaN(record) && <p>Record days with out accident {record}</p>} */}
               </div>
              

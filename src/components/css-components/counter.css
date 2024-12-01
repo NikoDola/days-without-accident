@@ -107,12 +107,10 @@
 
 .rightWrapper{
     display: flex;
-
     flex-direction: column;
     justify-content: start;
     align-items: end;
     gap: 2rem;
- 
 }
 
 .statisticWrapper{
@@ -191,6 +189,7 @@
     }
     .mainWrapper{
         flex-direction: column;
+        width: 90%;
     }
     .CounterWrapper{
     

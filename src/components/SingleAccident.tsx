@@ -94,10 +94,13 @@ export default function SingleAccident({ departmentID, accidentID, selected }) {
                                 <div className="editEmployeeWrapper" key={item.id}>
                                     <div className="singleEmployeeWrapper">
                                             <Image className="profileImage"  src={item.photoURL} width={100} height={100} alt={`employee ${item.name}`}></Image>
-                                            <div className="">
-                                                <p className="whitespace">{item.name} {item.lastName}</p>
-                                                <p>ID: {item.id}</p>
-                                                <div className="altButton">
+                                            <div className="flex flex-col justify-between">
+                                                <div>
+                                                    <p className="whitespace">{item.name} {item.lastName}</p>
+                                                    <p>ID: {item.id}</p>
+                                                </div>
+                                                <div className=" flex gap-[6px] border-[1px] border-black border-radius rounded-lg pl-4 pr-4 round-s">
+                                                    <img src="/branding/icons/delete.svg"></img>
                                                     <button  type="button" onClick={() => handleRemoveEmployee(item.id)}>Remove Employee</button>
                                                 </div>
                                             </div>

@@ -10,6 +10,10 @@
   }
 }
 
+.roboto{
+  font-family: Roboto;
+}
+
 :root {
   --brand-color:#ff32ab; --brand-color-light:#ef6faa; --brand-color-extra-light:#f9c2d6; --brand-color-light-gray: #EBEBEB;
 }
@@ -73,7 +77,6 @@ label{
 }
 
 main{
- 
   width: 60%;
   margin: 0 auto;
 }
@@ -310,6 +313,8 @@ select:hover{
   transition: box-shadow 0.3s;
 }
 
+
+
 .itemCardWrapper:hover{
   box-shadow: rgb(38, 57, 77) 0px 20px 30px -10px;
   background: linear-gradient(328deg, rgba(0,0,0,1) 0%, rgb(60, 60, 60) 100%);
@@ -512,6 +517,9 @@ select:hover{
 @media  (max-width:1000px){
   .gridCol{
     grid-template-columns: 1fr;
+  }
+  .itemCardWrapper{
+    min-width: 48%;
   }
 }
 .deleteUpdate{

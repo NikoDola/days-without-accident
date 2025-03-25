@@ -80,7 +80,7 @@ export default function Counter() {
         <div className="leftWrapper">
           <div className="logoWrapper">
             <img src="branding/logo/niks_logo.svg" className="logo" alt="Logo" />
-            <p className="statistic">Incident Counter</p>
+            <p className="statistic">Event Counter</p>
           </div>
 
           <div className="mainCounterWrapper">
@@ -91,7 +91,7 @@ export default function Counter() {
           <div className=" analiticAndTotal" >
             {seconds.length >= 1 ? 
               <div className="departmentWrapper totalAccident mb-4">
-                <p className="fullName">Total Accidents</p>
+                <p className="fullName">Total Events</p>
                 <p className="counterNum">{seconds.length}</p>
               </div>
             :  <div>{renderLoadingDivs()}</div>}
@@ -100,7 +100,7 @@ export default function Counter() {
               <p className="daysSinceLast">Loading Statistic...</p>
             ) : (
               <div className="daysSinceLast">
-                 <p className="daysSinceLast mb-14" ><b> {daysSinceLastAccident}</b> Days since the last accident </p>
+                 <p className="daysSinceLast mb-14" ><b> {daysSinceLastAccident}</b> Days since the last event </p>
                  {/* {!isNaN(record) && <p>Record days with out accident {record}</p>} */}
               </div>
              

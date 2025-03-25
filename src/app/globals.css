@@ -231,8 +231,10 @@ select:hover{
   border: transparent;
 }
 
+
+
 .deleteButton{
-  background-color: red;
+  background-color: rgb(162, 28, 28);
   width: 100%;
   border-radius: 3rem;
   color: white;
@@ -385,6 +387,10 @@ select:hover{
 @media screen and (min-width: 1024px) {
   .login{
     width: 30%;
+  }
+
+  h1{
+    
   }
   
 

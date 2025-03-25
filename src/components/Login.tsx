@@ -79,7 +79,7 @@ const handleLogin = async () => {
             <img onClick={handleVisualPassword} className="eyeIcon" src={visualPassword === "password" ? "branding/icons/blind.svg": "branding/icons/visual.svg" } alt="Toggle Password Visibility"/>
           </div>
          
-          <button type="submit" className={!loading ? "mainButton mt-2": "loadingButton mt-2"}>Submit</button>
+          <button type="submit" className={!loading ? "mainButton mt-2": "loadingButton mt-2"}>Login</button>
           {errorCode && <p className="text-red-500">{errorCode}</p>}
           <div className="flex items-center gap-4">
             <hr className="flex-grow border-t border-black" />

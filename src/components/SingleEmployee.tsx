@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { EmployeeType, AccidentType } from "@/firebase/types";
 import Update from "@/components/Update";
-import "./css-components/SingleEmployee.css";
+import "./SingleEmployee.css";
 import Link from "next/link";
 
 interface SingleEmployeeProps {

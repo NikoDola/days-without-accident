@@ -3,7 +3,7 @@ import { usePathname } from "next/navigation";
 import { useUser } from "@/contexts/userContext";
 import Link from "next/link";
 import Notification from "./Notification";
-import "@/components/css-components/NavBar.css"
+import "./NavBar.css"
 import { useState, useEffect } from "react";
 
 

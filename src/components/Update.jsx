@@ -1,6 +1,6 @@
 
 "use client"
-import "./css-components/Update.css"
+import "./Update.css"
 import { useState } from "react";
 
 export default function Update({viewInfo, editForm, text}){

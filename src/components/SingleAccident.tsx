@@ -5,7 +5,7 @@ import { AccidentType } from "@/firebase/types"
 import { useRouter } from "next/navigation"
 import Update from "./Update"
 import Image from "next/image"
-import "@/components/css-components/SingleAccident.css"
+import "./SingleAccident.css"
 
 
 export default function SingleAccident({ departmentID, accidentID, selected }) {

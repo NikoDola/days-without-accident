@@ -1,9 +1,9 @@
 "use client";
-import "./css-components/Notification.css";
 import { listAllAccidents } from "@/firebase/actions";
 import { useEffect, useState, useRef } from "react";
 import { AccidentType } from "@/firebase/types";
 import Link from "next/link";
+import "./Notification.css";
 
 export default function Notification() {
     const [unsolvedAccidents, setUnsolvedAccidents] = useState<AccidentType[]>([]);

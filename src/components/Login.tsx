@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useUser } from "@/contexts/userContext";
-import '@/components/css-components/Counter.css' // ✅ correct
+import './Counter.css' 
 
 import { useRouter } from "next/navigation";
 

@@ -1,7 +1,7 @@
 "use client";
 import { addNewEmployee } from "@/firebase/actions";
 import { useState } from "react";
-import "@/components/css-components/SingleEmployee.css";
+import "./SingleEmployee.css";
 
 interface AddNewEmployeeProps {
     departmentID: string;

@@ -1,4 +1,4 @@
-import "../components/css-components/loader.css"
+import "../components/loader.css"
 export default function Loading() {
     return (
         <main className="loaderWrapper" >

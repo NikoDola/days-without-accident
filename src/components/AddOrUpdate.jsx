@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import "./css-components/AddOrUpdate.css"
+import "./AddOrUpdate.css"
 
 export default function AddOrUpdate({form, text}){
 

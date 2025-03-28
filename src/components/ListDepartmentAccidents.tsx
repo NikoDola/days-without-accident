@@ -4,9 +4,8 @@ import { useEffect, useState } from "react";
 import { listDepartmentAccidents } from "@/firebase/actions";
 import { updateDoc, doc } from "firebase/firestore";
 import { db } from "@/firebase";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import "@/components/css-components/ListDepartmentAccidents.css"
+import "./ListDepartmentAccidents.css"
 
 interface AccidentType {
     id: string;

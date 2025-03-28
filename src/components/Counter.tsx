@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import "@/components/css-components/Counter.css"
+import "./Counter.css"
 
 import { listAllDepartments, getAllSeconds } from "@/firebase/actions";
 

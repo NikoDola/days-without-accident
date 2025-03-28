@@ -97,7 +97,7 @@ export default function Counter() {
             :  <div>{renderLoadingDivs()}</div>}
             
             {daysSinceLastAccident <= 0 ? (
-              <p className="daysSinceLast">Loading Statistic...</p>
+              <p className="daysSinceLast">Loading Statistic....</p>
             ) : (
               <div className="daysSinceLast">
                  <p className="daysSinceLast mb-14" ><b> {daysSinceLastAccident}</b> Days since the last event </p>

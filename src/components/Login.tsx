@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useUser } from "@/contexts/userContext";
-import './Login.css' 
+import './login.css' 
 
 import { useRouter } from "next/navigation";
 

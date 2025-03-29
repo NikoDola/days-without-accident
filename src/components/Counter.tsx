@@ -114,9 +114,9 @@ export default function Counter() {
         <div className="rightWrapper  ">
           {departments.length > 0 ? <p className="departmentHeader mb-8"><b>Departments:</b></p >: <p className="departmentHeader" > <b>Loading Departments...</b></p >}
           
-          {departments.length > 0  ? (
+          {departments ? (
             departments.sort((a, b) =>  a.accidents - b.accidents).map((item) => (
-              item.accidents > 0 && 
+            
               
               <div key={item.shortName} className="CounterWrapper">
                 <div className="departmentWrapper">

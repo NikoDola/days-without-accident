@@ -12,5 +12,5 @@
 14.tesktot Heading "Accident Listing" da se napram whitespace - no space.
 15. na accident listanjeto da se klaj margin dolu.
 16.Single Accident da se napraj isto ko employee single.
-17.counterot da se popraj nekako departmentite se mnogu na dolu
+17.counterot da se popraj nekako departmentite se mnogu na dolu/
 18. da se zgolemi 2days since the last accident i da se klaj nad total optinal
